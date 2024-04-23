@@ -1,26 +1,31 @@
 // api/DjangoAuth.js
+
 const base_url = 'http://localhost:8000'; // mudar para env.local depois
 
 async function request(path, { data = null, token = null, method = 'GET' }) {
-  return fetch(`${base_url}${path}`, {
-    method,
-    headers: {
-      Authorization: token ? `Token ${token}` : '',
+  const headers = {
       'Content-Type': 'application/json',
-    },
-    body: method !== 'GET' && method !== 'DELETE' ? JSON.stringify(data) : null,
-  })
-    .then(async (response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        const json = await response.json();
-        const errorMessage = response.status === 400
-          ? Object.keys(json).map(key => `${key}: ${json[key].join(', ')}`).join('\n')
-          : JSON.stringify(json);
-        throw new Error('Erro: ' + errorMessage);
-      }
-    });
+  };
+  
+  if (token) {
+      headers['Authorization'] = `Token ${token}`;
+  }
+
+  const response = await fetch(`${base_url}${path}`, {
+      method,
+      headers,
+      body: method !== 'GET' && method !== 'DELETE' ? JSON.stringify(data) : null,
+  });
+
+  const responseData = await response.json(); // Assume sempre que a resposta será JSON
+
+  console.log(`Response from ${path}:`, responseData); // Log a resposta para diagnóstico
+
+  if (!response.ok) {
+      throw new Error(responseData.message || 'Unknown Error');
+  }
+
+  return responseData;
 }
 
 export function signIn(username, password) {
@@ -37,15 +42,17 @@ export function register(username, password) {
   });
 }
 
-export function signInWithMetamask(address, signature) {
-  return request('/auth/metamask/login/', {
+export function registerWithMetamask(address, signature) {
+  return request('/auth/metamask/register/', {
     data: { address, signature },
     method: 'POST'
   });
 }
 
-export function registerWithMetamask(address, signature) {
-  return request('/auth/metamask/register/', {
+// api/DjangoAuth.js conferido.
+
+export function loginWithMetamask(address, signature) {
+  return request('/auth/metamask/login/', {
     data: { address, signature },
     method: 'POST'
   });

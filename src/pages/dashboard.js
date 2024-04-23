@@ -1,4 +1,4 @@
-// src/pages/dashboard.js
+// @/pages/dashboard.js
 
 import React, { useContext } from 'react';
 import { useMetamaskAuth } from '@/context/MetamaskAuthContext';
@@ -6,7 +6,7 @@ import DjangoAuthContext from '@/context/DjangoAuthContext';
 import MainLayout from '@/layouts/MainLayout';
 
 export default function Dashboard() {
-  const { isAuthenticated: isMetaMaskAuthenticated, connectWithMetamask, signOut: signOutMetaMask } = useMetamaskAuth();
+  const { isAuthenticated: isMetaMaskAuthenticated, connectWithMetamask, signOut: signOutMetaMask, userAddress, balance, chainId } = useMetamaskAuth();
   const { isAuthenticated: isDjangoAuthenticated, signOut: signOutDjango } = useContext(DjangoAuthContext);
 
   return (
@@ -18,6 +18,9 @@ export default function Dashboard() {
         {isMetaMaskAuthenticated ? (
           <>
             <p>Conectado com MetaMask.</p>
+            <p>Endereço: {userAddress}</p>
+            <p>Saldo: {balance} ETH</p>
+            <p>Rede: {chainId}</p>
             <button onClick={signOutMetaMask}>Desconectar MetaMask</button>
           </>
         ) : (

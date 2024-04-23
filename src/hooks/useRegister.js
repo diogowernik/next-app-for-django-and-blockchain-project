@@ -1,3 +1,5 @@
+// @hooks/useRegister
+
 import { register as registerApi } from '@/api/DjangoAuth';
 
 export const useRegister = (setToken, setIsAuthenticated, setLoading, enqueueSnackbar) => {

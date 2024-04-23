@@ -1,14 +1,9 @@
+// @/context/DjangoAuthContext.js
+
 import React, { createContext, useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
-import { 
-  // signIn as signInApi, # Feito
-  // register as registerApi,
-  signInWithMetamask as signInWithMetamaskApi,
-  registerWithMetamask as registerWithMetamaskApi
-} from '@/api/DjangoAuth';
-import { useSignIn, useRegister } from '@/hooks';  // Importe o hook useRegister
-
-
+import { useSignIn, useRegister, useSignOut, useLoginWithMetamask, useRegisterWithMetamask } from '@/hooks';  
+     
 const DjangoAuthContext = createContext();
 
 export const DjangoAuthProvider = ({ children }) => {
@@ -21,58 +16,18 @@ export const DjangoAuthProvider = ({ children }) => {
     const tokenFromStorage = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     if (tokenFromStorage) {
       setToken(tokenFromStorage);
-      setIsAuthenticated(true);  // Atualizar o estado de autenticação baseado na presença do token
+      setIsAuthenticated(true); 
     }
   }, []);
 
-  // register sign in with username and password
+  // register sign in with username and password on Django
   const signIn = useSignIn(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); // Passando funções e estados como argumentos
   const register = useRegister(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); // Usando o hook useRegister
-
-
-  const signOut = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-    setIsAuthenticated(false);  // Definir como não autenticado
-    enqueueSnackbar('Logged out successfully.', { variant: 'success' });
-  };
-
-  // register and sign in with MetaMask
-  const registerWithMetamask = async (address, signature) => {
-    setLoading(true);
-    try {
-      const response = await registerWithMetamaskApi(address, signature);
-      if (response && response.token) {
-        localStorage.setItem('token', response.token);
-        setToken(response.token);
-        setIsAuthenticated(true);
-        enqueueSnackbar('Registration via MetaMask successful!', { variant: 'success' });
-      } else {
-        enqueueSnackbar('Registration via MetaMask failed.', { variant: 'error' });
-      }
-    } catch (error) {
-      enqueueSnackbar(error.message || 'An error occurred.', { variant: 'error' });
-    }
-    setLoading(false);
-  };
-
-  const signInWithMetamask = async (address, signature) => {
-    setLoading(true);
-    try {
-      const response = await signInWithMetamaskApi(address, signature);
-      if (response && response.token) {
-        localStorage.setItem('token', response.token);
-        setToken(response.token);
-        setIsAuthenticated(true);
-        enqueueSnackbar('Login via MetaMask successful!', { variant: 'success' });
-      } else {
-        enqueueSnackbar('Login via MetaMask failed.', { variant: 'error' });
-      }
-    } catch (error) {
-      enqueueSnackbar(error.message || 'An error occurred.', { variant: 'error' });
-    }
-    setLoading(false);
-  };
+  // login and register with metamask on Django
+  const loginWithMetamask = useLoginWithMetamask(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); // Usando o hook useLoginWithMetamask
+  const registerWithMetamask = useRegisterWithMetamask(setLoading, enqueueSnackbar); // Usando o hook useRegisterWithMetamask
+  // sign out of Django
+  const signOut = useSignOut(setToken, setIsAuthenticated, enqueueSnackbar); // Usando o hook useSignOut
 
   const value = {
     token,
@@ -81,7 +36,7 @@ export const DjangoAuthProvider = ({ children }) => {
     signIn,
     signOut,
     register,
-    signInWithMetamask,
+    loginWithMetamask, // valor está sendo passado aqui talvez fazer um log para ver se está sendo passado corretamente
     registerWithMetamask,
   };
 
