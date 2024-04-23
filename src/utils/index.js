@@ -1,3 +1,3 @@
 // @utils/index
 
-export { default as request } from './request';
+export { request } from './request';
