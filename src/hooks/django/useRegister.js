@@ -1,6 +1,6 @@
-// @hooks/useRegister
+// @hooks/django/useRegister
 
-import { register as registerApi } from '@/api/DjangoAuth';
+import { register as registerApi } from '@/api/django_auth';
 
 export const useRegister = (setToken, setIsAuthenticated, setLoading, enqueueSnackbar) => {
     const register = async (username, password, callback) => {

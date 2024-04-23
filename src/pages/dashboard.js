@@ -1,12 +1,12 @@
 // @/pages/dashboard.js
 
 import React, { useContext } from 'react';
-import { useMetamaskAuth } from '@/context/MetamaskAuthContext';
-import DjangoAuthContext from '@/context/DjangoAuthContext';
+import { useWalletManager } from '@/context/MetamaskContext';
+import DjangoAuthContext from '@/context/DjangoContext';
 import MainLayout from '@/layouts/MainLayout';
 
 export default function Dashboard() {
-  const { isAuthenticated: isMetaMaskAuthenticated, connectWithMetamask, signOut: signOutMetaMask, userAddress, balance, chainId } = useMetamaskAuth();
+  const { isAuthenticated: isMetaMaskAuthenticated, connectWithMetamask, signOut: signOutMetaMask, userAddress, balance, chainId } = useWalletManager();
   const { isAuthenticated: isDjangoAuthenticated, signOut: signOutDjango } = useContext(DjangoAuthContext);
 
   return (

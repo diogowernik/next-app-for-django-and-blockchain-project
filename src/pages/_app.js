@@ -2,8 +2,8 @@ import React from 'react';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
 
-import { MetamaskAuthProvider } from '@/context/MetamaskAuthContext';
-import { DjangoAuthProvider } from '@/context/DjangoAuthContext';  // Certifique-se de importar DjangoAuthProvider
+import { MetamaskProvider } from '@/context/MetamaskContext';
+import { DjangoProvider } from '@/context/DjangoContext';  
 
 const theme = createTheme();
 
@@ -12,11 +12,11 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SnackbarProvider maxSnack={3}>
-        <MetamaskAuthProvider>
-          <DjangoAuthProvider>  
+        <MetamaskProvider>
+          <DjangoProvider>  
             <Component {...pageProps} />
-          </DjangoAuthProvider>
-        </MetamaskAuthProvider>
+          </DjangoProvider>
+        </MetamaskProvider>
       </SnackbarProvider>
     </ThemeProvider>
   );

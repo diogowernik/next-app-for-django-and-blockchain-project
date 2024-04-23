@@ -1,76 +1,65 @@
-// pages/metamask-register.js
-
 import React, { useContext } from 'react';
-import { useMetamaskAuth } from '@/context/MetamaskAuthContext';
-import DjangoAuthContext from '@/context/DjangoAuthContext';
+import { useWalletManager } from '@/context/MetamaskContext';
+import DjangoAuthContext from '@/context/DjangoContext';
 import MainLayout from '@/layouts/MainLayout';
-// será que tem que importar o loginWithMetamask aqui?
 
 export default function MetamaskRegister() {
     const { 
         userAddress, 
         isAuthenticated: isMetaMaskAuthenticated, 
-        connectWithMetamask, signOut: signOutMetaMask 
-    } = useMetamaskAuth();
+        connectWithMetamask, 
+        signOut: signOutMetaMask 
+    } = useWalletManager();
     const { 
         registerWithMetamask, 
         isAuthenticated: isDjangoAuthenticated, 
         signOut: signOutDjango,
-        loginWithMetamask // aqui que não tinha acabei de adicionar
+        loginWithMetamask 
     } = useContext(DjangoAuthContext);
 
-
-    console.log("User address:", userAddress);
-
-const handleRegisterWithDjangoUsingMetamask = async () => {
-    if (userAddress) {
+    const requestSignature = async (message) => {
         try {
-            const message = "Please sign this message to confirm your registration.";
-            const signature = await window.ethereum.request({
+            return await window.ethereum.request({
                 method: 'personal_sign',
                 params: [message, userAddress],
             });
-
-            console.log("Obtained signature:", signature);
-            const result = await registerWithMetamask(userAddress, signature);
-            console.log("Registration result:", result);
-
-            // Se a resposta não for nula, processar de acordo com a mensagem de sucesso ou falha
-            if (result) {
-                console.log("Registration response:", result.message);  // Checar a mensagem recebida na resposta
-            } else {
-                console.log("Registration failed with no response from server");
-            }
         } catch (error) {
-            console.error("Error obtaining signature or registering:", error);
+            console.error("Error obtaining signature:", error);
+            return null;
         }
-    } else {
-        console.warn("User address not available. Connect MetaMask first.");
-    }
-};
+    };
 
-const handleLoginWithDjangoUsingMetamask = async () => {
-    if (userAddress) {
-        try {
+    const handleRegisterWithDjangoUsingMetamask = async () => {
+        if (!isMetaMaskAuthenticated) {
+            console.warn("Connect MetaMask first.");
+            return;
+        }
+
+        const message = "Please sign this message to confirm your registration.";
+        const signature = await requestSignature(message);
+        if (!signature) return;
+
+        const result = await registerWithMetamask(userAddress, signature);
+        if (result) {
+            console.log("Registration response:", result.message);
+        } else {
+            console.log("Registration failed with no response from server");
+        }
+    };
+
+    const handleLoginWithDjangoUsingMetamask = async () => {
+        if (!isMetaMaskAuthenticated) {
+            console.warn("Connect MetaMask first.");
+            return;
+        }
+
         const message = "Please sign this message to confirm your identity.";
-        const signature = await window.ethereum.request({
-            method: 'personal_sign',
-            params: [message, userAddress],
-        });
+        const signature = await requestSignature(message);
+        if (!signature) return;
 
-        console.log("Obtained signature:", signature);
         await loginWithMetamask(userAddress, signature);
-        } catch (error) {
-        console.error("Error obtaining signature or during login:", error);
-        }
-    } else {
-        console.warn("User address not available. Connect MetaMask first.");
-    }
-};
+    };
 
-
-
-  
     return (
         <MainLayout>
             <h1>MetaMask Registration</h1>
@@ -78,36 +67,33 @@ const handleLoginWithDjangoUsingMetamask = async () => {
                 <h2>MetaMask Authentication</h2>
                 {isMetaMaskAuthenticated ? (
                     <>
-                        <p>Conectado com MetaMask. Carteira: {userAddress}</p>
-                        <button onClick={signOutMetaMask}>Desconectar MetaMask</button>
+                        <p>Connected with MetaMask. Wallet: {userAddress}</p>
+                        <button onClick={signOutMetaMask}>Disconnect MetaMask</button>
                     </>
                 ) : (
-                    <button onClick={connectWithMetamask}>Conectar com MetaMask</button>
+                    <button onClick={connectWithMetamask}>Connect with MetaMask</button>
                 )}
             </div>
-            {/* // adicionar um botão de login com o metamask no django. */}
             <div>
                 <h2>Django Authentication</h2>
                 {isDjangoAuthenticated ? (
                     <>
-                    <p>Conectado com Django.</p>
-                    <button onClick={signOutDjango}>Desconectar Django</button>
+                        <p>Connected with Django.</p>
+                        <button onClick={signOutDjango}>Disconnect Django</button>
                     </>
                 ) : (
                     <>
-                    <p>Não está conectado com Django.</p>
-                    {isMetaMaskAuthenticated && !isDjangoAuthenticated && (
-                    <>
-                        <button onClick={handleRegisterWithDjangoUsingMetamask}>Registrar no Django via MetaMask</button>
-                        <br />
-                        <button onClick={handleLoginWithDjangoUsingMetamask}>Login no Django via MetaMask</button>
-                    </>
-                    )}
-
+                        <p>Not connected with Django.</p>
+                        {isMetaMaskAuthenticated && (
+                            <>
+                                <button onClick={handleRegisterWithDjangoUsingMetamask}>Register with Django via MetaMask</button>
+                                <br />
+                                <button onClick={handleLoginWithDjangoUsingMetamask}>Login with Django via MetaMask</button>
+                            </>
+                        )}
                     </>
                 )}
-                </div>
-            
+            </div>
         </MainLayout>
     );
 }

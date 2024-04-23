@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { Grid, Card, CardContent, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import DjangoAuthContext from '@/context/DjangoAuthContext';
+import DjangoAuthContext from '@/context/DjangoContext';
 import MainLayout from '@/layouts/MainLayout';
 
 const Register = () => {

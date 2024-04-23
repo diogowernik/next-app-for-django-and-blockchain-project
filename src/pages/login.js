@@ -5,7 +5,7 @@ import { Card, CardContent, TextField, Button, CircularProgress, Grid, Typograph
 import { useSnackbar } from 'notistack';
 
 import MainLayout from '@/layouts/MainLayout';
-import DjangoAuthContext from '@/context/DjangoAuthContext';
+import DjangoAuthContext from '@/context/DjangoContext';
 
 const Login = () => {
     const [username, setUsername] = useState('');

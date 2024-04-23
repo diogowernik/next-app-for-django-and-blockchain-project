@@ -1,4 +1,4 @@
-// @hooks/useSignOut
+// @hooks/django/useSignOut
 
 export const useSignOut = (setToken, setIsAuthenticated, enqueueSnackbar) => {
     const signOut = () => {

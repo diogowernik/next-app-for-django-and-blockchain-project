@@ -1,9 +1,10 @@
-// @context/MetamaskAuthContext.js
+// @context/MetamaskContext.js
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import MetamaskAuth from '@/api/MetamaskAuth';
+import WalletManager from '@/services/wallet/WalletManager';  // Importação atualizada
 
-const MetamaskAuthContext = createContext({
+
+const MetamaskContext = createContext({
     isAuthenticated: false,
     userAddress: null,
     balance: "0",
@@ -13,12 +14,12 @@ const MetamaskAuthContext = createContext({
     signOut: () => {},
 });
 
-export const MetamaskAuthProvider = ({ children }) => {
+export const MetamaskProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userAddress, setUserAddress] = useState(null);
     const [balance, setBalance] = useState("0");
     const [chainId, setChainId] = useState(null);
-    const metamaskManager = new MetamaskAuth();
+    const metamaskManager = new WalletManager();
 
     useEffect(() => {
         const storedAddress = localStorage.getItem('userAddress');
@@ -28,6 +29,7 @@ export const MetamaskAuthProvider = ({ children }) => {
         }
     }, []);
 
+    
     const connectWithMetamask = async () => {
         const address = await metamaskManager.connect();
         if (address) {
@@ -53,11 +55,11 @@ export const MetamaskAuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <MetamaskAuthContext.Provider value={{ connectWithMetamask, isAuthenticated, signOut, userAddress, balance, chainId }}>
+        <MetamaskContext.Provider value={{ connectWithMetamask, isAuthenticated, signOut, userAddress, balance, chainId }}>
             {children}
-        </MetamaskAuthContext.Provider>
+        </MetamaskContext.Provider>
     );
 };
 
-export const useMetamaskAuth = () => useContext(MetamaskAuthContext);
+export const useWalletManager = () => useContext(MetamaskContext);
 
