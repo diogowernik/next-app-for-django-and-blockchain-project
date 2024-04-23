@@ -33,7 +33,7 @@ export const DjangoProvider = ({ children }) => {
     signIn,
     signOut,
     register,
-    loginWithMetamask, // valor está sendo passado aqui talvez fazer um log para ver se está sendo passado corretamente
+    loginWithMetamask, 
     registerWithMetamask,
   };
 

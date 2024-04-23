@@ -1,7 +1,11 @@
 // @/hooks/index.js
 
-export { useSignIn } from './django/useSignIn';
-export { useRegister } from './django/useRegister';
-export { useSignOut } from './django/useSignOut';
-export { useRegisterWithMetamask } from './django/useRegisterWithMetamask';
-export { useLoginWithMetamask } from './django/useLoginWithMetamask';
+export { useSignIn } from './context/django/useSignIn';
+export { useRegister } from './context/django/useRegister';
+export { useSignOut } from './context/django/useSignOut';
+export { useRegisterWithMetamask } from './context/django/useRegisterWithMetamask';
+export { useLoginWithMetamask } from './context/django/useLoginWithMetamask';
+
+export { useUpdateBalanceAndChain } from './context/metamask/useUpdateBalanceAndChain';
+export { useSignOutWithMetamask } from './context/metamask/useSignOutWithMetamask';
+export { useConnectWithMetamask } from './context/metamask/useConnectWithMetamask';
