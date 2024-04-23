@@ -9,3 +9,5 @@ export { useLoginWithMetamask } from './context/django/useLoginWithMetamask';
 export { useUpdateBalanceAndChain } from './context/metamask/useUpdateBalanceAndChain';
 export { useSignOutWithMetamask } from './context/metamask/useSignOutWithMetamask';
 export { useConnectWithMetamask } from './context/metamask/useConnectWithMetamask';
+
+export { useDjangoAuth } from './pages/useDjangoAuth';

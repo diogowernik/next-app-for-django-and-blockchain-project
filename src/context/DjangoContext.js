@@ -27,15 +27,16 @@ export const DjangoProvider = ({ children }) => {
   const signOut = useSignOut(setToken, setIsAuthenticated, enqueueSnackbar); 
 
   const value = {
-    token,
-    isAuthenticated,
-    loading,
-    signIn,
-    signOut,
-    register,
-    loginWithMetamask, 
-    registerWithMetamask,
-  };
+    djangoToken: token,
+    djangoIsAuthenticated: isAuthenticated,
+    djangoLoading: loading,
+    djangoSignIn: signIn,
+    djangoSignOut: signOut,
+    djangoRegister: register,
+    djangoLoginWithMetamask: loginWithMetamask,
+    djangoRegisterWithMetamask: registerWithMetamask,
+};
+
 
   return <DjangoContext.Provider value={value}>{children}</DjangoContext.Provider>;
 };

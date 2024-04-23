@@ -1,13 +1,24 @@
 // @/pages/dashboard.js
 
-import React, { useContext } from 'react';
+import React from 'react';
 import { useWalletManager } from '@/context/MetamaskContext';
-import DjangoAuthContext from '@/context/DjangoContext';
+import { useDjangoAuth } from '@/hooks';  // Atualizado para usar o hook customizado
 import MainLayout from '@/layouts/MainLayout';
 
 export default function Dashboard() {
-  const { isAuthenticated: isMetaMaskAuthenticated, connectWithMetamask, signOut: signOutMetaMask, userAddress, balance, chainId } = useWalletManager();
-  const { isAuthenticated: isDjangoAuthenticated, signOut: signOutDjango } = useContext(DjangoAuthContext);
+  const {
+    metamaskIsAuthenticated,
+    metamaskConnect,
+    metamaskSignOut,
+    metamaskUserAddress,
+    metamaskBalance,
+    metamaskChainId
+  } = useWalletManager();
+
+  const {
+    djangoIsAuthenticated,
+    djangoSignOut
+  } = useDjangoAuth();
 
   return (
     <MainLayout>
@@ -15,25 +26,25 @@ export default function Dashboard() {
       {/* MetaMask Authentication Section */}
       <div>
         <h2>MetaMask Authentication</h2>
-        {isMetaMaskAuthenticated ? (
+        {metamaskIsAuthenticated ? (
           <>
             <p>Conectado com MetaMask.</p>
-            <p>Endereço: {userAddress}</p>
-            <p>Saldo: {balance} ETH</p>
-            <p>Rede: {chainId}</p>
-            <button onClick={signOutMetaMask}>Desconectar MetaMask</button>
+            <p>Endereço: {metamaskUserAddress}</p>
+            <p>Saldo: {metamaskBalance} ETH</p>
+            <p>Rede: {metamaskChainId}</p>
+            <button onClick={metamaskSignOut}>Desconectar MetaMask</button>
           </>
         ) : (
-          <button onClick={connectWithMetamask}>Conectar com MetaMask</button>
+          <button onClick={metamaskConnect}>Conectar com MetaMask</button>
         )}
       </div>
       {/* Django Authentication Section */}
       <div>
         <h2>Django Authentication</h2>
-        {isDjangoAuthenticated ? (
+        {djangoIsAuthenticated ? (
           <>
             <p>Conectado com Django.</p>
-            <button onClick={signOutDjango}>Desconectar Django</button>
+            <button onClick={djangoSignOut}>Desconectar Django</button>
           </>
         ) : (
           <p>Não está conectado com Django.</p>

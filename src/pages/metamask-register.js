@@ -1,27 +1,30 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useWalletManager } from '@/context/MetamaskContext';
-import DjangoAuthContext from '@/context/DjangoContext';
+import { useDjangoAuth } from '@/hooks';
 import MainLayout from '@/layouts/MainLayout';
 
 export default function MetamaskRegister() {
     const { 
-        userAddress, 
-        isAuthenticated: isMetaMaskAuthenticated, 
-        connectWithMetamask, 
-        signOut: signOutMetaMask 
+        metamaskIsAuthenticated,
+        metamaskConnect,
+        metamaskSignOut,
+        metamaskUserAddress,
+        metamaskBalance,
+        metamaskChainId
     } = useWalletManager();
+
     const { 
-        registerWithMetamask, 
-        isAuthenticated: isDjangoAuthenticated, 
-        signOut: signOutDjango,
-        loginWithMetamask 
-    } = useContext(DjangoAuthContext);
+        djangoRegisterWithMetamask,
+        djangoIsAuthenticated,
+        djangoSignOut,
+        djangoLoginWithMetamask
+    } = useDjangoAuth();
 
     const requestSignature = async (message) => {
         try {
             return await window.ethereum.request({
                 method: 'personal_sign',
-                params: [message, userAddress],
+                params: [message, metamaskUserAddress],
             });
         } catch (error) {
             console.error("Error obtaining signature:", error);
@@ -30,7 +33,7 @@ export default function MetamaskRegister() {
     };
 
     const handleRegisterWithDjangoUsingMetamask = async () => {
-        if (!isMetaMaskAuthenticated) {
+        if (!metamaskIsAuthenticated) {
             console.warn("Connect MetaMask first.");
             return;
         }
@@ -39,7 +42,7 @@ export default function MetamaskRegister() {
         const signature = await requestSignature(message);
         if (!signature) return;
 
-        const result = await registerWithMetamask(userAddress, signature);
+        const result = await djangoRegisterWithMetamask(metamaskUserAddress, signature);
         if (result) {
             console.log("Registration response:", result.message);
         } else {
@@ -48,7 +51,7 @@ export default function MetamaskRegister() {
     };
 
     const handleLoginWithDjangoUsingMetamask = async () => {
-        if (!isMetaMaskAuthenticated) {
+        if (!metamaskIsAuthenticated) {
             console.warn("Connect MetaMask first.");
             return;
         }
@@ -57,7 +60,7 @@ export default function MetamaskRegister() {
         const signature = await requestSignature(message);
         if (!signature) return;
 
-        await loginWithMetamask(userAddress, signature);
+        await djangoLoginWithMetamask(metamaskUserAddress, signature);
     };
 
     return (
@@ -65,26 +68,26 @@ export default function MetamaskRegister() {
             <h1>MetaMask Registration</h1>
             <div>
                 <h2>MetaMask Authentication</h2>
-                {isMetaMaskAuthenticated ? (
+                {metamaskIsAuthenticated ? (
                     <>
-                        <p>Connected with MetaMask. Wallet: {userAddress}</p>
-                        <button onClick={signOutMetaMask}>Disconnect MetaMask</button>
+                        <p>Connected with MetaMask. Wallet: {metamaskUserAddress}</p>
+                        <button onClick={metamaskSignOut}>Disconnect MetaMask</button>
                     </>
                 ) : (
-                    <button onClick={connectWithMetamask}>Connect with MetaMask</button>
+                    <button onClick={metamaskConnect}>Connect with MetaMask</button>
                 )}
             </div>
             <div>
                 <h2>Django Authentication</h2>
-                {isDjangoAuthenticated ? (
+                {djangoIsAuthenticated ? (
                     <>
                         <p>Connected with Django.</p>
-                        <button onClick={signOutDjango}>Disconnect Django</button>
+                        <button onClick={djangoSignOut}>Disconnect Django</button>
                     </>
                 ) : (
                     <>
                         <p>Not connected with Django.</p>
-                        {isMetaMaskAuthenticated && (
+                        {metamaskIsAuthenticated && (
                             <>
                                 <button onClick={handleRegisterWithDjangoUsingMetamask}>Register with Django via MetaMask</button>
                                 <br />

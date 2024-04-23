@@ -35,14 +35,14 @@ export const MetamaskProvider = ({ children }) => {
     const signOut = useSignOut(setIsAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar);
 
     const value = {
-        isAuthenticated,
-        loading,
-        userAddress,
-        balance,
-        chainId,
-        connectWithMetamask,
-        updateBalanceAndChain,
-        signOut,
+        metamaskIsAuthenticated: isAuthenticated,
+        metamaskLoading: loading,
+        metamaskUserAddress: userAddress,
+        metamaskBalance: balance,
+        metamaskChainId: chainId,
+        metamaskConnect: connectWithMetamask,
+        metamaskUpdateBalanceAndChain: updateBalanceAndChain,
+        metamaskSignOut: signOut,
     };
 
     return (

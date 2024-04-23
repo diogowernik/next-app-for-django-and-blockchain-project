@@ -1,22 +1,22 @@
 // src/pages/login.js
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Card, CardContent, TextField, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
 import MainLayout from '@/layouts/MainLayout';
-import DjangoAuthContext from '@/context/DjangoContext';
+import { useDjangoAuth } from '@/hooks';  // Atualizado para usar o hook
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { signIn, loading } = useContext(DjangoAuthContext);
+    const { djangoSignIn, djangoLoading } = useDjangoAuth();  // Usando o hook customizado
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter();
 
     const handleLogin = async () => {
         try {
-            await signIn(username, password, () => {
+            await djangoSignIn(username, password, () => {
                 router.push('/dashboard');  // Direciona para o dashboard após login
             });
         } catch (error) {
@@ -54,10 +54,10 @@ const Login = () => {
                                 color="primary"
                                 fullWidth
                                 onClick={handleLogin}
-                                disabled={loading}
+                                disabled={djangoLoading}  // Atualizado para usar a nova variável
                                 sx={{ mt: 2 }}
                             >
-                                {loading ? <CircularProgress size={24} /> : 'Login'}
+                                {djangoLoading ? <CircularProgress size={24} /> : 'Login'}
                             </Button>
                         </CardContent>
                     </Card>
