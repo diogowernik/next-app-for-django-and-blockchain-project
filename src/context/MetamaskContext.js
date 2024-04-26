@@ -21,7 +21,7 @@ export const MetamaskProvider = ({ children }) => {
     }, []);
 
     const metamaskUpdateStatus = useMetamaskUpdateStatus(setBalance, setChainId, enqueueSnackbar, setLoading);
-    const metamaskConnect = useMetamaskConnect(setIsAuthenticated, setUserAddress, metamaskUpdateStatus, enqueueSnackbar);
+    const metamaskConnect = useMetamaskConnect(setIsAuthenticated, setUserAddress, enqueueSnackbar);
     const metamaskSignOut = useMetamaskSignOut(setIsAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar);
 
     const value = {

@@ -1,7 +1,7 @@
 // @hooks/metamask/useMetamaskConnect
 import { metamaskManager } from '@/services/wallet';  // Corrigir o caminho conforme o necessário
 
-export const useMetamaskConnect = (setIsAuthenticated, setUserAddress, metamaskUpdateStatus, enqueueSnackbar) => {
+export const useMetamaskConnect = (setIsAuthenticated, setUserAddress, enqueueSnackbar) => {
     const metamaskConnect = async () => {
         console.log("Chamando metamaskConnect...");
 
@@ -16,7 +16,6 @@ export const useMetamaskConnect = (setIsAuthenticated, setUserAddress, metamaskU
                 localStorage.setItem('userAddress', address);
                 setIsAuthenticated(true);
                 setUserAddress(address);
-                await metamaskUpdateStatus();
                 enqueueSnackbar('Connected with MetaMask successfully!', { variant: 'success' });
                 console.log("Usuário conectado com endereço:", address);
             }

@@ -4,7 +4,7 @@ import { useRequestSignature } from './useRequestSignature';
 import { useWalletManager } from '@/context/MetamaskContext';
 
 export const useMetamaskDjangoLogin = () => {
-    const { djangoLoginWithMetamask } = useDjangoAuth();
+    const { djangoMetamaskLogin } = useDjangoAuth();
     const { metamaskIsAuthenticated, metamaskUserAddress } = useWalletManager();
     const requestSignature = useRequestSignature();
 
@@ -18,7 +18,7 @@ export const useMetamaskDjangoLogin = () => {
         const signature = await requestSignature(message);
         if (!signature) return;
 
-        await djangoLoginWithMetamask(metamaskUserAddress, signature);
+        await djangoMetamaskLogin(metamaskUserAddress, signature);
     };
 
     return login;
