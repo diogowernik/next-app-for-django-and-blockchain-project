@@ -1,7 +1,7 @@
-// @hooks/metamask/useSignOut
+// @hooks/metamask/useMetamaskSignOut
 
-export const useSignOut = (setIsAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar) => {
-    const signOut = () => {
+export const useMetamaskSignOut = (setIsAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar) => {
+    const metamaskSignOut = () => {
         localStorage.removeItem('userAddress');
         setIsAuthenticated(false);
         setUserAddress(null);
@@ -10,5 +10,5 @@ export const useSignOut = (setIsAuthenticated, setUserAddress, setBalance, setCh
         enqueueSnackbar('Signed out successfully.', { variant: 'info' });
     };
 
-    return signOut;
+    return metamaskSignOut;
 };

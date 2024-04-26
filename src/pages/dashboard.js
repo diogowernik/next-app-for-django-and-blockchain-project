@@ -4,8 +4,16 @@ import { useDjangoAuth, useMetamaskDjangoRegister, useMetamaskDjangoLogin } from
 import MainLayout from '@/layouts/MainLayout';
 
 export default function Dashboard() {
-    const { metamaskIsAuthenticated, metamaskConnect, metamaskSignOut, metamaskUserAddress} = useWalletManager();
-    const { djangoIsAuthenticated, djangoSignOut } = useDjangoAuth();
+    const { 
+        metamaskIsAuthenticated, 
+        metamaskConnect, 
+        metamaskSignOut, 
+        metamaskUserAddress
+    } = useWalletManager();
+    const { 
+        djangoIsAuthenticated, 
+        djangoSignOut 
+    } = useDjangoAuth();
     const registerWithDjangoUsingMetamask = useMetamaskDjangoRegister();
     const loginWithDjangoUsingMetamask = useMetamaskDjangoLogin();
 

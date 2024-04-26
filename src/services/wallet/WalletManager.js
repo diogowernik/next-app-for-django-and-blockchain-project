@@ -1,3 +1,4 @@
+// @services/wallet/WalletManager
 import { initializeWeb3 } from './Web3Initializer';
 import { setupEventListeners, removeEventListeners } from './EventHandlers';
 
@@ -20,20 +21,25 @@ class WalletManager {
     }
 
     async connect() {
+        console.log("Tentando conectar com MetaMask...");
+    
         if (!this.web3) {
-            console.error("Web3 not initialized.");
+            console.error("Web3 não está inicializado.");
             return null;
         }
+    
         try {
             const accounts = await this.web3.eth.requestAccounts();
             this.userAddress = accounts.length > 0 ? accounts[0] : null;
             this.chainId = await this.web3.eth.getChainId();
+            console.log("Conexão bem-sucedida:", this.userAddress, this.chainId);
             return this.userAddress;
         } catch (error) {
-            console.error("Error connecting to MetaMask:", error);
+            console.error("Erro ao conectar com MetaMask:", error);
             return null;
         }
     }
+    
 
     async getBalance() {
         if (!this.userAddress || !this.web3) {

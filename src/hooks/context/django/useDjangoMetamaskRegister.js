@@ -1,26 +1,28 @@
-// @hooks/django/useLoginWithMetamask
+// @hooks/django/useDjangoMetamaskRegister
 
-import { loginWithMetamask as loginMetamaskApi } from '@/api/django_auth';
+import { djangoMetamaskRegister } from '@/api/django_auth';
 
-export const useLoginWithMetamask = (setToken, setIsAuthenticated, setLoading, enqueueSnackbar) => {
-    const loginWithMetamask = async (ethereumAddress, signature, callback) => {
+export const useDjangoMetamaskRegister = (setLoading, enqueueSnackbar) => {
+    const performDjangoMetamaskRegister = async (address, signature) => {
         setLoading(true);
         try {
-            const response = await loginMetamaskApi(ethereumAddress, signature);
-            if (response && response.token) {
-                localStorage.setItem('token', response.token);
-                setToken(response.token);
-                setIsAuthenticated(true);
-                enqueueSnackbar('Login with MetaMask successful!', { variant: 'success' });
-                if (callback) callback();
+            const response = await djangoMetamaskRegister(address, signature);
+            console.log("Response from registerWithMetamask:", response);  // Logar a resposta completa
+
+            if (response && response.message === 'User created successfully.') {
+                enqueueSnackbar('Registration via MetaMask successful!', { variant: 'success' });
             } else {
-                enqueueSnackbar('MetaMask login failed.', { variant: 'error' });
+                enqueueSnackbar('Registration via MetaMask failed.', { variant: 'error' });
             }
+            return response;
         } catch (error) {
-            enqueueSnackbar(error.message || 'An error occurred during MetaMask login.', { variant: 'error' });
+            enqueueSnackbar(error.message || 'An error occurred during MetaMask registration.', { variant: 'error' });
+            console.error('Error in registration:', error);
+            return null;
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
-    return loginWithMetamask;
+    return performDjangoMetamaskRegister;
 };

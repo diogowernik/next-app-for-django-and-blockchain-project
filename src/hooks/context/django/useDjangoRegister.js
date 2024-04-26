@@ -1,12 +1,12 @@
-// @hooks/django/useDjangoMetamaskRegister
+// @hooks/django/useDjangoRegister
 
-import { djangoMetamaskRegister as registerMetamaskApi } from '@/api/django_auth';
+import { djangoRegister } from '@/api/django_auth';  // Importe a API de registro
 
-export const useDjangoMetamaskRegister = (setLoading, enqueueSnackbar) => {
-    const djangoRegister = async (address, signature) => {
+export const useDjangoRegister = (setLoading, enqueueSnackbar) => {
+    const performDjangoRegister = async (address, signature) => {
         setLoading(true);
         try {
-            const response = await registerMetamaskApi(address, signature);
+            const response = await djangoRegister(address, signature);
             console.log("Response from registration:", response);  // Logar a resposta completa
 
             if (response && response.message === 'User created successfully.') {
@@ -24,5 +24,5 @@ export const useDjangoMetamaskRegister = (setLoading, enqueueSnackbar) => {
         }
     };
 
-    return djangoRegister;
+    return performDjangoRegister;
 };

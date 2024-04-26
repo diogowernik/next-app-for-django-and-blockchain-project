@@ -1,12 +1,12 @@
-// @hooks/django/useSignIn
+// @hooks/django/useDjangoSignIn
 
-import { signIn as signInApi } from '@/api/django_auth';  // Importe a API de login
+import { djangoSignIn } from '@/api/django_auth';  // Importe a API de login
 
-export const useSignIn = (setToken, setIsAuthenticated, setLoading, enqueueSnackbar) => {
-    const signIn = async (username, password, callback) => {
+export const useDjangoSignIn = (setToken, setIsAuthenticated, setLoading, enqueueSnackbar) => {
+    const performDjangoSignIn = async (username, password, callback) => {
         setLoading(true);
         try {
-            const response = await signInApi(username, password);
+            const response = await djangoSignIn(username, password);
             if (response && response.auth_token) {
                 localStorage.setItem('token', response.auth_token);
                 setToken(response.auth_token);
@@ -22,5 +22,5 @@ export const useSignIn = (setToken, setIsAuthenticated, setLoading, enqueueSnack
         setLoading(false);
     };
 
-    return signIn;
+    return performDjangoSignIn;
 };
