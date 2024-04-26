@@ -2,8 +2,8 @@
 
 import React, { createContext, useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
-import { useSignIn, useRegister, useSignOut, useLoginWithMetamask, useRegisterWithMetamask } from '@/hooks';  
-     
+import { useDjangoSignIn, useDjangoRegister, useDjangoSignOut, useDjangoMetamaskLogin, useDjangoMetamaskRegister } from '@/hooks';  
+
 const DjangoContext = createContext();
 
 export const DjangoProvider = ({ children }) => {
@@ -20,23 +20,22 @@ export const DjangoProvider = ({ children }) => {
     }
   }, []);
 
-  const signIn = useSignIn(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
-  const register = useRegister(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
-  const loginWithMetamask = useLoginWithMetamask(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
-  const registerWithMetamask = useRegisterWithMetamask(setLoading, enqueueSnackbar); 
-  const signOut = useSignOut(setToken, setIsAuthenticated, enqueueSnackbar); 
+  const djangoSignIn = useDjangoSignIn(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoRegister = useDjangoRegister(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoSignOut = useDjangoSignOut(setToken, setIsAuthenticated, enqueueSnackbar); 
+  const djangoMetamaskLogin = useDjangoMetamaskLogin(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoMetamaskRegister = useDjangoMetamaskRegister(setLoading, enqueueSnackbar); 
 
   const value = {
     djangoToken: token,
     djangoIsAuthenticated: isAuthenticated,
     djangoLoading: loading,
-    djangoSignIn: signIn,
-    djangoSignOut: signOut,
-    djangoRegister: register,
-    djangoLoginWithMetamask: loginWithMetamask,
-    djangoRegisterWithMetamask: registerWithMetamask,
-};
-
+    djangoSignIn,
+    djangoSignOut,
+    djangoRegister,
+    djangoMetamaskLogin,
+    djangoMetamaskRegister,
+  };
 
   return <DjangoContext.Provider value={value}>{children}</DjangoContext.Provider>;
 };

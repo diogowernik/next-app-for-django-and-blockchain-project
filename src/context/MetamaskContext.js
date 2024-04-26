@@ -1,16 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
-import { useConnectWithMetamask, useUpdateBalanceAndChain, useSignOut } from '@/hooks/';
+import { useMetamaskConnect, useMetamaskUpdateStatus, useMetamaskSignOut } from '@/hooks/';
 
-const MetamaskContext = createContext({
-    isAuthenticated: false,
-    userAddress: null,
-    balance: "0",
-    chainId: null,
-    connectWithMetamask: async () => {},
-    getBalance: async () => {},
-    signOut: () => {},
-});
+const MetamaskContext = createContext();
 
 export const MetamaskProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,11 +20,9 @@ export const MetamaskProvider = ({ children }) => {
         }
     }, []);
 
-    // Inicialize primeiro useUpdateBalanceAndChain
-    const updateBalanceAndChain = useUpdateBalanceAndChain(setBalance, setChainId, enqueueSnackbar, setLoading);  
-    // Depois use connectWithMetamask que depende de updateBalanceAndChain
-    const connectWithMetamask = useConnectWithMetamask(setIsAuthenticated, setUserAddress, updateBalanceAndChain, enqueueSnackbar);
-    const signOut = useSignOut(setIsAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar);
+    const metamaskUpdateStatus = useMetamaskUpdateStatus(setBalance, setChainId, enqueueSnackbar, setLoading);
+    const metamaskConnect = useMetamaskConnect(setIsAuthenticated, setUserAddress, metamaskUpdateStatus, enqueueSnackbar);
+    const metamaskSignOut = useMetamaskSignOut(setIsAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar);
 
     const value = {
         metamaskIsAuthenticated: isAuthenticated,
@@ -40,9 +30,9 @@ export const MetamaskProvider = ({ children }) => {
         metamaskUserAddress: userAddress,
         metamaskBalance: balance,
         metamaskChainId: chainId,
-        metamaskConnect: connectWithMetamask,
-        metamaskUpdateBalanceAndChain: updateBalanceAndChain,
-        metamaskSignOut: signOut,
+        metamaskConnect,
+        metamaskUpdateStatus,
+        metamaskSignOut,
     };
 
     return (

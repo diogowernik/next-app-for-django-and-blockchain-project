@@ -1,16 +1,17 @@
 // @/hooks/index.js
 
-export { useSignIn } from './context/django/useSignIn';
-export { useRegister } from './context/django/useRegister';
-export { useSignOut } from './context/django/useSignOut';
-export { useRegisterWithMetamask } from './context/django/useRegisterWithMetamask';
-export { useLoginWithMetamask } from './context/django/useLoginWithMetamask';
+export { useDjangoSignIn } from './context/django/useDjangoSignIn';
+export { useDjangoRegister } from './context/django/useDjangoRegister';
+export { useDjangoSignOut } from './context/django/useDjangoSignOut';
+export { useDjangoMetamaskRegister } from './context/django/useDjangoMetamaskRegister';
+export { useDjangoMetamaskLogin } from './context/django/useDjangoMetamaskLogin';
 
-export { useUpdateBalanceAndChain } from './context/metamask/useUpdateBalanceAndChain';
-export { useSignOutWithMetamask } from './context/metamask/useSignOutWithMetamask';
-export { useConnectWithMetamask } from './context/metamask/useConnectWithMetamask';
+export { useMetamaskUpdateStatus } from './context/metamask/useMetamaskUpdateStatus';
+export { useMetamaskSignOut } from './context/metamask/useMetamaskSignOut';
+export { useMetamaskConnect } from './context/metamask/useMetamaskConnect';
 
-export { useDjangoAuth } from './pages/useDjangoAuth';
-export { useRequestSignature } from './pages/useRequestSignature';
-export { useMetamaskDjangoLogin } from './pages/useMetamaskDjangoLogin';
-export { useMetamaskDjangoRegister } from './pages/useMetamaskDjangoRegister';
+export { usePageDjangoAuth } from './pages/usePageDjangoAuth';
+export { usePageRequestSignature } from './pages/usePageRequestSignature';
+export { usePageMetamaskDjangoLogin } from './pages/usePageMetamaskDjangoLogin';
+export { usePageMetamaskDjangoRegister } from './pages/usePageMetamaskDjangoRegister';
+export { usePageIntegratedLogin } from './pages/usePageIntegratedLogin';
