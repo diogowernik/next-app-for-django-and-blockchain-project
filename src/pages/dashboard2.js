@@ -1,43 +1,49 @@
 import React from 'react';
-import { useWalletManager } from '@/context/MetamaskContext';
-import { useDjangoAuth, useMetamaskDjangoLogin } from '@/hooks';
 import MainLayout from '@/layouts/MainLayout';
+import {
+  MetaMaskConnectButton,
+  MetaMaskSignOutButton,
+  DjangoRegisterButton,
+  DjangoLoginButton,
+  MetaDjangoIntegratedLogin,
+  MetaMaskConnected,
+  MetaMaskDisconnected,
+  DjangoConnected,
+  DjangoDisconnected,
+  DjangoLogoutButton
+} from '@/components';
 
 export default function Dashboard() {
-    const { metamaskIsAuthenticated, metamaskConnect, metamaskUserAddress} = useWalletManager();
-    const { djangoIsAuthenticated} = useDjangoAuth();
-    const loginWithDjangoUsingMetamask = useMetamaskDjangoLogin();
-
     return (
         <MainLayout>
-            {/* MetaMask Authentication Section */}
+            <h1>Dashboard</h1>
             <div>
-                <h2>MetaMask Authentication</h2>
-                {metamaskIsAuthenticated ? (
-                <>
-                    <p>Conectado com MetaMask.</p>
-                    <p>Endereço: {metamaskUserAddress}</p>
-                </>
-                ) : (
-                <button onClick={metamaskConnect}>Conectar com MetaMask</button>
-                )}
+                <h2>MetaMask Status</h2>
+                <MetaMaskConnected>
+                    <p>Conectado ao MetaMask. Aqui você pode gerenciar suas interações com a blockchain.</p>
+                    <MetaMaskSignOutButton />
+                </MetaMaskConnected>
+                <MetaMaskDisconnected>
+                    <MetaMaskConnectButton />
+                </MetaMaskDisconnected>
             </div>
-            {/* Django Authentication Section */}
             <div>
-                <h2>Django Authentication</h2>
-                {djangoIsAuthenticated ? (
-                    <>
-                    </>
-                ) : (
-                    <>
-                        <p>Not connected with Django.</p>
-                        {metamaskIsAuthenticated && (
-                            <>
-                                <button onClick={loginWithDjangoUsingMetamask}>Login with Django via MetaMask</button>
-                            </>
-                        )}
-                    </>
-                )}
+                <h2>Django Status</h2>
+                <DjangoConnected>
+                    <p>Conectado ao Django. Você pode acessar recursos protegidos.</p>
+                    <DjangoLogoutButton />
+                </DjangoConnected>
+                <DjangoDisconnected>
+                    <p>Não conectado ao Django. Faça login ou registre-se para continuar.</p>
+                    <DjangoRegisterButton />
+                    <DjangoLoginButton />
+                </DjangoDisconnected>
+            </div>
+            <div>
+                <h2>Conexão Rápida</h2>
+                <MetaMaskDisconnected>
+                    <MetaDjangoIntegratedLogin />
+                </MetaMaskDisconnected>
             </div>
         </MainLayout>
     );
