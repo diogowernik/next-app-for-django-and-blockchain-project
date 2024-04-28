@@ -5,7 +5,6 @@ import {
   MetaMaskSignOutButton,
   DjangoRegisterButton,
   DjangoLoginButton,
-  MetamaskDjangoIntegratedLogin,
   MetaMaskConnected,
   MetaMaskDisconnected,
   DjangoConnected,
@@ -41,9 +40,6 @@ export default function Dashboard() {
             </div>
             <div>
                 <h2>Conexão Rápida</h2>
-                <MetaMaskDisconnected>
-                    <MetamaskDjangoIntegratedLogin />
-                </MetaMaskDisconnected>
             </div>
         </MainLayout>
     );

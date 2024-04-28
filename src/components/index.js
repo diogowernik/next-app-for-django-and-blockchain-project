@@ -5,7 +5,6 @@ import MetaMaskSignOutButton from './auth/buttons/MetaMaskSignOutButton';
 import DjangoRegisterButton from './auth/buttons/DjangoRegisterButton';
 import DjangoLoginButton from './auth/buttons/DjangoLoginButton';
 import DjangoLogoutButton from './auth/buttons/DjangoLogoutButton'; 
-import MetamaskDjangoIntegratedLogin from './auth/buttons/MetamaskDjangoIntegratedLogin';
 
 // Exportar os componentes
 export {
@@ -14,7 +13,6 @@ export {
   DjangoRegisterButton,
   DjangoLoginButton,
   DjangoLogoutButton,
-  MetamaskDjangoIntegratedLogin
 };
 
 // Exportando os wrappers (isto parece estar correto já)

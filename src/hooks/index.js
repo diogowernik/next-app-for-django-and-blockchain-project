@@ -13,6 +13,4 @@ export { useMetamaskConnect } from './context/metamask/useMetamaskConnect';
 export { useRequestSignature } from './pages/useRequestSignature';
 export { useMetamaskDjangoLogin } from './pages/useMetamaskDjangoLogin';
 export { useMetamaskDjangoRegister } from './pages/useMetamaskDjangoRegister';
-export { useIntegratedLogin } from './pages/useIntegratedLogin';
 
-export { useIntegratedMetamaskDjangoLogin } from './context/integrated/useIntegratedMetamaskDjangoLogin';
