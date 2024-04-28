@@ -11,6 +11,6 @@ export { useMetamaskSignOut } from './context/metamask/useMetamaskSignOut';
 export { useMetamaskConnect } from './context/metamask/useMetamaskConnect';
 
 export { useRequestSignature } from './pages/useRequestSignature';
-export { useMetamaskDjangoLogin } from './pages/useMetamaskDjangoLogin';
-export { useMetamaskDjangoRegister } from './pages/useMetamaskDjangoRegister';
+export { useMetamaskSignatureForDjangoLogin } from './pages/useMetamaskSignatureForDjangoLogin';
+export { useMetamaskSignatureForDjangoRegister } from './pages/useMetamaskSignatureForDjangoRegister';
 

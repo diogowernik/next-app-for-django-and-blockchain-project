@@ -1,8 +1,8 @@
 import React from 'react';
-import { useMetamaskDjangoLogin } from '@/hooks';
+import { useMetamaskSignatureForDjangoLogin } from '@/hooks';
 
 const DjangoLoginButton = () => {
-    const loginWithDjangoUsingMetamask = useMetamaskDjangoLogin();
+    const loginWithDjangoUsingMetamask = useMetamaskSignatureForDjangoLogin();
 
     return <button onClick={loginWithDjangoUsingMetamask}>Login with Django via MetaMask</button>;
 };
