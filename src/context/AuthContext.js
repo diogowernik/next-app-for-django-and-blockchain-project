@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     djangoRegister,
     djangoMetamaskLogin,
     djangoMetamaskRegister,
-    metamaskIsMetamaskAuthenticated: isMetamaskAuthenticated,
+    metamaskIsAuthenticated: isMetamaskAuthenticated,
     metamaskLoading: loading,
     metamaskUserAddress: userAddress,
     metamaskBalance: balance,
