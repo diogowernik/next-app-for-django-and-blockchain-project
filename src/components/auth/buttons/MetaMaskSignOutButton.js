@@ -1,8 +1,8 @@
 import React from 'react';
-import { useWalletManager } from '@/context/MetamaskContext';
+import { useAuth } from '@/context/AuthContext';
 
 const MetaMaskSignOutButton = () => {
-    const { metamaskSignOut } = useWalletManager();
+    const { metamaskSignOut } = useAuth();
 
     return <button onClick={metamaskSignOut}>Desconectar MetaMask</button>;
 };

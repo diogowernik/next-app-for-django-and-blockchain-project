@@ -1,8 +1,8 @@
 import React from 'react';
-import { useWalletManager } from '@/context/MetamaskContext';
+import { useAuth } from '@/context/AuthContext';
 
 // Componente que renderiza conteúdo apenas quando o usuário não está conectado ao MetaMask
 export const MetaMaskDisconnected = ({ children }) => {
-    const { metamaskIsAuthenticated } = useWalletManager();
+    const { metamaskIsAuthenticated } = useAuth();
     return !metamaskIsAuthenticated ? <>{children}</> : null;
 };

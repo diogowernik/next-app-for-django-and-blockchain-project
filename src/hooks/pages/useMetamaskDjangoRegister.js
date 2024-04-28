@@ -1,11 +1,10 @@
 // src/hooks/useMetamaskDjangoRegister.js
-import { useDjangoAuth } from '@/hooks';
 import { useRequestSignature } from './useRequestSignature';
-import { useWalletManager } from '@/context/MetamaskContext';
+import { useAuth } from '@/context/AuthContext';
 
 export const useMetamaskDjangoRegister = () => {
-    const { djangoRegisterWithMetamask } = useDjangoAuth();
-    const { metamaskIsAuthenticated, metamaskUserAddress } = useWalletManager();
+    const { djangoRegisterWithMetamask } = useAuth();
+    const { metamaskIsAuthenticated, metamaskUserAddress } = useAuth();
     const requestSignature = useRequestSignature();
 
     const register = async () => {

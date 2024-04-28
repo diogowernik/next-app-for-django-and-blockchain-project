@@ -2,7 +2,7 @@
 
 import { djangoSignIn } from '@/api/django_auth';  // Importe a API de login
 
-export const useDjangoSignIn = (setToken, setIsAuthenticated, setLoading, enqueueSnackbar) => {
+export const useDjangoSignIn = (setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar) => {
     const performDjangoSignIn = async (username, password, callback) => {
         setLoading(true);
         try {
@@ -10,7 +10,7 @@ export const useDjangoSignIn = (setToken, setIsAuthenticated, setLoading, enqueu
             if (response && response.auth_token) {
                 localStorage.setItem('token', response.auth_token);
                 setToken(response.auth_token);
-                setIsAuthenticated(true);
+                setIsDjangoAuthenticated(true);
                 enqueueSnackbar('Login successful!', { variant: 'success' });
                 if (callback) callback();
             } else {

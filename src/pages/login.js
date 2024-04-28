@@ -5,12 +5,12 @@ import { Card, CardContent, TextField, Button, CircularProgress, Grid, Typograph
 import { useSnackbar } from 'notistack';
 
 import MainLayout from '@/layouts/MainLayout';
-import { useDjangoAuth } from '@/hooks';  // Atualizado para usar o hook
+import { useAuth } from '@/context/AuthContext'; 
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { djangoSignIn, djangoLoading } = useDjangoAuth();  // Usando o hook customizado
+    const { djangoSignIn, djangoLoading } = useAuth();  // Usando o hook customizado
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter();
 

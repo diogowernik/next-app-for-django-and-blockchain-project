@@ -5,7 +5,7 @@ import { useMetamaskConnect, useMetamaskUpdateStatus, useMetamaskSignOut } from 
 const MetamaskContext = createContext();
 
 export const MetamaskProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isMetamaskAuthenticated, setIsMetamaskAuthenticated] = useState(false);
     const [userAddress, setUserAddress] = useState(null);
     const [balance, setBalance] = useState("0");
     const [chainId, setChainId] = useState(null);
@@ -15,17 +15,17 @@ export const MetamaskProvider = ({ children }) => {
     useEffect(() => {
         const storedAddress = localStorage.getItem('userAddress');
         if (storedAddress) {
-            setIsAuthenticated(true);
+            setIsMetamaskAuthenticated(true);
             setUserAddress(storedAddress);
         }
     }, []);
 
     const metamaskUpdateStatus = useMetamaskUpdateStatus(setBalance, setChainId, enqueueSnackbar, setLoading);
-    const metamaskConnect = useMetamaskConnect(setIsAuthenticated, setUserAddress, enqueueSnackbar);
-    const metamaskSignOut = useMetamaskSignOut(setIsAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar);
+    const metamaskConnect = useMetamaskConnect(setIsMetamaskAuthenticated, setUserAddress, enqueueSnackbar);
+    const metamaskSignOut = useMetamaskSignOut(setIsMetamaskAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar);
 
     const value = {
-        metamaskIsAuthenticated: isAuthenticated,
+        metamaskIsMetamaskAuthenticated: isMetamaskAuthenticated,
         metamaskLoading: loading,
         metamaskUserAddress: userAddress,
         metamaskBalance: balance,

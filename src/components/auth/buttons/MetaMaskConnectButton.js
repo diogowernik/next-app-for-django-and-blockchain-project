@@ -1,8 +1,8 @@
 import React from 'react';
-import { useWalletManager } from '@/context/MetamaskContext';
+import { useAuth } from '@/context/AuthContext';
 
 const MetaMaskConnectButton = () => {
-    const { metamaskConnect } = useWalletManager();
+    const { metamaskConnect } = useAuth();
 
     return <button onClick={metamaskConnect}>Conectar com MetaMask</button>;
 };

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Grid, Card, CardContent, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { useDjangoAuth } from '@/hooks'; // Importa o hook customizado
+import { useAuth } from '@/context/AuthContext';
 import MainLayout from '@/layouts/MainLayout';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { djangoRegister, djangoLoading } = useDjangoAuth(); // Utiliza o hook para acessar o contexto
+  const { djangoRegister, djangoLoading } = useAuth(); // Utiliza o hook para acessar o contexto
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 

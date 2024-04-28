@@ -1,10 +1,10 @@
 // @hooks/django/useDjangoSignOut
 
-export const useDjangoSignOut = (setToken, setIsAuthenticated, enqueueSnackbar) => {
+export const useDjangoSignOut = (setToken, setIsDjangoAuthenticated, enqueueSnackbar) => {
     const performDjangoSignOut = () => {
         localStorage.removeItem('token');
         setToken(null);
-        setIsAuthenticated(false);
+        setIsDjangoAuthenticated(false);
         enqueueSnackbar('You have been successfully signed out.', { variant: 'success' });
     };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useContext } from 'react';
-import DjangoContext from '@/context/DjangoContext';
+import AuthContext from '@/context/AuthContext';
 
 const DjangoLogoutButton = () => {
-    const { djangoSignOut } = useContext(DjangoContext);
+    const { djangoSignOut } = useContext(AuthContext);
 
     return <button onClick={djangoSignOut}>Logout from Django</button>;
 };

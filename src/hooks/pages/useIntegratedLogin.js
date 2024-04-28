@@ -1,11 +1,11 @@
 // src/hooks/useIntegratedLogin.js
 import { useSnackbar } from 'notistack';
-import { useWalletManager } from '@/context/MetamaskContext';
+import { useAuth } from '@/context/AuthContext';
 import { useMetamaskDjangoLogin } from './useMetamaskDjangoLogin';
 
 export const useIntegratedLogin = () => {
     const { enqueueSnackbar } = useSnackbar();
-    const { metamaskConnect, metamaskIsAuthenticated } = useWalletManager();
+    const { metamaskConnect, metamaskIsAuthenticated } = useAuth();
     const loginWithDjangoUsingMetamask = useMetamaskDjangoLogin();
 
     const integratedLogin = async () => {

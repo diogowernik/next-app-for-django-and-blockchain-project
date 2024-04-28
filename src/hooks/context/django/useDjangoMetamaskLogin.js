@@ -2,7 +2,7 @@
 
 import { djangoMetamaskLogin } from '@/api/django_auth';
 
-export const useDjangoMetamaskLogin = (setToken, setIsAuthenticated, setLoading, enqueueSnackbar) => {
+export const useDjangoMetamaskLogin = (setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar) => {
     const performDjangoMetamaskLogin = async (ethereumAddress, signature, callback) => {
         setLoading(true);
         try {
@@ -10,7 +10,7 @@ export const useDjangoMetamaskLogin = (setToken, setIsAuthenticated, setLoading,
             if (response && response.token) {
                 localStorage.setItem('token', response.token);
                 setToken(response.token);
-                setIsAuthenticated(true);
+                setIsDjangoAuthenticated(true);
                 enqueueSnackbar('Login with MetaMask successful!', { variant: 'success' });
                 if (callback) callback();
             } else {

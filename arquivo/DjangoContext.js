@@ -8,7 +8,7 @@ const DjangoContext = createContext();
 
 export const DjangoProvider = ({ children }) => {
   const [token, setToken] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isDjangoAuthenticated, setIsDjangoAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -16,19 +16,19 @@ export const DjangoProvider = ({ children }) => {
     const tokenFromStorage = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     if (tokenFromStorage) {
       setToken(tokenFromStorage);
-      setIsAuthenticated(true); 
+      setIsDjangoAuthenticated(true); 
     }
   }, []);
 
-  const djangoSignIn = useDjangoSignIn(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
-  const djangoRegister = useDjangoRegister(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
-  const djangoSignOut = useDjangoSignOut(setToken, setIsAuthenticated, enqueueSnackbar); 
-  const djangoMetamaskLogin = useDjangoMetamaskLogin(setToken, setIsAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoSignIn = useDjangoSignIn(setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoRegister = useDjangoRegister(setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoSignOut = useDjangoSignOut(setToken, setIsDjangoAuthenticated, enqueueSnackbar); 
+  const djangoMetamaskLogin = useDjangoMetamaskLogin(setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
   const djangoMetamaskRegister = useDjangoMetamaskRegister(setLoading, enqueueSnackbar); 
 
   const value = {
     djangoToken: token,
-    djangoIsAuthenticated: isAuthenticated,
+    djangoIsAuthenticated: isDjangoAuthenticated,
     djangoLoading: loading,
     djangoSignIn,
     djangoSignOut,

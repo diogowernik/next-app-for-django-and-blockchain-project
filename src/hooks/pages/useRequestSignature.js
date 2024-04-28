@@ -1,9 +1,9 @@
 // src/hooks/useRequestSignature.js
 
-import { useWalletManager } from '@/context/MetamaskContext';
+import { useAuth } from '@/context/AuthContext';
 
 export const useRequestSignature = () => {
-    const { metamaskUserAddress } = useWalletManager();
+    const { metamaskUserAddress } = useAuth();
 
     const requestSignature = async (message) => {
         try {
