@@ -38,7 +38,7 @@ export default function Dashboard() {
                 </DjangoConnected>
                 <DjangoDisconnected>
                     <p>Não conectado ao Django. Faça login ou registre-se para continuar.</p>
-                    <DjangoRegisterButton />
+                    {/* <DjangoRegisterButton />  deprecated */}
                     <DjangoLoginButton />
                 </DjangoDisconnected>
             </div>

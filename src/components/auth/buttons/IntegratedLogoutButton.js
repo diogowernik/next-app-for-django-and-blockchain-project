@@ -13,7 +13,7 @@ const IntegratedLogoutButton = () => {
             // Define um timer para desconectar do Django após um curto atraso
             setTimeout(async () => {
                 await djangoSignOut();
-            }, 2000);  // Atraso de 2000 milissegundos (2 segundos)
+            }, 500);  // Atraso de 2000 milissegundos (2 segundos)
         } catch (error) {
             console.error('Logout failed:', error);
         }

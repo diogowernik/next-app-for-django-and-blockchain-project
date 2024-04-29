@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useMetamaskSignatureForDjangoLogin } from '@/hooks';
+import { DjangoDisconnected } from '../wrappers/DjangoDisconnected';
 
 const IntegratedLoginButton = () => {
     const { metamaskConnect, metamaskIsAuthenticated } = useAuth();
@@ -24,7 +25,11 @@ const IntegratedLoginButton = () => {
         }
     }, [metamaskIsAuthenticated]);
 
-    return <button onClick={handleConnectAndLogin}>Conectar com MetaMask e Login com Django</button>;
+    return ( 
+        <DjangoDisconnected>
+            <button onClick={handleConnectAndLogin}>Conectar</button>
+        </DjangoDisconnected>
+    );
 };
 
 export default IntegratedLoginButton;

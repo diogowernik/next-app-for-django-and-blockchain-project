@@ -24,36 +24,32 @@ export default function Dashboard() {
                 <h2>MetaMask Status</h2>
                 <MetaMaskConnected>
                     <p>Conectado ao MetaMask. Aqui você pode gerenciar suas interações com a blockchain.</p>
-                    <MetaMaskSignOutButton />
                 </MetaMaskConnected>
                 <MetaMaskDisconnected>
-                    <MetaMaskConnectButton />
+                    <p> Não conectado ao MetaMask. Conecte-se para continuar.</p>
                 </MetaMaskDisconnected>
             </div>
             <div>
                 <h2>Django Status</h2>
                 <DjangoConnected>
                     <p>Conectado ao Django. Você pode acessar recursos protegidos.</p>
-                    <DjangoLogoutButton />
                 </DjangoConnected>
                 <DjangoDisconnected>
-                    <p>Não conectado ao Django. Faça login ou registre-se para continuar.</p>
-                    <DjangoRegisterButton />
-                    <DjangoLoginButton />
+                    <p>Não conectado ao Django. Conecte-se para continuar.</p>
                 </DjangoDisconnected>
             </div>
             <div>
                 <h2>Conexão Rápida</h2>
                 <DjangoDisconnected>
-                <p>Conecte-se ao MetaMask e faça login no Django com um único clique.</p>
-                <IntegratedLoginButton />
+                    <p>Conecte-se ao MetaMask e ao Django com um único clique.</p>
+                    <IntegratedLoginButton />
                 </DjangoDisconnected>
                 <DjangoAndMetamaskConnected>
                 <p>Você está conectado ao MetaMask e ao Django.</p>
                 <IntegratedLogoutButton />
                 </DjangoAndMetamaskConnected>
                 <DjangoAndMetamaskDisconnected>
-                <p>Você não está conectado ao MetaMask e ao Django.</p>
+                <p>Você não está conectado ao MetaMask nem ao Django.</p>
                 </DjangoAndMetamaskDisconnected>
             </div>
         </MainLayout>
