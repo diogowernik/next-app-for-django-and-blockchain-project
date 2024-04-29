@@ -13,7 +13,7 @@ export const useMetamaskSignatureForDjangoRegister = () => {
             return;
         }
 
-        const message = "Please sign this message to confirm your registration.";
+        const message = "Please sign this message to confirm your identity.";
         const signature = await requestSignature(message);
         if (!signature) return;
 

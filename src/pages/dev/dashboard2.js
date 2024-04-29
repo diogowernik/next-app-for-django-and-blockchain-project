@@ -9,8 +9,12 @@ import {
   MetaMaskDisconnected,
   DjangoConnected,
   DjangoDisconnected,
-  DjangoLogoutButton
+  DjangoLogoutButton,
+  DjangoAndMetamaskDisconnected,
+  DjangoAndMetamaskConnected,
 } from '@/components';
+import IntegratedLoginButton from '@/components/auth/buttons/IntegratedLoginButton';
+import IntegratedLogoutButton from '@/components/auth/buttons/IntegratedLogoutButton';
 
 export default function Dashboard() {
     return (
@@ -40,6 +44,17 @@ export default function Dashboard() {
             </div>
             <div>
                 <h2>Conexão Rápida</h2>
+                <DjangoDisconnected>
+                <p>Conecte-se ao MetaMask e faça login no Django com um único clique.</p>
+                <IntegratedLoginButton />
+                </DjangoDisconnected>
+                <DjangoAndMetamaskConnected>
+                <p>Você está conectado ao MetaMask e ao Django.</p>
+                <IntegratedLogoutButton />
+                </DjangoAndMetamaskConnected>
+                <DjangoAndMetamaskDisconnected>
+                <p>Você não está conectado ao MetaMask e ao Django.</p>
+                </DjangoAndMetamaskDisconnected>
             </div>
         </MainLayout>
     );

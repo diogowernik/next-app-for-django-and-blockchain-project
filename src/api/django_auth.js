@@ -17,14 +17,14 @@ export function djangoRegister(username, password) {
 }
 
 export function djangoMetamaskRegister(address, signature) {
-  return request('/auth/metamask/register/', {
+  return request('/auth/metamask/auth/', {
     data: { address, signature },
     method: 'POST'
   });
 }
 
 export function djangoMetamaskLogin(address, signature) {
-  return request('/auth/metamask/login/', {
+  return request('/auth/metamask/auth/', {
     data: { address, signature },
     method: 'POST'
   });
