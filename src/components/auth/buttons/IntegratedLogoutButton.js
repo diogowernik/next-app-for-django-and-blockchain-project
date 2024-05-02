@@ -8,12 +8,10 @@ const IntegratedLogoutButton = () => {
     const handleLogout = async () => {
         try {
             // Desconecta primeiro do MetaMask
-            metamaskSignOut();
+            await metamaskSignOut(); // Garantir que esta função é assíncrona ou retorna uma Promise
 
-            // Define um timer para desconectar do Django após um curto atraso
-            setTimeout(async () => {
-                await djangoSignOut();
-            }, 500);  // Atraso de 2000 milissegundos (2 segundos)
+            // Depois que o MetaMask estiver desconectado, prossegue para o logout do Django
+            await djangoSignOut(); // Garantir que esta função é assíncrona ou retorna uma Promise
         } catch (error) {
             console.error('Logout failed:', error);
         }

@@ -22,3 +22,4 @@ export { DjangoConnected } from './auth/wrappers/DjangoConnected';
 export { DjangoDisconnected } from './auth/wrappers/DjangoDisconnected';
 export { DjangoAndMetamaskConnected } from './auth/wrappers/DjangoAndMetamaskConnected';
 export { DjangoAndMetamaskDisconnected } from './auth/wrappers/DjangoAndMetamaskDisconnected';
+export { MetamaskConnectedAndDjangoDisconnected } from './auth/wrappers/MetamaskConnectedAndDjangoDisconnected';
