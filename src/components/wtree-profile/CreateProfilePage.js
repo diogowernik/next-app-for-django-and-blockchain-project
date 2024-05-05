@@ -1,39 +1,31 @@
 // CreateProfilePage.js
 import React, { useState } from 'react';
-import NicknameInput from './NicknameInput';
+import UsernameInput from './UsernameInput';
 import AvatarUpload from './AvatarUpload';
 import DescriptionInput from './DescriptionInput';  // Assuma que você criará este componente
 import CoinSelection from './CoinSelection';
 import NetworkSelection from './NetworkSelection'; // Assuma que você também criará este componente baseado no CoinSelection
-import SaveButton from './SaveButton'; // Assuma que este é um botão para salvar o perfil
 import MobileWrapper from './MobileWrapper';
 import { Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
-
-// Estilização dos parágrafos
-const StyledParagraph = styled(Typography)(({ theme }) => ({
-    margin: theme.spacing(2, 0),
-    color: theme.palette.text.primary,
-    fontSize: '1rem',
-}));
+import Button from '@mui/material/Button';
 
 const coins = [
-    { id: 'usdt', name: 'USDT', icon: '/icons/usdt.png' },
-    { id: 'usdc', name: 'USDC', icon: '/icons/usdc.png' },
-    { id: 'eth', name: 'ETH', icon: '/icons/eth.png' },
-    { id: 'matic', name: 'MATIC', icon: '/icons/matic.png' },
-    { id: 'bnb', name: 'BNB', icon: '/icons/bnb.png' },
+    { id: 'usdt', name: 'USDT (Theter)', icon: '/icons/usdt.png' },
+    { id: 'usdc', name: 'USDC (USD Coin)', icon: '/icons/usdc.png' },
+    { id: 'eth', name: 'ETH (Ethereum)', icon: '/icons/eth.png' },
+    { id: 'matic', name: 'MATIC (Polygon)', icon: '/icons/matic.png' },
+    { id: 'bnb', name: 'BNB (Bincance Coin)', icon: '/icons/bnb.png' },
 ];
 
 const networks = [
-    { id: 'bnb', name: 'BNB' , icon: '/icons/bnb.png' },
-    { id: 'polygon', name: 'Polygon', icon: '/icons/polygon.png' },
-    { id: 'ethereum', name: 'Ethereum', icon: '/icons/ethereum.png' },
+    { id: 'ethereum', name: 'Ethereum (Ethereum Network)', icon: '/icons/eth.png' },
+    { id: 'polygon', name: 'Polygon (Matic)', icon: '/icons/matic.png' },
+    { id: 'bnb', name: 'BNB (Binance Smart Chain)' , icon: '/icons/bnb.png' },
+    
 ];
 
-
 const CreateProfilePage = () => {
-    const [nickname, setNickname] = useState('');
+    const [username, setUsername] = useState('');
     const [avatar, setAvatar] = useState('');
     const [description, setDescription] = useState('');
     const [selectedCoins, setSelectedCoins] = useState([]);
@@ -41,7 +33,7 @@ const CreateProfilePage = () => {
 
     // Esta função pode ser expandida com lógica de API
     const handleSaveProfile = async () => {
-        console.log(`Salvando perfil para o apelido: ${nickname}`);
+        console.log(`Salvando perfil para o apelido: ${username}`);
     };
     const handleCoinSelection = (coinId) => {
         if (selectedCoins.includes(coinId)) {
@@ -61,10 +53,21 @@ const CreateProfilePage = () => {
 
     return (
         <MobileWrapper>
-            <AvatarUpload onAvatarChange={setAvatar} />
-            <NicknameInput nickname={nickname} setNickname={setNickname} />
-            <DescriptionInput description={description} setDescription={setDescription} />
-            <Typography variant="h6" style={{ alignSelf: 'center', margin: '15px' }}>Quais moedas voce aceita?</Typography>
+            <AvatarUpload 
+                avatar={avatar}
+                onAvatarChange={setAvatar} 
+            />
+            <UsernameInput 
+                username={username}    
+                setUsername={setUsername} 
+            />
+            <DescriptionInput 
+                description={description} 
+                setDescription={setDescription} 
+            />
+            <Typography variant="h6" style={{ alignSelf: 'center', margin: '15px' }}>
+                Which Tokens Do You Accept?
+            </Typography>
             {coins.map(coin => (
                 <CoinSelection
                     key={coin.id}
@@ -75,7 +78,7 @@ const CreateProfilePage = () => {
                 />
             ))}
             <Typography variant="h6" style={{ alignSelf: 'center', margin: '15px' }}>
-                Quais Redes voce utiliza?
+                Which Networks Do You Use?
             </Typography>
             {networks.map(network => (
                 <NetworkSelection
@@ -86,7 +89,9 @@ const CreateProfilePage = () => {
                     onToggle={() => handleNetworkSelection(network.id)}
                 />
             ))}
-            <SaveButton onClick={handleSaveProfile} />
+            <Button variant="contained" color="primary" onClick={handleSaveProfile} sx={{ margin: 2}}>
+                Save Profile
+            </Button>
         </MobileWrapper>
     );
 };

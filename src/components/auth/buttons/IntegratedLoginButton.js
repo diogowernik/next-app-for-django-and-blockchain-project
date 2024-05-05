@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useMetamaskSignatureForDjangoLogin } from '@/hooks';
+import Button from '@mui/material/Button'; // Importando o Button do Material-UI
+
 
 const IntegratedLoginButton = () => {
     const { 
@@ -29,7 +31,9 @@ const IntegratedLoginButton = () => {
     
 
     return ( 
-        <button onClick={handleConnectAndLogin}>Conectar</button>
+        <Button variant="contained" color="primary" onClick={handleConnectAndLogin}>
+            Conectar
+        </Button>
     );
 };
 

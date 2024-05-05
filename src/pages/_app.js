@@ -1,10 +1,12 @@
-import React from 'react';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { SnackbarProvider } from 'notistack';
+//@pages/_app.js
 
+import React from 'react';
+import { SnackbarProvider } from 'notistack';
 import { AuthProvider } from '@/context/AuthContext';
 
-const theme = createTheme();
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import theme from '@/styles/theme';
+import '@/styles/global.css';
 
 function MyApp({ Component, pageProps }) {
   return (

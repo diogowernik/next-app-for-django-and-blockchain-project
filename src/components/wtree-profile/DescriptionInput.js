@@ -17,13 +17,12 @@ const DescriptionInput = () => {
 
     return (
         <StyledTextField
-            label="Descreva-se em poucas palavras"
+            label="Describe Yourself or Your Project in a Few Words"
             multiline
             rows={4}
             variant="outlined"
             value={description}
             onChange={handleDescriptionChange}
-            placeholder="Escreva algo sobre você ou seu projeto..."
         />
     );
 };

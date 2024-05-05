@@ -1,29 +1,29 @@
-// NicknameInput.js
+// UsernameInput.js
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const NicknameInputWithRedirect = ({ nickname, setNickname }) => {
+const UsernameInputWithRedirect = ({ username, setUsername }) => {
     const history = useHistory();
     const [error, setError] = useState('');
 
-    const isValidNickname = (name) => {
+    const isValidUsername = (name) => {
         // Permite apenas letras, números, hífens e sublinhados
         return /^[a-zA-Z0-9_-]+$/.test(name);
     };
 
     const handleChange = (event) => {
-        const newNickname = event.target.value;
-        if (isValidNickname(newNickname) || newNickname === "") {
+        const newUsername = event.target.value;
+        if (isValidUsername(newUsername) || newUsername === "") {
             setError('');
-            setNickname(newNickname);
+            setUsername(newUsername);
         } else {
             setError('O apelido deve conter apenas letras, números, hífens e sublinhados.');
         }
     };
 
     const handleSubmit = () => {
-        if (nickname && isValidNickname(nickname)) {
-            history.push(`/create-profile/${nickname}`);
+        if (username && isValidUsername(username)) {
+            history.push(`/create-profile/${username}`);
         } else {
             setError('Por favor, insira um apelido válido.');
         }
@@ -35,7 +35,7 @@ const NicknameInputWithRedirect = ({ nickname, setNickname }) => {
                 <input
                     type="text"
                     placeholder="Seu apelido"
-                    value={nickname}
+                    value={username}
                     onChange={handleChange}
                     style={{ width: 'calc(100% - 90px)', padding: '10px' }}
                 />
@@ -45,10 +45,10 @@ const NicknameInputWithRedirect = ({ nickname, setNickname }) => {
             </div>
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div>
-                <span style={{ fontWeight: 'bold' }}>Sua URL: </span>https://wtr.ee/{nickname || "seu-apelido"}
+                <span style={{ fontWeight: 'bold' }}>Sua URL: </span>https://wtr.ee/{username || "seu-apelido"}
             </div>
         </div>
     );
 };
 
-export default NicknameInputWithRedirect;
+export default UsernameInputWithRedirect;

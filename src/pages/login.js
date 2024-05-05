@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Card, CardContent, TextField, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/layouts/dashboard/MainLayout';
 import { useAuth } from '@/context/AuthContext'; 
 
 const Login = () => {

@@ -24,7 +24,9 @@ const AvatarUpload = ({ avatar, onAvatarChange }) => {
 
     return (
         <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px 20px 10px 20px' }}>
-            <Typography variant="h6" style={{ alignSelf: 'flex-start', marginBottom: 10 }}>Escolha sua foto ou avatar</Typography>
+            <Typography variant="h6" style={{ alignSelf: 'flex-start', marginBottom: 10 }}>
+                Choose Your Photo or Avatar
+            </Typography>
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 <Avatar
                     src={preview || '/path/to/default/avatar.png'}

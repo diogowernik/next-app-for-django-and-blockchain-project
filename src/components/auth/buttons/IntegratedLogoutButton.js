@@ -1,6 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
+import Button from '@mui/material/Button';
 
 const IntegratedLogoutButton = () => {
     const { djangoSignOut, metamaskSignOut } = useContext(AuthContext);
@@ -17,7 +18,11 @@ const IntegratedLogoutButton = () => {
         }
     };
 
-    return <button onClick={handleLogout}>Logout from All</button>;
+    return (
+        <Button variant="contained" color="primary" onClick={handleLogout}>
+            Desconectar
+        </Button>
+    );
 };
 
 export default IntegratedLogoutButton;

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Grid, Card, CardContent, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { useAuth } from '@/context/AuthContext';
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/layouts/dashboard/MainLayout';
 
 const Register = () => {
   const [username, setUsername] = useState('');

@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Avatar, Typography, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const CoinItem = styled('div')(({ theme }) => ({
+const NetworkItem = styled('div')(({ theme }) => ({
     width: '100%', // Uso total da largura disponível
     display: 'flex',
     justifyContent: 'space-between',
@@ -17,14 +17,14 @@ const CoinItem = styled('div')(({ theme }) => ({
     },
 }));
 
-const CoinSelection = ({ coin, selected, onToggle }) => (
-    <CoinItem>
+const NetworkSelection = ({ network, icon, selected, onToggle }) => (
+    <NetworkItem>
         <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-            <Tooltip title={coin} placement="left" arrow>
-                <Avatar src={`/path/to/${coin.toLowerCase()}.png`} alt={coin} style={{ marginRight: 8, width: 40, height: 40 }} />
+            <Tooltip title={network} placement="left" arrow>
+                <Avatar src={`${icon}`} alt={network} style={{ marginRight: 8, width: 40, height: 40 }} />
             </Tooltip>
             <Typography variant="body1" style={{ flexGrow: 1 }}>
-                {coin}
+                {network}
             </Typography>
         </div>
         <Switch
@@ -32,7 +32,7 @@ const CoinSelection = ({ coin, selected, onToggle }) => (
             onChange={onToggle}
             color="primary"
         />
-    </CoinItem>
+    </NetworkItem>
 );
 
-export default CoinSelection;
+export default NetworkSelection;

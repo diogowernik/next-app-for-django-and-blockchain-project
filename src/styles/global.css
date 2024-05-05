@@ -1,0 +1,34 @@
+/* @styles/global.css */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #f3f3f3, #e6e6e6);
+    padding-top: 50px;
+  }
+  
+  .custom-link {
+    background-color: #e6e6e6;
+    border: 1px solid #2E8B57;
+  }
+  
+  .custom-link a {
+    color: #2E8B57;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .custom-link a:hover {
+    color: #206040;
+  }
+  
+  .full-height {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .bg-color1 {
+    background-color: #f4f4f4;
+  }
+  
+  /* Aplicar mais estilos conforme necessário */
+  

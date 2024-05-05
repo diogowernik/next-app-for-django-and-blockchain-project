@@ -1,9 +1,7 @@
 import React from 'react';
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/layouts/dashboard/MainLayout';
+import { Typography, Box } from '@mui/material';
 import {
-  MetaMaskConnected,
-  MetaMaskDisconnected,
-  DjangoConnected,
   DjangoDisconnected,
   DjangoAndMetamaskDisconnected,
   DjangoAndMetamaskConnected,
@@ -11,30 +9,34 @@ import {
 } from '@/components';
 import IntegratedLoginButton from '@/components/auth/buttons/IntegratedLoginButton';
 import IntegratedLogoutButton from '@/components/auth/buttons/IntegratedLogoutButton';
-import CreateProfilePage from '@/components/CreateProfilePage';
 
 export default function Dashboard() {
     return (
         <MainLayout>
-            <h1>Dashboard</h1>
-            
+            <Box borderBottom={1} borderColor="divider" mb={2} mt={2}>
+                <Typography variant="h5" gutterBottom>Dashboard</Typography> {/* Usando h5 para fonte um pouco menor */}
+            </Box>
             <div>   
                 <DjangoAndMetamaskDisconnected>
-                    <p>Clique para acessar aos recursos do nosso app.</p>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'normal', mb: 2 }}>
+                        Clique para acessar aos recursos do nosso app.
+                    </Typography>
                 </DjangoAndMetamaskDisconnected>
                 <DjangoDisconnected>
                     <IntegratedLoginButton />
                 </DjangoDisconnected>
                 <MetamaskConnectedAndDjangoDisconnected>
-                    <p>Confirme sua identidade usando a Metamask, é grátis.</p>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'normal', mb: 2 }}>
+                        Confirme sua identidade usando a Metamask, é grátis.
+                    </Typography>
                 </MetamaskConnectedAndDjangoDisconnected>
                 <DjangoAndMetamaskConnected>
-                    <CreateProfilePage />
-   
-    <IntegratedLogoutButton />
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'normal', mb: 2 }}>
+                        Aqui vai o conteúdo do dashboard.
+                    </Typography>
 
+                    <IntegratedLogoutButton />
                 </DjangoAndMetamaskConnected>
-
             </div>
         </MainLayout>
     );
