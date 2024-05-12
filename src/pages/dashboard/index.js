@@ -2,13 +2,14 @@ import React from 'react';
 import MainLayout from '@/layouts/dashboard/MainLayout';
 import { Typography, Box } from '@mui/material';
 import {
-  DjangoDisconnected,
-  DjangoAndMetamaskDisconnected,
-  DjangoAndMetamaskConnected,
-  MetamaskConnectedAndDjangoDisconnected,
+    DjangoDisconnected,
+    DjangoAndMetamaskDisconnected,
+    DjangoAndMetamaskConnected,
+    MetamaskConnectedAndDjangoDisconnected,
+    IntegratedLoginButton,
+    IntegratedLogoutButton,
 } from '@/components';
-import IntegratedLoginButton from '@/components/auth/buttons/IntegratedLoginButton';
-import IntegratedLogoutButton from '@/components/auth/buttons/IntegratedLogoutButton';
+
 
 export default function Dashboard() {
     return (

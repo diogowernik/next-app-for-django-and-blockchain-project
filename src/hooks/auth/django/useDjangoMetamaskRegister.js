@@ -1,6 +1,6 @@
 // @hooks/django/useDjangoMetamaskRegister
 
-import { djangoMetamaskRegister } from '@/api/django_auth';
+import { djangoMetamaskRegister } from '@/api/djangoAuth';
 
 export const useDjangoMetamaskRegister = (setLoading, enqueueSnackbar) => {
     const performDjangoMetamaskRegister = async (address, signature) => {

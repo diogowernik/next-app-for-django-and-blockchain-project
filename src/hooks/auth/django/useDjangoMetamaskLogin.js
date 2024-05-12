@@ -1,6 +1,6 @@
 // @hooks/django/useDjangoMetamaskLogin
 
-import { djangoMetamaskLogin } from '@/api/django_auth';
+import { djangoMetamaskLogin } from '@/api/djangoAuth';
 
 export const useDjangoMetamaskLogin = (setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar) => {
     const performDjangoMetamaskLogin = async (ethereumAddress, signature, callback) => {

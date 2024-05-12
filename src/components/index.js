@@ -1,19 +1,13 @@
-// components/auth/index.js
-// Importar cada botão como um módulo padrão
-import MetaMaskConnectButton from './auth/buttons/MetaMaskConnectButton';
-import MetaMaskSignOutButton from './auth/buttons/MetaMaskSignOutButton';
-import DjangoRegisterButton from './auth/buttons/DjangoRegisterButton';
-import DjangoLoginButton from './auth/buttons/DjangoLoginButton';
-import DjangoLogoutButton from './auth/buttons/DjangoLogoutButton'; 
+// @components/index.js
 
-// Exportar os componentes
-export {
-  MetaMaskConnectButton,
-  MetaMaskSignOutButton,
-  DjangoRegisterButton,
-  DjangoLoginButton,
-  DjangoLogoutButton,
-};
+// Importar cada botão como um módulo padrão
+export { MetaMaskConnectButton } from './auth/buttons/MetaMaskConnectButton';
+export { MetaMaskSignOutButton } from './auth/buttons/MetaMaskSignOutButton';
+export { DjangoRegisterButton } from './auth/buttons/DjangoRegisterButton';
+export { DjangoLoginButton } from './auth/buttons/DjangoLoginButton';
+export { DjangoLogoutButton } from './auth/buttons/DjangoLogoutButton'; 
+export { IntegratedLoginButton } from './auth/buttons/IntegratedLoginButton';
+export { IntegratedLogoutButton } from './auth/buttons/IntegratedLogoutButton';
 
 // Exportando os wrappers (isto parece estar correto já)
 export { MetaMaskConnected } from './auth/wrappers/MetaMaskConnected';

@@ -4,7 +4,7 @@ import { useMetamaskSignatureForDjangoLogin } from '@/hooks';
 import Button from '@mui/material/Button'; // Importando o Button do Material-UI
 
 
-const IntegratedLoginButton = () => {
+export const IntegratedLoginButton = () => {
     const { 
         metamaskConnect, 
         metamaskIsAuthenticated,
@@ -37,4 +37,3 @@ const IntegratedLoginButton = () => {
     );
 };
 
-export default IntegratedLoginButton;

@@ -1,6 +1,6 @@
 // @hooks/django/useDjangoRegister
 
-import { djangoRegister } from '@/api/django_auth';  // Importe a API de registro
+import { djangoRegister } from '@/api/djangoAuth';  // Importe a API de registro
 
 export const useDjangoRegister = (setLoading, enqueueSnackbar) => {
     const performDjangoRegister = async (address, signature) => {

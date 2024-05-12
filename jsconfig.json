@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "./", // Certifique-se de que baseUrl está definido
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src/**/*"] // Isso garante que todos os arquivos sob src estão incluídos
 }
