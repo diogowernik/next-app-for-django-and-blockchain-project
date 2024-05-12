@@ -8,7 +8,7 @@ import {
     MetamaskConnectedAndDjangoDisconnected,
     IntegratedLoginButton,
     IntegratedLogoutButton,
-} from '@/components';
+} from '@/components/auth';
 
 
 export default function Dashboard() {

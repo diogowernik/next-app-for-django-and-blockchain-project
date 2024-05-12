@@ -12,7 +12,7 @@ import {
   DjangoLogoutButton,
   DjangoAndMetamaskDisconnected,
   DjangoAndMetamaskConnected,
-} from '@/components';
+} from '@/components/auth';
 import IntegratedLoginButton from '@/components/auth/buttons/IntegratedLoginButton';
 import IntegratedLogoutButton from '@/components/auth/buttons/IntegratedLogoutButton';
 

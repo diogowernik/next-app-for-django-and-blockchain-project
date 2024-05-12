@@ -1,5 +1,5 @@
 import MainLayout from '@/layouts/dashboard/MainLayout';
-import CreateProfilePage from '@/components/wtree-profile/CreateProfilePage';
+import { CreateProfilePage } from '@/components/profile';
 import { Box, Typography } from '@mui/material';
 
 export default function CreateProfileForm() {

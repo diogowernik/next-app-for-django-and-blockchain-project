@@ -24,7 +24,7 @@ const networks = [
     
 ];
 
-const CreateProfilePage = () => {
+export const CreateProfilePage = () => {
     const [username, setUsername] = useState('');
     const [avatar, setAvatar] = useState('');
     const [description, setDescription] = useState('');
@@ -95,5 +95,3 @@ const CreateProfilePage = () => {
         </MobileWrapper>
     );
 };
-
-export default CreateProfilePage;
