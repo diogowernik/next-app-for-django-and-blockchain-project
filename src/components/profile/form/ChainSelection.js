@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Avatar, Typography, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const NetworkItem = styled('div')(({ theme }) => ({
+const ChainItem = styled('div')(({ theme }) => ({
     width: '100%', // Uso total da largura disponível
     display: 'flex',
     justifyContent: 'space-between',
@@ -17,14 +17,14 @@ const NetworkItem = styled('div')(({ theme }) => ({
     },
 }));
 
-const NetworkSelection = ({ network, icon, selected, onToggle }) => (
-    <NetworkItem>
+const ChainSelection = ({ chain, icon, selected, onToggle }) => (
+    <ChainItem>
         <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-            <Tooltip title={network} placement="left" arrow>
-                <Avatar src={`${icon}`} alt={network} style={{ marginRight: 8, width: 40, height: 40 }} />
+            <Tooltip title={chain} placement="left" arrow>
+                <Avatar src={`${icon}`} alt={chain} style={{ marginRight: 8, width: 40, height: 40 }} />
             </Tooltip>
             <Typography variant="body1" style={{ flexGrow: 1 }}>
-                {network}
+                {chain}
             </Typography>
         </div>
         <Switch
@@ -32,7 +32,7 @@ const NetworkSelection = ({ network, icon, selected, onToggle }) => (
             onChange={onToggle}
             color="primary"
         />
-    </NetworkItem>
+    </ChainItem>
 );
 
-export default NetworkSelection;
+export default ChainSelection;

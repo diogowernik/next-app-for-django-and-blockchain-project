@@ -1,1 +1,1 @@
-export {CreateProfilePage} from './CreateProfilePage';
+export {CreateWtreeProfile} from './CreateWtreeProfile';

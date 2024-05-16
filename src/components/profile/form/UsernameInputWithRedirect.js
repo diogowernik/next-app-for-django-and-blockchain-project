@@ -45,7 +45,7 @@ const UsernameInputWithRedirect = ({ username, setUsername }) => {
             </div>
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div>
-                <span style={{ fontWeight: 'bold' }}>Sua URL: </span>https://wtr.ee/{username || "seu-apelido"}
+                <span style={{ fontWeight: 'bold' }}>Sua URL: </span>https://wtr.ee/{username || "your.username"}
             </div>
         </div>
     );

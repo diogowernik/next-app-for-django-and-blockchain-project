@@ -1,4 +1,4 @@
-// @pages/portfolio/[id].js
+// @pages/portfolio/[portfolio_id]/index.js (PortfolioPage)
 
 import React from 'react';
 import { useRouter } from 'next/router';
@@ -7,12 +7,12 @@ import PortfolioAssetsGrid from '@/components/portfolio/PortfolioAssetsGrid';
 
 const PortfolioPage = () => {
     const router = useRouter();
-    const { id } = router.query;
+    const { portfolio_id } = router.query;
 
-    if (!id) return <p>Loading...</p>;  // Verifique se o ID está definido
+    if (!portfolio_id) return <p>Loading...</p>;  // Verifique se o ID está definido
 
     return (
-        <MainLayout portfolioId={id}>
+        <MainLayout portfolioId={portfolio_id}>
             <PortfolioAssetsGrid />
         </MainLayout>
     );

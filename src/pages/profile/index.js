@@ -1,6 +1,7 @@
 import React from 'react';
 import MainLayout from '@/layouts/dashboard/MainLayout';
 import { Typography, Box } from '@mui/material';
+
 import {
     DjangoDisconnected,
     DjangoAndMetamaskDisconnected,
@@ -11,7 +12,7 @@ import {
 } from '@/components/auth';
 
 
-export default function Dashboard() {
+export default function WtreeDashboard() {
     return (
         <MainLayout>
             <Box borderBottom={1} borderColor="divider" mb={2} mt={2}>
