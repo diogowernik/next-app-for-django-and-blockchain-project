@@ -103,6 +103,15 @@ This is the file structure of the project. The project is divided into several f
       │   │   ├── WalletManager.js
       │   │   ├── Web3Initializer.js
       │   └── index.js
+          ├── contract/
+          │   ├── index.js
+          │   ├── ContractManager.js
+          │   ├── getContract.js
+          │   └── config/
+          │       ├── networkConfig.js
+          │       └── abis/
+          │           ├── TokenTransferGateway.json
+│     
       ├── styles
       │   ├── global.css
       │   └── theme.js
@@ -113,5 +122,5 @@ This is the file structure of the project. The project is divided into several f
       │   │   ├── DeleteDialog.js
       │   │   ├── DynamicFilters.js
       │   │   ├── index.js
-      │   │   └── request.js
+      │   └── request.js
 ```

@@ -7,9 +7,10 @@ import UsernameInput from './form/UsernameInput';
 import AvatarUpload from './form/AvatarUpload';
 import DescriptionInput from './form/DescriptionInput';  
 import CryptoSelection from './form/CryptoSelection';
-import ChainSelection from './form/ChainSelection'; 
+import NetworkSelection from './form/NetworkSelection'; 
 import MobileWrapper from './form/MobileWrapper';
 
+// simulação no caso talvez tenha que mudar para comunicar com api e contract. Native e Token
 const cryptos = [
     { id: 'usdt', name: 'USDT (Theter)', icon: '/icons/usdt.png' },
     { id: 'usdc', name: 'USDC (USD Coin)', icon: '/icons/usdc.png' },
@@ -18,7 +19,8 @@ const cryptos = [
     { id: 'bnb', name: 'BNB (Bincance Coin)', icon: '/icons/bnb.png' },
 ];
 
-const chains = [
+// será que vale a pena mudar o nome para networks?
+const networks = [
     { id: 'ethereum', name: 'Ethereum (Ethereum Chain)', icon: '/icons/eth.png' },
     { id: 'polygon', name: 'Polygon (Matic)', icon: '/icons/matic.png' },
     { id: 'bnb', name: 'BNB (Binance Smart Chain)' , icon: '/icons/bnb.png' },
@@ -30,7 +32,7 @@ export const CreateWtreeProfile = () => {
     const [avatar, setAvatar] = useState('');
     const [description, setDescription] = useState('');
     const [selectedCryptos, setSelectedCryptos] = useState([]);
-    const [selectedChains, setSelectedChain] = useState('');
+    const [selectedNetworks, setSelectedNetwork] = useState('');
 
     // Esta função pode ser expandida com lógica de API
     const handleSaveProfile = async () => {
@@ -43,12 +45,12 @@ export const CreateWtreeProfile = () => {
             setSelectedCryptos([...selectedCryptos, cryptoId]);
         }
     }
-    const handleChainSelection = (chainId) => {
-        if (selectedChains.includes(chainId)) {
-            setSelectedChain(selectedChains.filter(id => id !== chainId));
+    const handleNetworkSelection = (networkId) => {
+        if (selectedNetworks.includes(networkId)) {
+            setSelectedNetwork(selectedNetworks.filter(id => id !== networkId));
         }
         else {
-            setSelectedChain([...selectedChains, chainId]);
+            setSelectedNetwork([...selectedNetworks, networkId]);
         }
     }
 
@@ -79,15 +81,15 @@ export const CreateWtreeProfile = () => {
                 />
             ))}
             <Typography variant="h6" style={{ alignSelf: 'center', margin: '15px' }}>
-                Which Chains Do You Use?
+                Which Blockchain Do You Use?
             </Typography>
-            {chains.map(chain => (
-                <ChainSelection
-                    key={chain.id}
-                    chain={chain.name}
-                    icon={chain.icon}
-                    selected={selectedChains.includes(chain.id)}
-                    onToggle={() => handleChainSelection(chain.id)}
+            {networks.map(network => (
+                <NetworkSelection
+                    key={network.id}
+                    network={network.name}
+                    icon={network.icon}
+                    selected={selectedNetworks.includes(network.id)}
+                    onToggle={() => handleNetworkSelection(network.id)}
                 />
             ))}
             <Button variant="contained" color="primary" onClick={handleSaveProfile} sx={{ margin: 2}}>
