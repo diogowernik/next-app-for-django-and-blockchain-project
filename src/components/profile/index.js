@@ -1,1 +1,2 @@
-export {CreateWtreeProfile} from './CreateWtreeProfile';
+export {WtreeProfileCreate} from './WtreeProfileCreate';
+export {WtreeProfileView} from './WtreeProfileView';

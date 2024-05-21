@@ -24,6 +24,7 @@ const DashboardNavbar = () => {
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
+        <img src="/white-logo.png" alt="Wallet Tree Logo" style={{ height: '25px', marginRight: '20px' }} />
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Wallet Tree
         </Typography>

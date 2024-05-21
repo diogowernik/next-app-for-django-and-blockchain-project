@@ -1,5 +1,5 @@
 import MainLayout from '@/layouts/dashboard/MainLayout';
-import { CreateWtreeProfile } from '@/components/profile';
+import { WtreeProfileCreate } from '@/components/profile';
 import { Box, Typography } from '@mui/material';
 
 export default function CreateProfileForm() {
@@ -10,7 +10,7 @@ export default function CreateProfileForm() {
                     Create a WalletTree Profile
                 </Typography> {/* Usando h5 para fonte um pouco menor */}
             </Box>
-            <CreateWtreeProfile />
+            < WtreeProfileCreate />
         </MainLayout>
     );
 }

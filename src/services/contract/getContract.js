@@ -1,7 +1,7 @@
 // @/services/contract/getContract.js
 
 import Web3 from 'web3'; // Esta importação não é necessária aqui, removê-la
-import networkConfig from './config/networkConfig';
+import blockchainConfig from './config/blockchainConfig';
 import TransferGatewayABI from './abis/TransferGateway.json';
 import WtreeTokenABI from './abis/WtreeToken.json';
 
@@ -13,16 +13,16 @@ const abis = {
 /**
  * Obtem uma instância de um contrato com base no nome e na rede.
  *
- * @param {string} contractName - Nome do contrato conforme chave em abis e networkConfig
- * @param {string} network - Nome da rede conforme chave em networkConfig
+ * @param {string} contractName - Nome do contrato conforme chave em abis e blockchainConfig
+ * @param {string} blockchain - Nome da rede conforme chave em blockchainConfig
  * @param {Web3} web3 - Instância de Web3 inicializada
  * @returns {Object} Instância do contrato Web3
  */
-function getContract(contractName, network, web3) {
+function getContract(contractName, blockchain, web3) {
   // Obtem o endereço do contrato da configuração de rede baseada no nome do contrato e na rede
-  const contractAddress = networkConfig[network][contractName];
+  const contractAddress = blockchainConfig[blockchain][contractName];
   if (!contractAddress) {
-    throw new Error(`Endereço do contrato não encontrado para ${contractName} na rede ${network}`);
+    throw new Error(`Endereço do contrato não encontrado para ${contractName} na rede ${blockchain}`);
   }
 
   // Obtem a ABI do contrato com base no nome do contrato

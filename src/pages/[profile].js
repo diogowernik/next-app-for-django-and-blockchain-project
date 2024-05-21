@@ -1,13 +1,9 @@
-import { useRouter } from 'next/router';
+// @/pages/[profile].js
 
-export default function Profile() {
-  const router = useRouter();
-  const { username } = router.query;
+import WtreeProfileView from "@/components/profile/WtreeProfileView";
 
-  return (
-    <div>
-      <h1>Perfil de Usuário: {username}</h1>
-      {/* Conteúdo do perfil do usuário */}
-    </div>
-  );
+export default function WtreeProfile() {
+    return (
+        <WtreeProfileView />
+    );
 }

@@ -1,7 +1,7 @@
 // @/services/contract/ContractManager.js
 
 import getContract from './getContract';
-import networkConfig from './config/networkConfig';
+import blockchainConfig from './config/blockchainConfig';
 
 class ContractManager {
     constructor(web3) {
@@ -9,8 +9,8 @@ class ContractManager {
         this.contracts = {};
     }
 
-    loadContract(contractName, network) {
-        const contractAddress = networkConfig[network][contractName];
+    loadContract(contractName, blockchain) {
+        const contractAddress = blockchainConfig[blockchain][contractName];
         const contract = getContract(contractName, contractAddress, this.web3);
         this.contracts[contractName] = contract;
         return contract;

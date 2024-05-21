@@ -7,8 +7,8 @@ import CallReceivedIcon from '@mui/icons-material/CallReceived';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 
 const menuItems = [
-  { text: 'My Wallets', icon: <AccountBalanceWalletIcon /> },
   { text: 'My WTree Pages', icon: <PagesIcon /> },
+  { text: 'My Wallets', icon: <AccountBalanceWalletIcon /> },
   { text: 'Settings', icon: <SettingsIcon /> },
   { text: 'Analytics', icon: <AnalyticsIcon /> },
   { text: 'Received Donations', icon: <CallReceivedIcon /> },

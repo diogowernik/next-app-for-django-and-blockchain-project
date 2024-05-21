@@ -12,6 +12,7 @@ const ResponsiveAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" color="default" sx={{ boxShadow: 'none' }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <img src="/grey-logo.png" alt="Wallet Tree Logo" style={{ height: '25px', marginRight: '20px' }} />
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Wallet Tree
           </Typography>
