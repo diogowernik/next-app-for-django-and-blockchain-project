@@ -2,18 +2,16 @@
 import { createTheme } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 
-const theme = createTheme({
+const defaultTheme = createTheme({
   palette: {
     primary: {
       main: '#2E8B57',  // Cor verde principal
       dark: '#206040'  // Verde mais escuro para hover
     },
-    // grey 
     secondary: {
-      main: '#7E7E7E', // Cor cinza principal
-      dark: '#5E5E5E'  // Cinza mais escuro para hover
-    },
-
+        main: '#7E7E7E', // Cor cinza principal
+        dark: '#5E5E5E'  // Cinza mais escuro para hover
+      },
     background: {
       default: '#f3f3f3',
       paper: '#e6e6e6'
@@ -56,4 +54,4 @@ const theme = createTheme({
   }
 });
 
-export default theme;
+export default defaultTheme;

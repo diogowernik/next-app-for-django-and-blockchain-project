@@ -1,8 +1,9 @@
 // @layouts/dashboard/DashboardNavbar.js
 
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Avatar, IconButton, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import WtreeIcon from '@/components/ui/WtreeIcon';
 
 const DashboardNavbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,8 +25,8 @@ const DashboardNavbar = () => {
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
-        <img src="/white-logo.png" alt="Wallet Tree Logo" style={{ height: '25px', marginRight: '20px' }} />
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+        <WtreeIcon color="white" width="90px" />
+        <Typography variant="h6" sx={{ flexGrow: 1, marginLeft: '20px' }}>
           Wallet Tree
         </Typography>
         <IconButton
