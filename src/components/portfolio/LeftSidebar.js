@@ -3,7 +3,7 @@
 import React from 'react';
 import { Grid, List, ListItem, ListItemText } from '@mui/material';
 
-const LeftSidebar = () => {
+export const LeftSidebar = () => {
     return (
         <Grid item xs={1.6} sx={{ borderRight: 1, borderColor: 'divider' }}>
             <List>
@@ -24,4 +24,3 @@ const LeftSidebar = () => {
     );
 };
 
-export default LeftSidebar;

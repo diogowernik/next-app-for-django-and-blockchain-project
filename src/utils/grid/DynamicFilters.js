@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField } from '@mui/material';
 
-function DynamicFilters({ filters, setFilters }) {
+export function DynamicFilters({ filters, setFilters }) {
   return (
     <>
       {Object.keys(filters).map((key) => (
@@ -18,4 +18,3 @@ function DynamicFilters({ filters, setFilters }) {
   );
 }
 
-export default DynamicFilters;

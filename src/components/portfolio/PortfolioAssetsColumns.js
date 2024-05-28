@@ -1,9 +1,7 @@
-// @/components/portfolio-assets/portfolioAssetsColumns.js
-
 import React from 'react';
-import DeleteCellComponent from '@/utils/grid/DeleteCellComponent';
+import { DeleteCellComponent } from '@/utils/grid/DeleteCellComponent';
 
-export function getColumns(handleDialogOpen) {
+export function PortfolioAssetsColumns(handleDialogOpen) {
     return [
         { field: 'id', headerName: 'ID', width: 90 },
         { field: 'ticker', headerName: 'Ticker', width: 130, editable: false },
@@ -17,5 +15,3 @@ export function getColumns(handleDialogOpen) {
         )},        
     ];
 }
-
-export default getColumns;

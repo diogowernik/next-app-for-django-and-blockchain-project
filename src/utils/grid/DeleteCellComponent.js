@@ -18,7 +18,7 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
   marginTop: '10px',
 }));
 
-const DeleteCellComponent = ({ handleDialogOpen, id }) => (
+export const DeleteCellComponent = ({ handleDialogOpen, id }) => (
   <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
     <CustomIconButton
       onClick={() => handleDialogOpen(id)}
@@ -29,4 +29,3 @@ const DeleteCellComponent = ({ handleDialogOpen, id }) => (
   </div>
 );
 
-export default DeleteCellComponent;

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 
-const DeleteDialog = ({ open, handleClose, handleDeleteConfirmed }) => {
+export const DeleteDialog = ({ open, handleClose, handleDeleteConfirmed }) => {
     return (
         <Dialog
             open={open}
@@ -25,4 +25,3 @@ const DeleteDialog = ({ open, handleClose, handleDeleteConfirmed }) => {
     );
 };
 
-export default DeleteDialog;

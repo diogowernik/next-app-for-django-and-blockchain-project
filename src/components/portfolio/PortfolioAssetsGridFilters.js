@@ -4,8 +4,8 @@ import React from 'react';
 import { CircularProgress } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
-import PortfolioAssetsColumns from './PortfolioAssetsColumns';
-import DynamicFilters from '@/utils/grid/DynamicFilters';
+import { getColumns as PortfolioAssetsColumns } from './PortfolioAssetsColumns';
+import { DynamicFilters } from '@/utils/grid/DynamicFilters';
 import { useAuth } from '@/context/AuthContext';
 import { usePortfolio } from '@/context/PortfolioContext'; // Import usePortfolio
 import { useGridManagement, useDynamicFilters, useDeleteAction } from '@/hooks'; 

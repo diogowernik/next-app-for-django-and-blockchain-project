@@ -1,7 +1,7 @@
 // @/hooks/grid/useDeleteAction.js
 
 import { useState, useCallback } from 'react';
-import DeleteDialog from '@/utils/grid/DeleteDialog';
+import { DeleteDialog } from '@/utils/grid/DeleteDialog';
 
 export const useDeleteAction = (deleteFunction) => {
     const [openDialog, setOpenDialog] = useState(false);

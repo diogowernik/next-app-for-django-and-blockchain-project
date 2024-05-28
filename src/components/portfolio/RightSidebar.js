@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, List, ListItem, ListItemText, Typography, Button } from '@mui/material';
 
-const RightSidebar = ({ brokers, categories, handleFilterUpdate, clearAllFilters, clearBrokerFilters, clearCategoryFilters, filters }) => {
+export const RightSidebar = ({ brokers, categories, handleFilterUpdate, clearAllFilters, clearBrokerFilters, clearCategoryFilters, filters }) => {
     const brokerFilter = filters && filters.broker;
     const categoryFilter = filters && filters.category;
 
@@ -34,4 +34,3 @@ const RightSidebar = ({ brokers, categories, handleFilterUpdate, clearAllFilters
     );
 };
 
-export default RightSidebar;

@@ -1,15 +1,23 @@
 // @/components/portfolio/PortfolioAssetsManager.js
 
 import React from 'react';
-import { Grid, CircularProgress } from '@mui/material';
+import { Grid, CircularProgress, Button } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
-import DynamicFilters from '@/utils/grid/DynamicFilters';
+import { DynamicFilters } from '@/utils/grid/DynamicFilters';
 
-const PortfolioAssetsManager = ({ filters, setFilters, loading, error, filteredAssets, columns, handleProcessRowUpdate, renderDeleteDialog }) => {
+export const PortfolioAssetsManager = ({ filters, setFilters, loading, error, filteredAssets, columns, handleProcessRowUpdate, renderDeleteDialog, addAsset }) => {
+
     return (
         <Grid item xs={8}>
             <DynamicFilters filters={filters} setFilters={setFilters} />
+            <Button
+                variant="contained"
+                sx={{ position: 'relative', float: 'right', mt: 3, mr: 2 }}
+                onClick={addAsset}
+            >
+                Add Asset
+            </Button>
             {loading ? (
                 <CircularProgress />
             ) : error ? (
@@ -33,4 +41,3 @@ const PortfolioAssetsManager = ({ filters, setFilters, loading, error, filteredA
     );
 };
 
-export default PortfolioAssetsManager;

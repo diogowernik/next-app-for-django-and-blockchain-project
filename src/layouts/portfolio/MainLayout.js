@@ -3,7 +3,7 @@
 import React from 'react';
 import { PortfolioProvider } from '@/context/PortfolioContext';
 
-const MainLayout = ({ children, portfolioId }) => {
+export const MainLayout = ({ children, portfolioId }) => {
     return (
         <PortfolioProvider portfolioId={portfolioId}>
             {children}
@@ -11,4 +11,4 @@ const MainLayout = ({ children, portfolioId }) => {
     );
 };
 
-export default MainLayout;
+

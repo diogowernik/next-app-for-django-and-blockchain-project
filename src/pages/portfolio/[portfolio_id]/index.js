@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/router';
-import MainLayout from '@/layouts/portfolio/MainLayout';
-import PortfolioAssetsGrid from '@/components/portfolio/PortfolioAssetsGrid';
+import { MainLayout } from '@/layouts/portfolio/MainLayout';
+import { PortfolioAssetsGrid } from '@/components/portfolio/PortfolioAssetsGrid';
 
 const PortfolioPage = () => {
     const router = useRouter();

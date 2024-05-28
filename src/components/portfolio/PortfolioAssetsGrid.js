@@ -1,13 +1,13 @@
 import { Box, Grid } from '@mui/material';
-import PortfolioAssetsColumns from './PortfolioAssetsColumns';
+import { PortfolioAssetsColumns } from './PortfolioAssetsColumns';
 import { useAuth } from '@/context/AuthContext';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { useGridManagement, useDynamicFilters, useDeleteAction } from '@/hooks';
-import LeftSidebar from './LeftSidebar';
-import RightSidebar from './RightSidebar';
-import PortfolioAssetsManager from './PortfolioAssetsManager';
+import { LeftSidebar } from './LeftSidebar';
+import { RightSidebar } from './RightSidebar';
+import { PortfolioAssetsManager } from './PortfolioAssetsManager';
 
-const PortfolioAssetsGrid = () => {
+export const PortfolioAssetsGrid = () => {
     const { djangoToken } = useAuth();
     const { portfolioAssets, setPortfolioAssets, loading, error, categories, brokers } = usePortfolio();
     const { filteredAssets, filters, setFilter, clearFilters, clearFilterByKey } = useDynamicFilters(portfolioAssets, { category: '', broker: '' });
@@ -16,11 +16,17 @@ const PortfolioAssetsGrid = () => {
     const { handleDialogOpen, renderDeleteDialog } = useDeleteAction(handleDeleteAsset);
     const columns = PortfolioAssetsColumns(handleDialogOpen);
 
+    const addAsset = () => {
+        // Pode abrir um modal aqui para adicionar novos ativos
+        // ou chamar diretamente addPortfolioAsset(data, djangoToken);
+    };
+
     return (
         <Box sx={{ display: 'flex', height: 700 }}>
             <Grid container>
                 <LeftSidebar />
                 <PortfolioAssetsManager
+                    addAsset={addAsset}
                     filters={filters}
                     setFilters={setFilter} // Aqui, use setFilter em vez de setFilters
                     loading={loading}
@@ -44,4 +50,3 @@ const PortfolioAssetsGrid = () => {
     );
 };
 
-export default PortfolioAssetsGrid;
