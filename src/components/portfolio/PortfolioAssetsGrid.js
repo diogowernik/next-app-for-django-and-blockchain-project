@@ -16,17 +16,12 @@ export const PortfolioAssetsGrid = () => {
     const { handleDialogOpen, renderDeleteDialog } = useDeleteAction(handleDeleteAsset);
     const columns = PortfolioAssetsColumns(handleDialogOpen);
 
-    const addAsset = () => {
-        // Pode abrir um modal aqui para adicionar novos ativos
-        // ou chamar diretamente addPortfolioAsset(data, djangoToken);
-    };
-
     return (
         <Box sx={{ display: 'flex', height: 700 }}>
             <Grid container>
                 <LeftSidebar />
                 <PortfolioAssetsManager
-                    addAsset={addAsset}
+                    djangoToken={djangoToken}
                     filters={filters}
                     setFilters={setFilter} // Aqui, use setFilter em vez de setFilters
                     loading={loading}

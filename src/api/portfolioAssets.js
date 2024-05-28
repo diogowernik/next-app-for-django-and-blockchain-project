@@ -1,4 +1,4 @@
-// @api/portfolio_assets.js
+// @api/portfolioAssets.js
 
 import { request } from '@/utils';
 
@@ -8,7 +8,7 @@ export function fetchPortfolioAssets(id, token) {
 }
  
 export function addPortfolioAsset(data, token) {
-    return request('/api/portfolio_assets/', { data, token, method: 'POST', message: 'Ativo adicionado com sucesso' });
+    return request('/api/add-portfolio-asset', { data, token, method: 'POST', message: 'Ativo adicionado com sucesso' });
 }
 
 export function updatePortfolioAsset(id, data, token) {
