@@ -1,18 +1,24 @@
-// src/context/PortfolioContext.js
+// @/context/PortfolioContext
 
 import React, { createContext, useContext } from 'react';
 import { useFetchPortfolioAssets } from '@/hooks';
 import { useAuth } from '@/context/AuthContext';
+import { useExtractedField } from '@/hooks/data/useExtractedField';
 
-export const PortfolioContext = createContext(null);  // Assegure-se de que o contexto é exportado
+export const PortfolioContext = createContext(null);
 
 export const PortfolioProvider = ({ children, portfolioId }) => {
     const { djangoToken } = useAuth();
     const { portfolioAssets, setPortfolioAssets, loading, error } = useFetchPortfolioAssets(portfolioId, djangoToken);
 
+    const categories = useExtractedField(portfolioAssets, 'category');
+    const brokers = useExtractedField(portfolioAssets, 'broker');
+
     const value = {
         portfolioAssets,
         setPortfolioAssets,
+        categories,
+        brokers,
         loading,
         error
     };

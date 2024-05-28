@@ -28,6 +28,9 @@ const theme = createTheme({
     },
     subtitle1: {
       fontSize: '1.25rem',  // Ideal entre body1 e h6
+    },
+    subtitle2: {
+      fontSize: '1rem',  // Ideal entre body1 e body2
     }
   },
   components: {

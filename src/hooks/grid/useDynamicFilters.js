@@ -1,19 +1,29 @@
-// @/hooks/pages/useDynamicFilters.js
+import { useState, useEffect, useCallback } from 'react';
 
-import { useState, useEffect } from 'react';
-
-export const useDynamicFilters = (assets, filterKeys) => {
-    const [filters, setFilters] = useState(filterKeys);
+export const useDynamicFilters = (assets, initialFilters) => {
+    const [filters, setFilters] = useState(initialFilters);
     const [filteredAssets, setFilteredAssets] = useState([]);
 
     useEffect(() => {
-        const filtered = assets.filter(asset => {
-            return Object.keys(filters).every(key => {
-                return asset[key].toLowerCase().includes(filters[key].toLowerCase());
-            });
-        });
+        const filtered = assets.filter(asset => 
+            Object.keys(filters).every(key => 
+                asset[key].toLowerCase().includes(filters[key].toLowerCase())
+            )
+        );
         setFilteredAssets(filtered);
     }, [filters, assets]);
 
-    return { filteredAssets, filters, setFilters };
+    const setFilter = useCallback((type, value) => {
+        setFilters(prev => ({ ...prev, [type]: value }));
+    }, [setFilters]);
+
+    const clearFilters = () => {
+        setFilters(initialFilters);
+    };
+
+    const clearFilterByKey = useCallback((key) => {
+        setFilters(prev => ({ ...prev, [key]: '' }));
+    }, []);
+
+    return { filteredAssets, filters, setFilters, setFilter, clearFilters, clearFilterByKey };
 };
