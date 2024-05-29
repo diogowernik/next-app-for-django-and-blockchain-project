@@ -1,53 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
-import { useFetchAssets } from '@/hooks/fetch/useFetchAssets';
+import React, { useState } from 'react';
+import { AssetSelector } from './AssetSelector';
 
 export const PortfolioAssetForm = ({ onSubmit, portfolioId, token }) => {
-    const { assets, loading, error } = useFetchAssets(token);
-
     const [selectedAsset, setSelectedAsset] = useState(null);
     const [sharesAmount, setSharesAmount] = useState('');
-    const [selectedBrokerId, setSelectedBrokerId] = useState(2);  // Definindo o ID do broker padrão
+    const [sharePriceBRL, setSharePriceBRL] = useState('');
+    const [sharePriceUSD, setSharePriceUSD] = useState('');
+    const [selectedBrokerId, setSelectedBrokerId] = useState(2); 
 
-    useEffect(() => {
-        if (assets.length > 0 && !selectedAsset) {
-            setSelectedAsset(assets[0]);
-        }
-    }, [assets, selectedAsset]);
-
-    const assetOptions = assets.map(asset => ({
-        value: asset.id,
-        label: `${asset.ticker} - R$ ${asset.price_brl.toFixed(2)} | U$ ${asset.price_usd.toFixed(2)}`
-    }));
-
-    const handleSelectAsset = option => {
-        setSelectedAsset(assets.find(asset => asset.id === option.value));
-    };
-
-    const handleSubmit = event => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Garanta que o portfolioId seja um número
         const numericPortfolioId = Number(portfolioId);
-        onSubmit({
-            portfolio: numericPortfolioId,
-            asset: selectedAsset.id,
-            broker: selectedBrokerId,
-            sharesAmount: parseFloat(sharesAmount),
-            sharePriceBRL: parseFloat(selectedAsset.price_brl.toFixed(2)),  // Arredondando para 2 casas decimais
-            sharePriceUSD: parseFloat(selectedAsset.price_usd.toFixed(2))  // Arredondando para 2 casas decimais
-        });
-        console.log('submitted data:', {
-            portfolioId: numericPortfolioId,
-            assetId: selectedAsset.id,
-            brokerId: selectedBrokerId,
-            sharesAmount: parseFloat(sharesAmount),
-            sharePriceBRL: selectedAsset.price_brl,
-            sharePriceUSD: selectedAsset.price_usd
-        });
+    
+        try {
+            const response = await onSubmit({
+                portfolio: numericPortfolioId,
+                asset: selectedAsset.id,
+                broker: selectedBrokerId,
+                shares_amount: sharesAmount,
+                share_average_price_brl: sharePriceBRL, 
+                share_average_price_usd: sharePriceUSD 
+            });
+            if (response.success) {
+                // mensagem de sucesso já é exibida no hook useAddPortfolioAsset
+            } else {
+                throw new Error(response.message || "Failed to add investment");
+            }
+        } catch (error) {
+            // Exibir mensagem de erro já é exibida no hook useAddPortfolioAsset
+        }
     };
+    
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <p>Error loading data: {error}</p>;
 
     return (
         <form onSubmit={handleSubmit}>
@@ -61,12 +45,12 @@ export const PortfolioAssetForm = ({ onSubmit, portfolioId, token }) => {
             </div>
             <div>
                 <label>Asset</label>
-                <Select
-                    options={assetOptions}
-                    value={assetOptions.find(option => option.value === selectedAsset?.id)}
-                    onChange={handleSelectAsset}
-                    className="basic-single"
-                    classNamePrefix="select"
+                <AssetSelector
+                    token={token}
+                    selectedAsset={selectedAsset}
+                    setSelectedAsset={setSelectedAsset}
+                    setSharePriceBRL={setSharePriceBRL}
+                    setSharePriceUSD={setSharePriceUSD}
                 />
             </div>
             <div>
@@ -91,16 +75,16 @@ export const PortfolioAssetForm = ({ onSubmit, portfolioId, token }) => {
                 <label>Share Average Price (BRL)</label>
                 <input
                     type="number"
-                    value={selectedAsset?.price_brl || ''}
-                    disabled
+                    value={sharePriceBRL}
+                    onChange={e => setSharePriceBRL(e.target.value)}
                 />
             </div>
             <div>
                 <label>Share Average Price (USD)</label>
                 <input
                     type="number"
-                    value={selectedAsset?.price_usd || ''}
-                    disabled
+                    value={sharePriceUSD}
+                    onChange={e => setSharePriceUSD(e.target.value)}
                 />
             </div>
             <button type="submit">Add Investment</button>

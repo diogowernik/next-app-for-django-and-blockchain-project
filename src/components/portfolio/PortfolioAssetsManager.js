@@ -7,12 +7,15 @@ import { DynamicFilters } from '@/utils/grid/DynamicFilters';
 import AddAssetModalButton from './AddAssetModalButton';
 
 export const PortfolioAssetsManager = ({
-  filters, setFilters, loading, error, filteredAssets, columns, handleProcessRowUpdate, renderDeleteDialog, djangoToken
+  filters, setFilters, loading, error, filteredAssets, columns, handleProcessRowUpdate, renderDeleteDialog, djangoToken, addAssetToGrid
 }) => {
   return (
     <Grid item xs={12} md={8}>
       <DynamicFilters filters={filters} setFilters={setFilters} />
-      <AddAssetModalButton djangoToken={djangoToken} />
+      <AddAssetModalButton 
+        djangoToken={djangoToken} 
+        addAssetToGrid={addAssetToGrid} // Passando addAssetToGrid como prop
+      />
       {loading ? (
         <CircularProgress />
       ) : error ? (

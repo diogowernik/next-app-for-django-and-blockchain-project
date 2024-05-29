@@ -10,7 +10,7 @@ import { PortfolioAssetsManager } from './PortfolioAssetsManager';
 export const PortfolioAssetsGrid = () => {
     const { djangoToken } = useAuth();
     const { portfolioAssets, setPortfolioAssets, loading, error, categories, brokers } = usePortfolio();
-    const { filteredAssets, filters, setFilter, clearFilters, clearFilterByKey } = useDynamicFilters(portfolioAssets, { category: '', broker: '' });
+    const { filteredAssets, filters, setFilter, clearFilters, clearFilterByKey, addAsset } = useDynamicFilters(portfolioAssets, { category: '', broker: '' });
 
     const { handleProcessRowUpdate, handleDeleteAsset } = useGridManagement(djangoToken, setPortfolioAssets);
     const { handleDialogOpen, renderDeleteDialog } = useDeleteAction(handleDeleteAsset);
@@ -23,13 +23,14 @@ export const PortfolioAssetsGrid = () => {
                 <PortfolioAssetsManager
                     djangoToken={djangoToken}
                     filters={filters}
-                    setFilters={setFilter} // Aqui, use setFilter em vez de setFilters
+                    setFilters={setFilter} // Use setFilter em vez de setFilters
                     loading={loading}
                     error={error}
                     filteredAssets={filteredAssets}
                     columns={columns}
                     handleProcessRowUpdate={handleProcessRowUpdate}
                     renderDeleteDialog={renderDeleteDialog}
+                    addAssetToGrid={addAsset}  // Adicionando a função addAsset como addAssetToGrid
                 />
                 <RightSidebar
                     brokers={brokers}
@@ -44,4 +45,3 @@ export const PortfolioAssetsGrid = () => {
         </Box>
     );
 };
-

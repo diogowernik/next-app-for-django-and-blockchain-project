@@ -6,13 +6,10 @@ import { useAddPortfolioAsset } from '@/hooks/create/useAddPortfolioAsset';
 import { PortfolioAssetForm } from './PortfolioAssetForm';
 import { useRouter } from 'next/router';
 
-const AddAssetModalButton = ({ djangoToken }) => {
-  const { isOpen, openModal, closeModal, handleAddAsset, isLoading, error } = useAddPortfolioAsset(djangoToken);
+const AddAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
+  const { isOpen, openModal, closeModal, handleAddAsset, isLoading, error } = useAddPortfolioAsset(djangoToken, addAssetToGrid);
   const router = useRouter();
-  // Corretamente extrair portfolio_id do router.query
   const portfolioId = router.query.portfolio_id;
-
-  console.log(portfolioId);  // Agora deve logar o ID do portfólio, como '2'
 
   return (
     <>
@@ -31,8 +28,9 @@ const AddAssetModalButton = ({ djangoToken }) => {
               {error && <Alert severity="error">{error}</Alert>}
               <PortfolioAssetForm 
                 onSubmit={handleAddAsset} 
-                portfolioId={portfolioId}  // Passar como uma string
-                token={djangoToken} />
+                portfolioId={portfolioId}
+                token={djangoToken}
+              />
             </>
           )}
         </Modal.Body>

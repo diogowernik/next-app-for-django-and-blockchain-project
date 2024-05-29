@@ -20,8 +20,9 @@ export async function request(path, { data = null, token = null, method = 'GET' 
 
     if (!response.ok) {
       // Se a resposta não for bem-sucedida, tentaremos analisar o JSON para extrair a mensagem de erro.
+      // o erro está aparecendo aqui 1 vez
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Unknown Error');
+      throw new Error('@/api/utils/request.js: ' + JSON.stringify(errorData)); // gosto do erro desta forma, pois fica completo e fácil de entender
     }
 
     // Para operações DELETE, que podem não retornar conteúdo.
