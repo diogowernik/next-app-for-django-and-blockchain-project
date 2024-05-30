@@ -11,7 +11,7 @@ export function DynamicFilters({ filters, setFilters }) {
           variant="outlined"
           value={filters[key]}
           onChange={e => setFilters(prev => ({ ...prev, [key]: e.target.value }))}
-          style={{ margin: 8 }}
+          style={{ margin: '0 10px 10px 0'}}
         />
       ))}
     </>

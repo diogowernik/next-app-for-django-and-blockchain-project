@@ -1,24 +1,26 @@
 // @/layouts/holding/admin/LeftSidebar
 
 import React from 'react';
-import { List, ListItem, ListItemText} from '@mui/material';
-import { FlexibleSidebarWrapper } from '@/layouts/shared/FlexibleSideBarWrapper';
+import { List, ListItem, ListItemText, Typography } from '@mui/material';
+import { LeftSidebarWrapper } from '@/layouts/shared/LeftSidebarWrapper';
 
 export const LeftSidebar = ({ isOpen, toggleSidebar }) => {
     return (
-        <FlexibleSidebarWrapper 
-            isOpen={isOpen} 
-            toggleSidebar={toggleSidebar} 
-            anchor="left" 
-            width={240}
-        >   
-            
-                <List>
-                    <ListItem><ListItemText primary="Admin" /></ListItem>
-                    <ListItem button><ListItemText primary="Portfolio Assets" /></ListItem>
-                    <ListItem button><ListItemText primary="Portfolio History" /></ListItem>
-                    <ListItem button><ListItemText primary="Portfolio Evolution" /></ListItem>
-                </List>
-        </FlexibleSidebarWrapper>
+        <LeftSidebarWrapper isOpen={isOpen} toggleSidebar={toggleSidebar} width={240}>
+            <List sx={{ width: '100%' }}>
+                <ListItem>
+                    <ListItemText primary={<Typography variant="subtitle2" component="div" sx={{ fontWeight: 'bold' }}>Admin</Typography>} />
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                    <ListItemText primary="Portfolio Assets" />
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                    <ListItemText primary="Portfolio History" />
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                    <ListItemText primary="Portfolio Evolution" />
+                </ListItem>
+            </List>
+        </LeftSidebarWrapper>
     );
 };

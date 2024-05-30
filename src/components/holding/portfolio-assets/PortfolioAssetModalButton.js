@@ -13,7 +13,7 @@ export const PortfolioAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
 
   return (
     <>
-      <Button onClick={openModal} variant="contained" color="primary" sx={{ float: 'right', mt: 3, mr: 2 }}>
+      <Button onClick={openModal} variant="contained" color="primary" sx={{ float: 'right', mt: 1, mr: 0 }}>
         Add Investiment
       </Button>
       <Modal show={isOpen} onHide={closeModal} centered>
