@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { Box, Grid } from '@mui/material';
 
 import { useAuth } from '@/context/AuthContext';
 import { usePortfolio } from '@/context/PortfolioContext';
 
 import { useGridManagement, useDynamicFilters, useDeleteAction } from '@/hooks';
+import usePersistentToggle from '@/hooks/sidebars/usePersistentToggle';
+
 
 import { LeftSidebar } from '@/layouts/holding/admin/LeftSidebar';
 import { RightSidebar } from '@/layouts/holding/admin/RightSidebar';
@@ -22,14 +24,19 @@ export const PortfolioAssetsAdmin = () => {
     const { handleDialogOpen, renderDeleteDialog } = useDeleteAction(handleDeleteAsset);
     const columns = PortfolioAssetsColumns(handleDialogOpen);
 
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+    // Initialize state with localStorage or default to false
+    const [leftSidebarOpen, toggleLeftSidebar] = usePersistentToggle('leftSidebarOpen', false);
+    const [rightSidebarOpen, toggleRightSidebar] = usePersistentToggle('rightSidebarOpen', false);
+
 
     return (
         <Box sx={{ display: 'flex', height: 700 }}>
             <Navbar />
             <Grid container sx={{ mt: 5 }}>
-                <LeftSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+                <LeftSidebar 
+                    isOpen={leftSidebarOpen}
+                    toggleSidebar={toggleLeftSidebar} 
+                />
                 <PortfolioAssetsGrid
                     djangoToken={djangoToken}
                     filters={filters}
@@ -50,6 +57,8 @@ export const PortfolioAssetsAdmin = () => {
                     clearBrokerFilters={() => clearFilterByKey('broker')}
                     clearCategoryFilters={() => clearFilterByKey('category')}
                     filters={filters}
+                    isOpen={rightSidebarOpen}
+                    toggleSidebar={toggleRightSidebar}
                 />
             </Grid>
         </Box>
