@@ -1,20 +1,20 @@
-// @pages/portfolio/[portfolio_id]/index.js (PortfolioPage)
+// @pages/holding/portfolios/[portfolio_id]/index
 
 import React from 'react';
 import { useRouter } from 'next/router';
-import { MainLayout } from '@/layouts/portfolio/MainLayout';
-import { PortfolioAssetsAdmin } from '@/components/holding/admin/PortfolioAssetsAdmin';
+import { PortfolioContextWrapper } from '@/layouts/holding/shared/PortfolioContextWrapper';
+import { PortfolioAssetsAdmin } from '@/components/holding/PortfolioAssetsAdmin';
 
 const PortfolioPage = () => {
     const router = useRouter();
     const { portfolio_id } = router.query;
 
-    if (!portfolio_id) return <p>Loading...</p>;  // Verifique se o ID está definido
+    if (!portfolio_id) return <p>Loading...</p>;  
 
     return (
-        <MainLayout portfolioId={portfolio_id}>
+        <PortfolioContextWrapper portfolioId={portfolio_id}>
             <PortfolioAssetsAdmin />
-        </MainLayout>
+        </PortfolioContextWrapper>
     );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLayout from '@/layouts/dashboard/MainLayout';
+import MainLayout from '@/layouts/dex/dashboard/MainLayout';
 import { Typography, Box } from '@mui/material';
 
 import {

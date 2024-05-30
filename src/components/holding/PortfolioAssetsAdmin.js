@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
 
 import { useAuth } from '@/context/AuthContext';
@@ -5,11 +6,12 @@ import { usePortfolio } from '@/context/PortfolioContext';
 
 import { useGridManagement, useDynamicFilters, useDeleteAction } from '@/hooks';
 
-import { LeftSidebar } from '@/layouts/portfolio/LeftSidebar';
-import { RightSidebar } from '@/layouts/portfolio/RightSidebar';
+import { LeftSidebar } from '@/layouts/holding/admin/LeftSidebar';
+import { RightSidebar } from '@/layouts/holding/admin/RightSidebar';
 
 import { PortfolioAssetsColumns } from '@/components/holding/portfolio-assets/PortfolioAssetsColumns';
 import { PortfolioAssetsGrid } from '@/components/holding/portfolio-assets/PortfolioAssetsGrid';
+import { Navbar } from '@/layouts/holding/admin/Navbar';
 
 export const PortfolioAssetsAdmin = () => {
     const { djangoToken } = useAuth();
@@ -20,10 +22,14 @@ export const PortfolioAssetsAdmin = () => {
     const { handleDialogOpen, renderDeleteDialog } = useDeleteAction(handleDeleteAsset);
     const columns = PortfolioAssetsColumns(handleDialogOpen);
 
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
     return (
         <Box sx={{ display: 'flex', height: 700 }}>
-            <Grid container>
-                <LeftSidebar /> 
+            <Navbar />
+            <Grid container sx={{ mt: 5 }}>
+                <LeftSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
                 <PortfolioAssetsGrid
                     djangoToken={djangoToken}
                     filters={filters}

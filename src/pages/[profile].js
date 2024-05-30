@@ -1,6 +1,6 @@
 // @/pages/[profile].js
 
-import WtreeProfileView from "@/components/wtree/profile/WtreeProfileView";
+import WtreeProfileView from "@/components/dex/profile/WtreeProfileView";
 import defaultTheme from "@/styles/profile-themes/defaultTheme";
 import { ThemeProvider } from "@emotion/react";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, useTheme } from '@mui/material';
-import WtreeIcon from '@/components/wtree/ui/WtreeIcon';
+import { WtreeIcon } from '@/components/dex/ui/WtreeIcon';
 
 export const Footer = () => {
     const theme = useTheme();

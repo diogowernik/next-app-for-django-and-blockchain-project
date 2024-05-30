@@ -11,7 +11,7 @@ export const PortfolioAssetsGrid = ({
   filters, setFilters, loading, error, filteredAssets, columns, handleProcessRowUpdate, renderDeleteDialog, djangoToken, addAssetToGrid
 }) => {
   return (
-    <Grid item xs={12} md={8}>
+    <Grid item xs={12} md={8} ml={2} mr={2}>
       <DynamicFilters filters={filters} setFilters={setFilters} />
       <PortfolioAssetModalButton 
         djangoToken={djangoToken} 

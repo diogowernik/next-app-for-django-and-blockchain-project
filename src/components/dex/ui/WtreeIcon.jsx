@@ -3,7 +3,7 @@ import React from 'react';
 const originalWidth = 734;
 const originalHeight = 204;
 
-const WtreeIcon = ({ color = 'black', width = '734px', height = null }) => {
+export const WtreeIcon = ({ color = 'black', width = '734px', height = null }) => {
   if (!height) {
     const scaleFactor = parseInt(width) / originalWidth;
     height = `${originalHeight * scaleFactor}px`;
@@ -29,4 +29,3 @@ const WtreeIcon = ({ color = 'black', width = '734px', height = null }) => {
   );
 };
 
-export default WtreeIcon;
