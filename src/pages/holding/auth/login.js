@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Card, CardContent, TextField, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
-
-import MainLayout from '@/layouts/dashboard/MainLayout';
 import { useAuth } from '@/context/AuthContext'; 
 
 const Login = () => {
@@ -25,7 +23,7 @@ const Login = () => {
     };
 
     return (
-        <MainLayout>
+        <>
             <Grid container justifyContent="center">
                 <Grid item lg={6} md={8}>
                     <Card>
@@ -63,7 +61,7 @@ const Login = () => {
                     </Card>
                 </Grid>
             </Grid>
-        </MainLayout>
+        </>
     );
 };
 

@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { Grid, Card, CardContent, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { useAuth } from '@/context/AuthContext';
-import MainLayout from '@/layouts/dashboard/MainLayout';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -25,13 +24,13 @@ const Register = () => {
   };
 
   return (
-    <MainLayout>
+    <>
       <Grid container justifyContent="center">
         <Grid item lg={6} md={8}>
           <Card>
             <CardContent>
-              <Typography variant="h3" textAlign="center">
-                <b>REGISTER</b>
+              <Typography variant="h4" textAlign="center" gutterBottom>
+                <b>Register</b>
               </Typography>
               <TextField
                 label="Username"
@@ -65,7 +64,7 @@ const Register = () => {
           </Card>
         </Grid>
       </Grid>
-    </MainLayout>
+    </>
   );
 };
 

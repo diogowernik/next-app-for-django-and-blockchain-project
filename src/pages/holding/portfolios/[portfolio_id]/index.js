@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { MainLayout } from '@/layouts/portfolio/MainLayout';
-import { PortfolioAssetsGrid } from '@/components/portfolio/PortfolioAssetsGrid';
+import { PortfolioAssetsAdmin } from '@/components/holding/admin/PortfolioAssetsAdmin';
 
 const PortfolioPage = () => {
     const router = useRouter();
@@ -13,7 +13,7 @@ const PortfolioPage = () => {
 
     return (
         <MainLayout portfolioId={portfolio_id}>
-            <PortfolioAssetsGrid />
+            <PortfolioAssetsAdmin />
         </MainLayout>
     );
 };

@@ -4,16 +4,16 @@ import { useModalState } from "./useModalState";
 import { useSnackbar } from 'notistack';
 
 const mapAssetDataToGrid = (data) => {
-    console.log('Mapping data:', data);
+    // console.log('Mapping data:', data);
     return {
         id: data.id,
-        ticker: data.asset, // Ajuste conforme necessário
+        ticker: data.asset_ticker,
         shares_amount: data.shares_amount,
         share_average_price_brl: data.share_average_price_brl,
         share_average_price_usd: data.share_average_price_usd,
-        category: 'Some Category', // Ajuste conforme necessário
-        broker: data.broker,
-        delete: 'Delete' // Este campo deve corresponder ao esperado pelo grid
+        category: data.category_name,
+        broker: data.broker_name,
+        delete: 'Delete' 
     };
 };
 

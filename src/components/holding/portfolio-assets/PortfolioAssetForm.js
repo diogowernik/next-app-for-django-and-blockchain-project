@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
-import { AssetSelector } from './AssetSelector';
+import { Form, Button, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
+import { AssetSelector } from '../assets/AssetSelector';
+import { BrokerSelector } from '../brokers/BrokerSelector';
 
 export const PortfolioAssetForm = ({ onSubmit, portfolioId, token }) => {
     const [selectedAsset, setSelectedAsset] = useState(null);
+    const [selectedBroker, setSelectedBroker] = useState(null); // Atualizado para manter o broker inteiro
+    
     const [sharesAmount, setSharesAmount] = useState('');
     const [sharePriceBRL, setSharePriceBRL] = useState('');
     const [sharePriceUSD, setSharePriceUSD] = useState('');
-    const [selectedBrokerId, setSelectedBrokerId] = useState(2); 
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const numericPortfolioId = Number(portfolioId);
-    
+
         try {
             const response = await onSubmit({
                 portfolio: numericPortfolioId,
                 asset: selectedAsset.id,
-                broker: selectedBrokerId,
+                broker: selectedBroker.id, // Atualizado para enviar o ID do broker selecionado
                 shares_amount: sharesAmount,
-                share_average_price_brl: sharePriceBRL, 
-                share_average_price_usd: sharePriceUSD 
+                share_average_price_brl: sharePriceBRL,
+                share_average_price_usd: sharePriceUSD
             });
             if (response.success) {
                 // mensagem de sucesso já é exibida no hook useAddPortfolioAsset
@@ -30,21 +34,11 @@ export const PortfolioAssetForm = ({ onSubmit, portfolioId, token }) => {
             // Exibir mensagem de erro já é exibida no hook useAddPortfolioAsset
         }
     };
-    
-
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Portfolio ID</label>
-                <input
-                    type="text"
-                    value={portfolioId || ''}
-                    readOnly
-                />
-            </div>
-            <div>
-                <label>Asset</label>
+        <Form onSubmit={handleSubmit}>
+            <FormGroup>
+                <FormLabel>Asset</FormLabel>
                 <AssetSelector
                     token={token}
                     selectedAsset={selectedAsset}
@@ -52,42 +46,48 @@ export const PortfolioAssetForm = ({ onSubmit, portfolioId, token }) => {
                     setSharePriceBRL={setSharePriceBRL}
                     setSharePriceUSD={setSharePriceUSD}
                 />
-            </div>
-            <div>
-                <label>Broker ID</label>
-                <input
-                    type="number"
-                    value={selectedBrokerId}
-                    onChange={e => setSelectedBrokerId(e.target.value)}
-                    required
+            </FormGroup>
+            <FormGroup>
+                <FormLabel>Broker</FormLabel>
+                <BrokerSelector
+                    token={token}
+                    selectedBroker={selectedBroker}
+                    setSelectedBroker={setSelectedBroker}
                 />
-            </div>
-            <div>
-                <label>Shares Amount</label>
-                <input
+            </FormGroup>
+            <FormGroup>
+                <FormLabel>Shares Amount</FormLabel>
+                <FormControl
                     type="number"
                     value={sharesAmount}
                     onChange={e => setSharesAmount(e.target.value)}
                     required
                 />
-            </div>
-            <div>
-                <label>Share Average Price (BRL)</label>
-                <input
+            </FormGroup>
+            <FormGroup>
+                <FormLabel>Share Average Price (BRL)</FormLabel>
+                <FormControl
                     type="number"
                     value={sharePriceBRL}
                     onChange={e => setSharePriceBRL(e.target.value)}
                 />
-            </div>
-            <div>
-                <label>Share Average Price (USD)</label>
-                <input
+            </FormGroup>
+            <FormGroup>
+                <FormLabel>Share Average Price (USD)</FormLabel>
+                <FormControl
                     type="number"
                     value={sharePriceUSD}
                     onChange={e => setSharePriceUSD(e.target.value)}
                 />
-            </div>
-            <button type="submit">Add Investment</button>
-        </form>
+            </FormGroup>
+            <Button 
+                type="submit"
+                variant="primary"
+                style={{ marginTop: '20px' }}
+                // centralizar
+                className="d-block mx-auto"
+            >
+                Add Investment</Button>
+        </Form>
     );
 };

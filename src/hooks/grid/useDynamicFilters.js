@@ -26,8 +26,8 @@ export const useDynamicFilters = (assets, initialFilters) => {
     }, []);
 
     const addAsset = useCallback((newAsset) => {
-        setFilteredAssets(prevAssets => [...prevAssets, newAsset]);
-    }, []);
+        setFilteredAssets(prevAssets => [newAsset, ...prevAssets]);
+    }, []);    
 
     return { filteredAssets, filters, setFilters, setFilter, clearFilters, clearFilterByKey, addAsset };
 };

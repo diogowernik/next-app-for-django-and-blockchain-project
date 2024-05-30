@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import WtreeIcon from '@/components/ui/WtreeIcon';
+import WtreeIcon from '@/components/wtree/ui/WtreeIcon';
 
 const DashboardNavbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);

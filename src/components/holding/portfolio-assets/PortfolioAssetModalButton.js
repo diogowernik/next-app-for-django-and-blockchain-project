@@ -6,7 +6,7 @@ import { useAddPortfolioAsset } from '@/hooks/create/useAddPortfolioAsset';
 import { PortfolioAssetForm } from './PortfolioAssetForm';
 import { useRouter } from 'next/router';
 
-const AddAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
+export const PortfolioAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
   const { isOpen, openModal, closeModal, handleAddAsset, isLoading, error } = useAddPortfolioAsset(djangoToken, addAssetToGrid);
   const router = useRouter();
   const portfolioId = router.query.portfolio_id;
@@ -14,11 +14,11 @@ const AddAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
   return (
     <>
       <Button onClick={openModal} variant="contained" color="primary" sx={{ float: 'right', mt: 3, mr: 2 }}>
-        Add Asset
+        Add Investiment
       </Button>
       <Modal show={isOpen} onHide={closeModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Asset</Modal.Title>
+          <Modal.Title>Add New Investiment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {isLoading ? (
@@ -39,4 +39,3 @@ const AddAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
   );
 };
 
-export default AddAssetModalButton;

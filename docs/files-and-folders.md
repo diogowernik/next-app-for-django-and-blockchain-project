@@ -29,10 +29,22 @@ This is the file structure of the project. The project is divided into several f
       │   │   │   ├── MetaMaskConnectedAndDjangoDisco...
       │   │   │   └── MetaMaskDisconnected.js
       │   │   └── index.js
-      │   ├── portfolio
-      │   │   ├── radar
-      │   │   ├── PortfolioAssetsColumns.js
-      │   │   └── PortfolioAssetsGrid.js
+      |   ├── holding
+      |   │   │   ├── admin
+      |   │   │   │   ├── PortfolioAssetsAdmin.js
+      |   │   │   ├── assets
+      |   │   │   │   ├── AssetSelector.js
+      |   │   │   ├── brokers
+      |   │   │   │   ├── BrokerSelector.js
+      |   │   │   ├── portfolio-assets
+      |   │   │   │   ├── PortfolioAssetForm.js
+      |   │   │   │   ├── PortfolioAssetModal.js
+      |   │   │   │   ├── PortfolioAssetsColumn.js
+      |   │   │   │   ├── PortfolioAssetsGrid.js
+      |   │   │   ├── portfolios
+      |   │   │   ├── radars
+      |   │   │   ├── views
+      |   │   │   |   ├── PortfolioAssetsAdmin.js
       │   ├── profile
       │   │   ├── form
       │   │   │   ├── AvatarUpload.js

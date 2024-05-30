@@ -1,18 +1,19 @@
 // @/components/portfolio/PortfolioAssetsManager.js
+
 import React from 'react';
 import { Grid, CircularProgress } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import { DynamicFilters } from '@/utils/grid/DynamicFilters';
-import AddAssetModalButton from './AddAssetModalButton';
+import {PortfolioAssetModalButton} from './PortfolioAssetModalButton';
 
-export const PortfolioAssetsManager = ({
+export const PortfolioAssetsGrid = ({
   filters, setFilters, loading, error, filteredAssets, columns, handleProcessRowUpdate, renderDeleteDialog, djangoToken, addAssetToGrid
 }) => {
   return (
     <Grid item xs={12} md={8}>
       <DynamicFilters filters={filters} setFilters={setFilters} />
-      <AddAssetModalButton 
+      <PortfolioAssetModalButton 
         djangoToken={djangoToken} 
         addAssetToGrid={addAssetToGrid} // Passando addAssetToGrid como prop
       />
