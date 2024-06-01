@@ -1,7 +1,7 @@
 // @/hooks/fetch/useFetchBrokers.js
 
 import { useState, useEffect } from 'react';
-import { fetchBrokers } from '@/api/Brokers'; // Verifique o caminho correto do import
+import { fetchBrokers } from '@/api/brokers'; // Verifique o caminho correto do import
 
 export const useFetchBrokers = (token) => {
     const [brokers, setBrokers] = useState([]);

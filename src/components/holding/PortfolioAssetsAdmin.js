@@ -7,7 +7,6 @@ import { usePortfolio } from '@/context/PortfolioContext';
 import { useGridManagement, useDynamicFilters, useDeleteAction } from '@/hooks';
 import usePersistentToggle from '@/hooks/sidebars/usePersistentToggle';
 
-
 import { LeftSidebar } from '@/layouts/holding/admin/LeftSidebar';
 import { RightSidebar } from '@/layouts/holding/admin/RightSidebar';
 

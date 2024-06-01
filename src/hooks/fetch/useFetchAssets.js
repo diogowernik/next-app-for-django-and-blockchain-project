@@ -1,7 +1,7 @@
 // @/hooks/fetch/useFetchAssets.js
 
 import { useState, useEffect } from 'react';
-import { fetchAssets } from '@/api/Assets'; // Verifique o caminho correto do import
+import { fetchAssets } from '@/api/assets'; // Verifique o caminho correto do import
 
 export const useFetchAssets = (token) => {
     const [assets, setAssets] = useState([]);

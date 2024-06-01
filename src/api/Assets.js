@@ -1,4 +1,4 @@
-// @/api/Assets
+// @/api/assets
 
 import { request } from '@/utils';
 

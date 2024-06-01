@@ -1,4 +1,4 @@
-// @/layouts/holding/admin/RightSidebarWrapper.js
+// @/layouts/shared/RightSidebarWrapper.js
 
 import React from 'react';
 import { Drawer, IconButton, Box } from '@mui/material';
