@@ -7,17 +7,17 @@ import { usePortfolio } from '@/context/PortfolioContext';
 import { useGridManagement, useDynamicFilters, useDeleteAction } from '@/hooks';
 import usePersistentToggle from '@/hooks/sidebars/usePersistentToggle';
 
-import { LeftSidebar } from '@/layouts/holding/admin/LeftSidebar';
-import { RightSidebar } from '@/layouts/holding/admin/RightSidebar';
-
 import { PortfolioAssetsColumns } from '@/components/holding/portfolio-assets/PortfolioAssetsColumns';
-import { PortfolioAssetsGrid } from '@/components/holding/portfolio-assets/PortfolioAssetsGrid';
-import { Navbar } from '@/layouts/holding/admin/Navbar';
+import  { PortfolioDashboard } from '@/components/holding/PortfolioDashboard';
 
-export const PortfolioAssetsView = () => {
+import { Navbar } from '@/layouts/holding/portfolio/Navbar';
+import { LeftSidebar } from '@/layouts/holding/portfolio/LeftSidebar';
+
+
+export const PortfolioLayout = () => {
     const { djangoToken } = useAuth();
-    const { portfolioAssets, setPortfolioAssets, loading, error, categories, brokers } = usePortfolio();
-    const { filteredAssets, filters, setFilter, clearFilters, clearFilterByKey, addAsset } = useDynamicFilters(portfolioAssets, { category: '', broker: '' });
+    const { portfolioAssets, setPortfolioAssets, loading, error, categories } = usePortfolio();
+    const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(portfolioAssets, { category: '' });
 
     const { handleProcessRowUpdate, handleDeleteAsset } = useGridManagement(djangoToken, setPortfolioAssets);
     const { handleDialogOpen, renderDeleteDialog } = useDeleteAction(handleDeleteAsset);
@@ -25,8 +25,6 @@ export const PortfolioAssetsView = () => {
 
     // Initialize state with localStorage or default to false
     const [leftSidebarOpen, toggleLeftSidebar] = usePersistentToggle('leftSidebarOpen', false);
-    const [rightSidebarOpen, toggleRightSidebar] = usePersistentToggle('rightSidebarOpen', false);
-
 
     return (
         <Box sx={{ display: 'flex', height: 700 }}>
@@ -36,30 +34,23 @@ export const PortfolioAssetsView = () => {
                     isOpen={leftSidebarOpen}
                     toggleSidebar={toggleLeftSidebar} 
                 />
-                <PortfolioAssetsGrid
+                <PortfolioDashboard
                     djangoToken={djangoToken}
                     filters={filters}
-                    setFilters={setFilter} // Use setFilter em vez de setFilters
+                    setFilters={setCallbackFilters}
                     loading={loading}
                     error={error}
                     filteredAssets={filteredAssets}
                     columns={columns}
                     handleProcessRowUpdate={handleProcessRowUpdate}
                     renderDeleteDialog={renderDeleteDialog}
-                    addAssetToGrid={addAsset}  // Adicionando a função addAsset como addAssetToGrid
-                />
-                <RightSidebar
-                    brokers={brokers}
+                    addAssetToGrid={addAsset}
                     categories={categories}
-                    handleFilterUpdate={setFilter}
-                    clearAllFilters={clearFilters}
-                    clearBrokerFilters={() => clearFilterByKey('broker')}
-                    clearCategoryFilters={() => clearFilterByKey('category')}
-                    filters={filters}
-                    isOpen={rightSidebarOpen}
-                    toggleSidebar={toggleRightSidebar}
+                    clearFilterByKey={clearFilterByKey}
+
                 />
             </Grid>
         </Box>
     );
 };
+

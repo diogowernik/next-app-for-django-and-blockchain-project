@@ -3,17 +3,13 @@ import { Grid, CircularProgress, Box } from '@mui/material';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import { DynamicFilters } from '@/utils/grid/DynamicFilters';
-import {PortfolioAssetModalButton} from './PortfolioAssetModalButton';
-import { PortfolioAssetsChart } from './PortfolioAssetsChart';
-import { PortfolioAssetsTreemap } from './PortfolioAssetsTreemap';
+import {PortfolioAssetModalButton} from './portfolio-assets/PortfolioAssetModalButton';
 
 export const PortfolioAssetsGrid = ({
   filters, setFilters, loading, error, filteredAssets, columns, handleProcessRowUpdate, renderDeleteDialog, djangoToken, addAssetToGrid
 }) => {
   return (
     <Grid item xs={12} md={8} ml={2} mr={2}>
-      <PortfolioAssetsChart />
-      <PortfolioAssetsTreemap />
       <DynamicFilters filters={filters} setFilters={setFilters} />
       <PortfolioAssetModalButton djangoToken={djangoToken} addAssetToGrid={addAssetToGrid} />
       {loading ? (

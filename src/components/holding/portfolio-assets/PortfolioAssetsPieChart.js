@@ -2,6 +2,8 @@
 
 import React, { useRef, useEffect } from 'react';
 import * as echarts from 'echarts';
+import { usePieChartDataByTickerAndCategory } from '@/hooks/data/usePieChartDataByTickerAndCategory';
+import { usePieChartDataByTickerAndSubcategory } from '@/hooks/data/usePieChartDataByTickerAndSubcategory';
 
 export const PieChartComponent = ({ data }) => {
   const chartRef = useRef(null);
@@ -16,8 +18,7 @@ export const PieChartComponent = ({ data }) => {
       },
       // not displaying the legend
       legend: {
-        top: '5%',
-        left: 'center'
+        show: false
       },
       series: [
         {
@@ -59,24 +60,14 @@ export const PieChartComponent = ({ data }) => {
     };
   }, [data]);
 
-  return <div ref={chartRef} style={{ width: '100%', height: '400px' }} />;
+  return <div ref={chartRef} style={{ width: '100%', height: '520px' }} />;
 };
 
-export const PortfolioAssetsChart = () => {
-  const pieData = [
-    { name: 'Energia Elétrica', value: 6000, children: [
-      { name: 'TAEE11', value: 3000 },
-      { name: 'EGIE3', value: 3000 }
-    ]},
-    { name: 'Químicos', value: 3000, children: [
-      { name: 'UNIP6', value: 3000 }
-    ]}
-    // Adicione mais dados conforme necessário
-  ];
+export const PortfolioAssetsPieChart = ({ assets }) => {
+  // const pieData = usePieChartDataByTickerAndCategory(assets);  // Use o hook para transformar os dados
+  const pieData = usePieChartDataByTickerAndSubcategory(assets);  // Use o hook para transformar os dados
 
   return (
-
     <PieChartComponent data={pieData} />
   );
-}
-
+};

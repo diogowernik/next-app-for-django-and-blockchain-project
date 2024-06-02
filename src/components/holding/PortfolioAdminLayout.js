@@ -11,13 +11,13 @@ import { LeftSidebar } from '@/layouts/holding/admin/LeftSidebar';
 import { RightSidebar } from '@/layouts/holding/admin/RightSidebar';
 
 import { PortfolioAssetsColumns } from '@/components/holding/portfolio-assets/PortfolioAssetsColumns';
-import { PortfolioAssetsGrid } from '@/components/holding/portfolio-assets/PortfolioAssetsGrid';
+import { PortfolioAssetsGrid } from '@/components/holding/PortfolioAdminDashboard';
 import { Navbar } from '@/layouts/holding/admin/Navbar';
 
-export const PortfolioAssetsAdmin = () => {
+export const PortfolioAdminLayout = () => {
     const { djangoToken } = useAuth();
     const { portfolioAssets, setPortfolioAssets, loading, error, categories, brokers } = usePortfolio();
-    const { filteredAssets, filters, setFilter, clearFilters, clearFilterByKey, addAsset } = useDynamicFilters(portfolioAssets, { category: '', broker: '' });
+    const { filteredAssets, filters, setCallbackFilters, clearFilters, clearFilterByKey, addAsset } = useDynamicFilters(portfolioAssets, { category: '', broker: '' });
 
     const { handleProcessRowUpdate, handleDeleteAsset } = useGridManagement(djangoToken, setPortfolioAssets);
     const { handleDialogOpen, renderDeleteDialog } = useDeleteAction(handleDeleteAsset);
@@ -39,7 +39,7 @@ export const PortfolioAssetsAdmin = () => {
                 <PortfolioAssetsGrid
                     djangoToken={djangoToken}
                     filters={filters}
-                    setFilters={setFilter} // Use setFilter em vez de setFilters
+                    setFilters={setCallbackFilters} // Use setFilter em vez de setFilters
                     loading={loading}
                     error={error}
                     filteredAssets={filteredAssets}
@@ -51,7 +51,7 @@ export const PortfolioAssetsAdmin = () => {
                 <RightSidebar
                     brokers={brokers}
                     categories={categories}
-                    handleFilterUpdate={setFilter}
+                    handleFilterUpdate={setCallbackFilters}
                     clearAllFilters={clearFilters}
                     clearBrokerFilters={() => clearFilterByKey('broker')}
                     clearCategoryFilters={() => clearFilterByKey('category')}

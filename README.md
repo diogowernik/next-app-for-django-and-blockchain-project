@@ -1,6 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
+
+Use the node v20.12.2 (npm v10.5.0) to run this project.
+
+Create .env.local file with the following content:
+
+```bash
+
+NEXT_PUBLIC_API_URL=https://api.address.com
+
+``` 
+
 
 First, run the development server:
 
