@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Card, CardContent } from '@mui/material';
 import { PortfolioAssetModalButton } from './portfolio-assets/PortfolioAssetModalButton';
-import { PortfolioAssetsPieChart } from './portfolio-assets/PortfolioAssetsPieChart';
 import { PortfolioAssetsTreemap } from './portfolio-assets/PortfolioAssetsTreemap';
 import { CategoryNavPills } from './CategoryNavPills';
 import { PortfolioAssetsTotalsGrid } from './portfolio-assets/PortfolioAssetsTotalsGrid';
@@ -9,8 +8,7 @@ import { PortfolioAssetsGrid } from './portfolio-assets/PortfolioAssetsGrid';
 import { useAuth } from '@/context/AuthContext';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { useDynamicFilters } from '@/hooks';
-import { PortfolioAssetsDonutChart } from './portfolio-assets/PortfolioAssetsDonutChart';
-import { PortfolioAssetsDonutPieChart } from './portfolio-assets/PortfolioAssetsDonutPiechart';
+import { PortfolioAssetsDonutPieChart } from '@/components/holding/portfolio-assets/PortfolioAssetsDonutPieChart';
 
 
 export const PortfolioDashboard = () => {
@@ -27,21 +25,10 @@ export const PortfolioDashboard = () => {
           />
       </Grid>
       <Grid item xs={12} md={6}>
-        <Card sx={{ height: '480px' }}>
-          <CardContent>
-            {/* <PortfolioAssetsDonutChart
-              assets={filteredAssets}
-              categoryFilter={filters.category}
-            /> */}
-            {/* <PortfolioAssetsPieChart 
-                assets={filteredAssets} 
-                categoryFilter={filters.category} /> */}
-                <PortfolioAssetsDonutPieChart
-                  assets={filteredAssets}
-                  categoryFilter={filters.category}
-                />
-          </CardContent>
-        </Card>
+          <PortfolioAssetsDonutPieChart
+            assets={filteredAssets}
+            categoryFilter={filters.category}
+          />
       </Grid>
       <Grid item xs={12}>
         <Card>

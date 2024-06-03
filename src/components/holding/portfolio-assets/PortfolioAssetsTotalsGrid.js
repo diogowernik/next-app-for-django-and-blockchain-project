@@ -2,7 +2,7 @@ import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTotalGridData } from '@/hooks/data/useTotalGridData';
 import { useTheme } from '@mui/material/styles';
-import { Card, CardHeader, CardContent, Typography, CardActionArea, Button } from '@mui/material';
+import { Card, CardHeader, CardContent, Typography, CardActionArea } from '@mui/material';
 
 export const PortfolioAssetsTotalsGrid = ({ assets, categoryFilter }) => {
     const theme = useTheme();
@@ -47,31 +47,18 @@ export const PortfolioAssetsTotalsGrid = ({ assets, categoryFilter }) => {
     ];
     
     return (
-      <Card sx={{ height: '480px', border: '1px solid #e0e0e0' }}>
+      <Card sx={{ height: '520px'}}>
         <CardHeader
           title={
             <Typography variant="h6" component="div" style={{ fontWeight: '500', fontFamily: '"Roboto Condensed", sans-serif' }}>
               Asset Overview
             </Typography>
           }
-          sx={{
-            backgroundColor: '#f5f5f5',
-            color: '#2E8B57',
-            borderBottom: '1px solid #e0e0e0'
-          }}
         />
-        <CardContent sx={{
-            color: '#424242', // Cor do texto ajustada, considerando o design elegante
-            backgroundColor: '#eceff1', // Cor de fundo para o conteúdo
-        }}>
+        <CardContent>
           <TotalGrid data={portfolioData} columns={columns} autoHeight />
         </CardContent>
-        <CardActionArea sx={{
-            justifyContent: 'flex-end', // Alinha os botões para a direita
-            backgroundColor: '#f5f5f5', // Cor de fundo para o footer
-            borderTop: '1px solid #e0e0e0', // Linha na parte superior do footer
-            padding: theme.spacing(1), // Uso de padding com base no tema
-        }}>
+        <CardActionArea>
         </CardActionArea>
       </Card>
     );
