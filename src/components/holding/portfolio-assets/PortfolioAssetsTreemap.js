@@ -1,8 +1,19 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useTreemapDataByTickerAndCategory } from '@/hooks/data/useTreemapDataByTickerAndCategory';
-import { useTreemapDataByTickerAndSubcategory } from '@/hooks/data/useTreemapDataByTickerAndSubcategory';
-
 import * as echarts from 'echarts';
+import { useTreemapData } from '@/hooks/data/useTreemapData'; 
+
+
+export const PortfolioAssetsTreemap = ({ assets, categoryFilter }) => {
+  const treemapDataByCategory = useTreemapData(assets, 'category', 'total_today_brl');
+  const treemapDataBySubcategory = useTreemapData(assets, 'subcategory', 'total_today_brl');
+
+  // Escolha o conjunto de dados baseado no filtro de categoria
+  const treemapData = categoryFilter === '' ? treemapDataByCategory : treemapDataBySubcategory;
+
+  return (
+    <TreemapComponent data={treemapData} />
+  );
+}
 
 export const TreemapComponent = ({ data }) => {
   const chartRef = useRef(null);
@@ -94,8 +105,6 @@ export const TreemapComponent = ({ data }) => {
   );
 };
 
-
-
 // Definição das cores de cada setor
 const colorMap = {
   'Propriedades': '#0057B8', // Azul
@@ -110,12 +119,3 @@ const colorMap = {
 };
 
 
-
-export const PortfolioAssetsTreemap = ({ assets }) => {
-  // const treemapData = useTreemapDataByTickerAndCategory(assets);  // Use o hook para transformar os dados
-  const treemapData = useTreemapDataByTickerAndSubcategory(assets);  // Use o hook para transformar os dados
-
-  return (
-    <TreemapComponent data={treemapData} />
-  );
-}

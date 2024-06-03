@@ -8,10 +8,10 @@ const theme = createTheme({
       main: '#2E8B57',  // Cor verde principal
       dark: '#206040'  // Verde mais escuro para hover
     },
-    // grey 
+    // blue
     secondary: {
-      main: '#7E7E7E', // Cor cinza principal
-      dark: '#5E5E5E'  // Cinza mais escuro para hover
+      main: '#87CEEB',  // Azul claro escolhido
+      dark: '#367588'   // Uma opção de azul petróleo para hover ou detalhes
     },
 
     background: {

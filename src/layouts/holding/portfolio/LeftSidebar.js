@@ -1,28 +1,28 @@
 import React from 'react';
 import { LeftSidebarWrapper } from '@/layouts/shared/LeftSidebarWrapper';
-import { DataGridTotal } from '@/components/holding/sidebars/DataGridTotal';
+import { List, ListItem, ListItemText, Typography } from '@mui/material';
 
-const categoriesData = [
-  { type: 'Equities', totalInvested: '50,000 USD' },
-  { type: 'Bonds', totalInvested: '20,000 USD' }
-];
-
-const brokersData = [
-  { type: 'Broker A', totalInvested: '30,000 USD' },
-  { type: 'Broker B', totalInvested: '40,000 USD' }
-];
-
-const subcategoriesData = [
-  { type: 'Tech Stocks', totalInvested: '25,000 USD' },
-  { type: 'Green Bonds', totalInvested: '15,000 USD' }
-];
 
 export const LeftSidebar = ({ isOpen, toggleSidebar }) => {
     return (
-        <LeftSidebarWrapper isOpen={isOpen} toggleSidebar={toggleSidebar} width={360}>
-            <DataGridTotal title="Total Invested by Category" data={categoriesData} />
-            <DataGridTotal title="Total Invested by Broker" data={brokersData} />
-            <DataGridTotal title="Total Invested by Subcategory" data={subcategoriesData} />
+        <LeftSidebarWrapper isOpen={isOpen} toggleSidebar={toggleSidebar} width={200}>
+            <List sx={{ width: '100%' }}>
+                <ListItem>
+                    <ListItemText primary={<Typography variant="subtitle2" component="div" sx={{ fontWeight: 'bold' }}>Meu Portfolio</Typography>} />
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                    <ListItemText primary="Categorias" />
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                    <ListItemText primary="Corretoras" />
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                    <ListItemText primary="Dividendos" />
+                </ListItem>
+                <ListItem button sx={{ pl: 4 }}>
+                    <ListItemText primary="Evolução" />
+                </ListItem>
+            </List>          
         </LeftSidebarWrapper>
     );
 };
