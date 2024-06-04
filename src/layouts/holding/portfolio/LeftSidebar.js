@@ -1,28 +1,23 @@
 import React from 'react';
 import { LeftSidebarWrapper } from '@/layouts/shared/LeftSidebarWrapper';
-import { List, ListItem, ListItemText, Typography } from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 
-
-export const LeftSidebar = ({ isOpen, toggleSidebar }) => {
+// Utilize a prop handleDashboardChange nos ListItemButton
+export const LeftSidebar = ({ isOpen, toggleSidebar, handleDashboardChange }) => {
     return (
-        <LeftSidebarWrapper isOpen={isOpen} toggleSidebar={toggleSidebar} width={200}>
+        <LeftSidebarWrapper isOpen={isOpen} toggleSidebar={toggleSidebar} width={240}>
             <List sx={{ width: '100%' }}>
                 <ListItem>
                     <ListItemText primary={<Typography variant="subtitle2" component="div" sx={{ fontWeight: 'bold' }}>Meu Portfolio</Typography>} />
                 </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                    <ListItemText primary="Categorias" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                    <ListItemText primary="Corretoras" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                    <ListItemText primary="Dividendos" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                    <ListItemText primary="Evolução" />
-                </ListItem>
+                <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('category')}>
+                    <ListItemText primary="Index" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('broker')}>
+                    <ListItemText primary="Brokers" />
+                </ListItemButton>
             </List>          
         </LeftSidebarWrapper>
     );
 };
+

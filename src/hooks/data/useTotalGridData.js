@@ -5,6 +5,7 @@ export const useTotalGridData = (assets, groupByKey, valueKey) => {
     const totalsMap = {};
     let totalValue = 0;
 
+    // Calcula os totais por grupo e o valor total
     assets.forEach((asset) => {
       const key = asset[groupByKey];
       const valueToAdd = asset[valueKey];
@@ -15,15 +16,21 @@ export const useTotalGridData = (assets, groupByKey, valueKey) => {
       totalValue += valueToAdd;
     });
 
-    const data = Object.entries(totalsMap).map(([key, value]) => ({
-      id: key,  // id is necessary for DataGrid to function properly
+    // Cria os dados formatados para cada grupo
+    const groupedData = Object.entries(totalsMap).map(([key, value]) => ({
+      id: key,
       name: key,
       total: value.toFixed(2),
-      porcentagem: ((value / totalValue) * 100).toFixed(2) + '%'
+      percentage: ((value / totalValue) * 100).toFixed(2) + '%'  // Usando 'percentage'
     }));
-    // order from highest to lowest
-    data.sort((a, b) => b.total - a.total);
 
-    return data;
+    // Ordena os dados de maior para menor total
+    groupedData.sort((a, b) => b.total - a.total);
+
+    // Retorna os dados agrupados e o total geral
+    return {
+      data: groupedData,
+      totalValue: totalValue.toFixed(2)  // Formata o valor total
+    };
   }, [assets, groupByKey, valueKey]);
 };

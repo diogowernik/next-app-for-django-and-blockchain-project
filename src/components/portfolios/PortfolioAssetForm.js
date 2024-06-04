@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
-import { AssetSelector } from '../assets/AssetSelector';
-import { BrokerSelector } from '../brokers/BrokerSelector';
+import { AssetSelector } from '@/components/assets/AssetSelector';
+import { BrokerSelector } from '@/components/brokers/BrokerSelector';
 
 export const PortfolioAssetForm = ({ onSubmit, portfolioId, token }) => {
     const [selectedAsset, setSelectedAsset] = useState(null);

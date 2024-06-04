@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { PortfolioContextWrapper } from '@/layouts/holding/shared/PortfolioContextWrapper';
-import { PortfolioAdminLayout } from '@/components/holding/PortfolioAdminLayout';
+import { PortfolioAdminLayout } from '@/components/admin/PortfolioAdminLayout';
 
 const PortfolioPage = () => {
     const router = useRouter();

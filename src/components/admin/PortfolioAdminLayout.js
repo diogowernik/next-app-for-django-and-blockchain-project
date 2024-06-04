@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from 'react';
+import React from 'react';
 import { Box, Grid } from '@mui/material';
 
 import { useAuth } from '@/context/AuthContext';
@@ -10,8 +10,8 @@ import usePersistentToggle from '@/hooks/sidebars/usePersistentToggle';
 import { LeftSidebar } from '@/layouts/holding/admin/LeftSidebar';
 import { RightSidebar } from '@/layouts/holding/admin/RightSidebar';
 
-import { PortfolioAssetsColumns } from '@/components/holding/portfolio-assets/PortfolioAssetsColumns';
-import { PortfolioAssetsGrid } from '@/components/holding/PortfolioAdminDashboard';
+import { PortfolioAssetsColumns } from '@/components/portfolios/PortfolioAssetsColumns';
+import { PortfolioAssetsGrid } from '@/components/admin/PortfolioAdminDashboard';
 import { Navbar } from '@/layouts/holding/admin/Navbar';
 
 export const PortfolioAdminLayout = () => {

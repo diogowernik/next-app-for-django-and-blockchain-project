@@ -1,20 +1,25 @@
 import React from 'react';
 import { Grid, Card, CardContent, CardHeader, Typography } from '@mui/material';
-import { PortfolioAssetModalButton } from './portfolio-assets/PortfolioAssetModalButton';
-import { PortfolioAssetsTreemap } from './portfolio-assets/PortfolioAssetsTreemap';
-import { PortfolioAssetsTotalsGrid } from './portfolio-assets/PortfolioAssetsTotalsGrid';
-import { PortfolioAssetsGrid } from './portfolio-assets/PortfolioAssetsGrid';
+
 import { useAuth } from '@/context/AuthContext';
 import { usePortfolio } from '@/context/PortfolioContext';
-import { useDynamicFilters } from '@/hooks';
-import { PortfolioAssetsDonutPieChart } from '@/components/holding/portfolio-assets/PortfolioAssetsDonutPieChart';
+
+import { PortfolioAssetsDonutPieChart } from '@/components/portfolios/PortfolioAssetsDonutPieChart';
+import { PortfolioAssetModalButton } from '@/components/portfolios/PortfolioAssetModalButton';
+import { PortfolioAssetsTreemap } from '@/components/portfolios/PortfolioAssetsTreemap';
+import { PortfolioAssetsTotalsGrid } from '@/components/portfolios/PortfolioAssetsTotalsGrid';
+import { PortfolioAssetsGrid } from '@/components/portfolios/PortfolioAssetsGrid';
+
 import { DynamicNavPills } from '@/components/navpills/DynamicNavPills';
 
+import { useUrlFilterChange } from '@/hooks/urls/useUrlFilterChange';
+import { useDynamicFilters } from '@/hooks/grid/useDynamicFilters';
 
 export const CategoryDashboard = () => {
   const { djangoToken } = useAuth();
   const { portfolioAssets, categories } = usePortfolio();
   const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(portfolioAssets, { category: '' });
+  const [urlFilters, handleUrlFilterChange] = useUrlFilterChange({ category: '' });
 
   return (
     <>
@@ -55,6 +60,8 @@ export const CategoryDashboard = () => {
                 clearFilters={() => clearFilterByKey('category')}
                 filters={filters}
                 filterKey="category"
+                urlFilters={urlFilters}
+                handleUrlFilterChange={handleUrlFilterChange}
             />
 
             </CardContent>

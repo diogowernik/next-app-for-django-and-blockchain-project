@@ -1,13 +1,13 @@
 import React from 'react';
 import { Grid, Card, CardContent, CardHeader, Typography } from '@mui/material';
-import { PortfolioAssetModalButton } from '@/components/holding/portfolio-assets/PortfolioAssetModalButton';
-import { PortfolioAssetsTreemap } from '@/components/holding/portfolio-assets/PortfolioAssetsTreemap';
+import { PortfolioAssetModalButton } from '@/components/portfolios/PortfolioAssetModalButton';
+import { PortfolioAssetsTreemap } from '@/components/portfolios/PortfolioAssetsTreemap';
 import { DynamicNavPills } from '@/components/navpills/DynamicNavPills';
-import { PortfolioAssetsTotalsGrid } from '@/components/holding/portfolio-assets/PortfolioAssetsTotalsGrid';
-import { PortfolioAssetsGrid } from '@/components/holding/portfolio-assets/PortfolioAssetsGrid';
+import { PortfolioAssetsTotalsGrid } from '@/components/portfolios/PortfolioAssetsTotalsGrid';
+import { PortfolioAssetsGrid } from '@/components/portfolios/PortfolioAssetsGrid';
 import { useAuth } from '@/context/AuthContext';
 import { useDynamicFilters } from '@/hooks';
-import { PortfolioAssetsDonutPieChart } from '@/components/holding/portfolio-assets/PortfolioAssetsDonutPieChart';
+import { PortfolioAssetsDonutPieChart } from '@/components/portfolios/PortfolioAssetsDonutPieChart';
 
 export const DashboardComponent = ({ data, navPillsProps, donutChartFilter, totalsGridFilter, treemapFilter, title }) => {
   const { djangoToken } = useAuth();

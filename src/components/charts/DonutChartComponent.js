@@ -11,9 +11,6 @@ const colorPalette = [
   '#007B83', // teal - verde azulado
   '#9A60B4', // purpureus - roxo
   '#EA7CCC', // rose-pink - rosa
-
-
-
 ];
 
 export const DonutChartComponent = ({ data }) => {
@@ -25,6 +22,13 @@ export const DonutChartComponent = ({ data }) => {
       tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b}: {c} ({d}%)'
+      },
+      legend : {
+        show: true,
+        // left 
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
       },
       series: [
         {
@@ -38,6 +42,7 @@ export const DonutChartComponent = ({ data }) => {
           labelLine: {
             length: 30,
           },
+          
           color: colorPalette, // Aplicando a paleta de cores
           data: data
         }

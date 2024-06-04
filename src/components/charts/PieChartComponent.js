@@ -2,34 +2,29 @@ import React, { useRef, useEffect } from 'react';
 import * as echarts from 'echarts';
 
 const colorPalette = [
-  // '#FC8452', // coral
-  // '#9A60B4', // purpureus
-  // '#FAC858', // saffron
-  // '#91CC75', // pistachio
   '#5470C6', // royal-blue-web-color
   '#73C0DE', // sky-blue
   '#3BA272', // jade
   '#EA7CCC', // rose-pink
-
 ];
 
 const colorPalette2 = [
-  // '#EA7CCC', // rose-pink
-  // '#3BA272', // jade
-  // '#73C0DE', // sky-blue
-  // '#5470C6', // royal-blue-web-color
   '#91CC75', // pistachio
   '#FAC858', // saffron
   '#9A60B4', // purpureus
   '#FC8452', // coral
+  
 ];
-
-
 
 export const PieChartComponent = ({ data }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
+    const sortedData = data.map(category => ({
+      ...category,
+      totalValue: category.children.reduce((acc, child) => acc + child.value, 0) // Calcula a soma total
+    })).sort((a, b) => b.totalValue - a.totalValue); // Ordena os dados pela soma total
+
     const chartInstance = echarts.init(chartRef.current);
     const option = {
       tooltip: {
@@ -52,9 +47,9 @@ export const PieChartComponent = ({ data }) => {
           labelLine: {
             show: false
           },
-          data: data.map(item => ({
+          data: sortedData.map(item => ({
             name: item.name,
-            value: item.value
+            value: item.totalValue // Usa a soma total para a exibição
           })),
           color: colorPalette2
         },
@@ -68,7 +63,7 @@ export const PieChartComponent = ({ data }) => {
           label: {
             formatter: '{b}: {c} ({d}%)'
           },
-          data: data.flatMap(item => item.children),
+          data: sortedData.flatMap(item => item.children), // Usa os dados ordenados
           color: colorPalette
         }
       ]

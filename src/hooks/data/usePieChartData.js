@@ -24,6 +24,7 @@ export const usePieChartData = (assets, groupByKey, valueKey) => {
         tickerFound.value += asset[valueKey];
         resultMap[groupValue].value += asset[valueKey];
       });
+      
 
       return Object.values(resultMap);
     };

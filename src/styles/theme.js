@@ -89,8 +89,9 @@ const theme = createTheme({
           }
         }
       }
-    }
-    // Inclua aqui outros overrides conforme necessário
+    },
+    
+
   }
 });
 

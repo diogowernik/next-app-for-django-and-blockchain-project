@@ -10,6 +10,7 @@ export const useTreemapData = (assets, groupByKey, valueKey) => {
         if (!resultMap[asset[groupByKey]]) {
           resultMap[asset[groupByKey]] = {
             name: asset[groupByKey],
+            totalValue: 0,  // Soma total para ordenação
             children: []
           };
         }
@@ -25,10 +26,12 @@ export const useTreemapData = (assets, groupByKey, valueKey) => {
         }
         
         // Acumula o valor por ticker
-        tickerFound.value += asset[valueKey];  // Agora usando valueKey
+        tickerFound.value += asset[valueKey];
+        group.totalValue += asset[valueKey];  // Atualiza a soma total do grupo
       });
 
-      return Object.values(resultMap);
+      // Converte o objeto para array e ordena por totalValue decrescente
+      return Object.values(resultMap).sort((a, b) => b.totalValue - a.totalValue);
     };
 
     // Estrutura de dados para o treemap

@@ -22,6 +22,8 @@ export const useDonutChartData = (assets, groupByKey, valueKey) => {
       name: key, // Nome da categoria para a legenda do gráfico
     //   percentage: ((value / totalValue) * 100).toFixed(2) // Porcentagem, opcional
     }));
+    // Ordenar de maior para menor
+    data.sort((a, b) => b.value - a.value);
 
     return data;
   }, [assets, groupByKey, valueKey]);

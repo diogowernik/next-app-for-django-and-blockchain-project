@@ -1,19 +1,26 @@
 import React from 'react';
 import { Grid, Card, CardContent, CardHeader, Typography } from '@mui/material';
-import { PortfolioAssetModalButton } from './portfolio-assets/PortfolioAssetModalButton';
-import { PortfolioAssetsTreemap } from './portfolio-assets/PortfolioAssetsTreemap';
-import { PortfolioAssetsTotalsGrid } from './portfolio-assets/PortfolioAssetsTotalsGrid';
-import { PortfolioAssetsGrid } from './portfolio-assets/PortfolioAssetsGrid';
+
 import { useAuth } from '@/context/AuthContext';
 import { usePortfolio } from '@/context/PortfolioContext';
-import { useDynamicFilters } from '@/hooks';
-import { PortfolioAssetsDonutPieChart } from '@/components/holding/portfolio-assets/PortfolioAssetsDonutPieChart';
+
+import { PortfolioAssetsDonutPieChart } from '@/components/portfolios/PortfolioAssetsDonutPieChart';
+import { PortfolioAssetModalButton } from '@/components/portfolios/PortfolioAssetModalButton';
+import { PortfolioAssetsTreemap } from '@/components/portfolios/PortfolioAssetsTreemap';
+import { PortfolioAssetsTotalsGrid } from '@/components/portfolios/PortfolioAssetsTotalsGrid';
+import { PortfolioAssetsGrid } from '@/components/portfolios/PortfolioAssetsGrid';
+
 import { DynamicNavPills } from '@/components/navpills/DynamicNavPills';
+
+import { useUrlFilterChange } from '@/hooks/urls/useUrlFilterChange';
+import { useDynamicFilters } from '@/hooks/grid/useDynamicFilters';
 
 export const BrokerDashboard = () => {
   const { djangoToken } = useAuth();
   const { portfolioAssets, brokers } = usePortfolio();  // Usando brokers em vez de categories
   const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(portfolioAssets, { broker: '' });
+  const [urlFilters, handleUrlFilterChange] = useUrlFilterChange({ broker: '' }); // Renomeado para 'urlFilters'
+
 
   return (
     <>
@@ -51,8 +58,10 @@ export const BrokerDashboard = () => {
                 items={brokers}
                 handleFilterUpdate={setCallbackFilters}
                 clearFilters={() => clearFilterByKey('broker')}
-                filters={filters}
+                filters={filters} // já está sendo usado não pode ser removido
                 filterKey="broker"
+                urlFilters={urlFilters} // Adicionado
+                handleUrlFilterChange={handleUrlFilterChange} // Adicionado
             />
 
             </CardContent>
