@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Stack, useTheme, useMediaQuery } from '@mui/material';
 
-export const CategoryNavPills = ({ categories, handleFilterUpdate, clearCategoryFilters, filters }) => {
+export const DynamicNavPills = ({ items, handleFilterUpdate, clearFilters, filters, filterKey }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -30,30 +30,30 @@ export const CategoryNavPills = ({ categories, handleFilterUpdate, clearCategory
         >
             {/* Botão "All" com minWidth calculado dinamicamente */}
             <Button 
-                onClick={clearCategoryFilters} 
+                onClick={clearFilters} 
                 sx={{
                     flex: 'none',
                     whiteSpace: 'nowrap',
                     minWidth: `${calculateMinWidth('All')}px`,  // Dinamicamente calculado para 'All'
                     padding: '6px 6px',
                 }}
-                variant={filters.category === '' ? "contained" : "outlined"}
+                variant={filters[filterKey] === '' ? "contained" : "outlined"}
             >
                 All
             </Button>
-            {categories.map(category => (
+            {items.map(item => (
                 <Button 
-                    key={category} 
-                    variant={filters.category === category ? "contained" : "outlined"}
-                    onClick={() => handleFilterUpdate('category', category)}
+                    key={item} 
+                    variant={filters[filterKey] === item ? "contained" : "outlined"}
+                    onClick={() => handleFilterUpdate(filterKey, item)}
                     sx={{
                         flex: 'none',
                         whiteSpace: 'nowrap',
-                        minWidth: `${calculateMinWidth(category)}px`,  // Dinamicamente calculado
+                        minWidth: `${calculateMinWidth(item)}px`,  // Dinamicamente calculado
                         padding: '6px 6px',
                     }}
                 >
-                    {category}
+                    {item}
                 </Button>
             ))}
         </Stack>

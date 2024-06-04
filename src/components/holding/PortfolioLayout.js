@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import usePersistentToggle from '@/hooks/sidebars/usePersistentToggle';
-import  { PortfolioDashboard } from '@/components/holding/PortfolioDashboard';
+import  { CategoryDashboard } from '@/components/holding/CategoryDashboard';
+import { BrokerDashboard } from './BrokerDashboard';
 import { Navbar } from '@/layouts/holding/portfolio/Navbar';
 import { LeftSidebar } from '@/layouts/holding/portfolio/LeftSidebar';
 
@@ -17,7 +18,8 @@ export const PortfolioLayout = () => {
                     toggleSidebar={toggleLeftSidebar} 
                 />
                 <Grid container spacing={2} item xs={9} ml={2} mr={2}>
-                    <PortfolioDashboard/>
+                    <CategoryDashboard/>
+                    <BrokerDashboard/>
                 </Grid>
             </Grid>
         </Box>

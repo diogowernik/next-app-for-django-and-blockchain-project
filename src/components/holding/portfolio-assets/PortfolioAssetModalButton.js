@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAddPortfolioAsset } from '@/hooks/create/useAddPortfolioAsset';
 import { PortfolioAssetForm } from './PortfolioAssetForm';
 import { useRouter } from 'next/router';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
 
 export const PortfolioAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
   const { isOpen, openModal, closeModal, handleAddAsset, isLoading, error } = useAddPortfolioAsset(djangoToken, addAssetToGrid);
@@ -13,9 +15,19 @@ export const PortfolioAssetModalButton = ({ djangoToken, addAssetToGrid }) => {
 
   return (
     <>
-      <Button onClick={openModal} variant="contained" color="primary" sx={{ float: 'right', mt: 0, mr: 0 }}>
-        Add
-      </Button>
+      <IconButton 
+          onClick={openModal} 
+          color="primary" 
+          sx={{ 
+              color: 'white', // Define a cor do ícone
+              backgroundColor: 'primary.main', // Cor de fundo primária do tema
+              '&:hover': {
+                  backgroundColor: 'primary.dark' // Cor de fundo mais escura ao passar o mouse
+              }
+          }}
+      >
+          <AddIcon />
+      </IconButton>
       <Modal show={isOpen} onHide={closeModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Add New Investiment</Modal.Title>

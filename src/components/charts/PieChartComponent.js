@@ -1,6 +1,31 @@
 import React, { useRef, useEffect } from 'react';
 import * as echarts from 'echarts';
 
+const colorPalette = [
+  // '#FC8452', // coral
+  // '#9A60B4', // purpureus
+  // '#FAC858', // saffron
+  // '#91CC75', // pistachio
+  '#5470C6', // royal-blue-web-color
+  '#73C0DE', // sky-blue
+  '#3BA272', // jade
+  '#EA7CCC', // rose-pink
+
+];
+
+const colorPalette2 = [
+  // '#EA7CCC', // rose-pink
+  // '#3BA272', // jade
+  // '#73C0DE', // sky-blue
+  // '#5470C6', // royal-blue-web-color
+  '#91CC75', // pistachio
+  '#FAC858', // saffron
+  '#9A60B4', // purpureus
+  '#FC8452', // coral
+];
+
+
+
 export const PieChartComponent = ({ data }) => {
   const chartRef = useRef(null);
 
@@ -30,7 +55,8 @@ export const PieChartComponent = ({ data }) => {
           data: data.map(item => ({
             name: item.name,
             value: item.value
-          }))
+          })),
+          color: colorPalette2
         },
         {
           name: 'Ativos',
@@ -42,7 +68,8 @@ export const PieChartComponent = ({ data }) => {
           label: {
             formatter: '{b}: {c} ({d}%)'
           },
-          data: data.flatMap(item => item.children)
+          data: data.flatMap(item => item.children),
+          color: colorPalette
         }
       ]
     };
@@ -55,4 +82,3 @@ export const PieChartComponent = ({ data }) => {
 
   return <div ref={chartRef} style={{ width: '100%', height: '400px' }} />;
 };
-

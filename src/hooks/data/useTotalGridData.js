@@ -21,6 +21,8 @@ export const useTotalGridData = (assets, groupByKey, valueKey) => {
       total: value.toFixed(2),
       porcentagem: ((value / totalValue) * 100).toFixed(2) + '%'
     }));
+    // order from highest to lowest
+    data.sort((a, b) => b.total - a.total);
 
     return data;
   }, [assets, groupByKey, valueKey]);

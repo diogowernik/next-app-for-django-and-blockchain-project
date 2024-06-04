@@ -2,32 +2,33 @@ import React from 'react';
 import { Grid, Card, CardContent, CardHeader, Typography } from '@mui/material';
 import { PortfolioAssetModalButton } from './portfolio-assets/PortfolioAssetModalButton';
 import { PortfolioAssetsTreemap } from './portfolio-assets/PortfolioAssetsTreemap';
-import { CategoryNavPills } from './CategoryNavPills';
 import { PortfolioAssetsTotalsGrid } from './portfolio-assets/PortfolioAssetsTotalsGrid';
 import { PortfolioAssetsGrid } from './portfolio-assets/PortfolioAssetsGrid';
 import { useAuth } from '@/context/AuthContext';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { useDynamicFilters } from '@/hooks';
 import { PortfolioAssetsDonutPieChart } from '@/components/holding/portfolio-assets/PortfolioAssetsDonutPieChart';
+import { DynamicNavPills } from '@/components/navpills/DynamicNavPills';
 
-
-export const PortfolioDashboard = () => {
+export const BrokerDashboard = () => {
   const { djangoToken } = useAuth();
-  const { portfolioAssets, categories } = usePortfolio();
-  const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(portfolioAssets, { category: '' });
+  const { portfolioAssets, brokers } = usePortfolio();  // Usando brokers em vez de categories
+  const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(portfolioAssets, { broker: '' });
 
   return (
     <>
       <Grid item xs={12} md={6}>
           <PortfolioAssetsTotalsGrid
             assets={filteredAssets}
-            categoryFilter={filters.category}
+            filterKey="broker"
+            Filter={filters.broker}   // Mudando para broker
           />
       </Grid>
       <Grid item xs={12} md={6}>
           <PortfolioAssetsDonutPieChart
             assets={filteredAssets}
-            categoryFilter={filters.category}
+            filterKey="broker"
+            Filter={filters.broker}  // Mudando para broker
           />
       </Grid>
       <Grid item xs={12}>
@@ -35,7 +36,7 @@ export const PortfolioDashboard = () => {
             <CardHeader
                   title={
                       <Typography variant="h6" component="div" style={{ fontWeight: '500', fontFamily: '"Roboto Condensed", sans-serif' }}>
-                          Asset Overview
+                          Broker Grid
                       </Typography>
                   }
                   action={
@@ -46,13 +47,14 @@ export const PortfolioDashboard = () => {
                   }
               />
             <CardContent sx={{ height: '85px'} }>
-            
-                <CategoryNavPills
-                    categories={categories}
-                    filters={filters}
-                    handleFilterUpdate={setCallbackFilters}
-                    clearCategoryFilters={() => clearFilterByKey('category')}
-                />
+            <DynamicNavPills
+                items={brokers}
+                handleFilterUpdate={setCallbackFilters}
+                clearFilters={() => clearFilterByKey('broker')}
+                filters={filters}
+                filterKey="broker"
+            />
+
             </CardContent>
             <CardContent>
             <PortfolioAssetsGrid
@@ -66,8 +68,9 @@ export const PortfolioDashboard = () => {
         <Card>
           <CardContent>
             <PortfolioAssetsTreemap 
-              assets={filteredAssets} 
-              categoryFilter={filters.category} 
+                assets={filteredAssets}
+                filterKey="broker"
+                Filter={filters.broker} 
             />
           </CardContent>
         </Card>

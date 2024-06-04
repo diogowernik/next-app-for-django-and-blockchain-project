@@ -4,13 +4,13 @@ import { useTotalGridData } from '@/hooks/data/useTotalGridData';
 import { useTheme } from '@mui/material/styles';
 import { Card, CardHeader, CardContent, Typography, CardActionArea } from '@mui/material';
 
-export const PortfolioAssetsTotalsGrid = ({ assets, categoryFilter }) => {
+export const PortfolioAssetsTotalsGrid = ({ assets, filterKey, Filter }) => {
     const theme = useTheme();
 
-    const portfolioDatabyCategory = useTotalGridData(assets, 'category', 'total_today_brl');
+    const portfolioDatabyCategory = useTotalGridData(assets, filterKey, 'total_today_brl');
     const portfolioDatabySubCategory = useTotalGridData(assets, 'subcategory', 'total_today_brl');
 
-    const portfolioData = categoryFilter === '' ? portfolioDatabyCategory : portfolioDatabySubCategory;
+    const portfolioData = Filter === '' ? portfolioDatabyCategory : portfolioDatabySubCategory;
   
     const columns = [
       { 

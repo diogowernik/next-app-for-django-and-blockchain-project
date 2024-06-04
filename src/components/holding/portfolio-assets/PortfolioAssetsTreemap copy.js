@@ -14,30 +14,35 @@ export const PortfolioAssetsTreemap = ({ assets, filterKey, Filter }) => {
   );
 };
 
-const colorPalette = [
-  '#5470C6', // royal-blue-web-color
-  '#91CC75', // pistachio - verde claro
-  '#FAC858', // saffron - amarelo
-  '#73C0DE', // sky-blue - azul claro
-  '#3BA272', // jade - verde escuro
-  '#FC8452', // coral - laranja
-  '#007B83', // teal - verde azulado
-  '#EA7CCC', // rose-pink - rosa
-  '#9A60B4', // purpureus - roxo
 
+
+// Define a palette of colors
+const colorPalette = [
+  '#5470C6', '#91CC75', '#FAC858', 
+  '#73C0DE', '#3BA272', '#FC8452', '#9A60B4', 
+  '#ea7ccc', '#007B83', '#7f6d93', '#3e1929'
 ];
 
+// Function to determine if the color is dark
+function isColorDark(color) {
+  const rgb = parseInt(color.slice(1), 16); // convert hex to RGB
+  const r = (rgb >> 16) & 0xff;
+  const g = (rgb >> 8) & 0xff;
+  const b = (rgb >> 0) & 0xff;
+  const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+  return brightness < 186; // brightness threshold for light/dark
+}
 
 export const TreemapComponent = ({ data }) => {
   const chartRef = useRef(null);
   const [visibleSectors, setVisibleSectors] = useState([]);
   const [sectorColors, setSectorColors] = useState({});
 
-  // Atualiza as cores iniciais para cada setor usando a paleta de cores
+  // Update initial colors for each sector using the color palette
   useEffect(() => {
     const initialColors = {};
     data.children.forEach((child, index) => {
-      initialColors[child.name] = colorPalette[index % colorPalette.length]; // Cicla através da paleta de cores
+      initialColors[child.name] = colorPalette[index % colorPalette.length]; // Cycle through the color palette
     });
     setSectorColors(initialColors);
     setVisibleSectors(data.children.map(child => child.name));
@@ -49,8 +54,16 @@ export const TreemapComponent = ({ data }) => {
     const filteredChartData = data.children.filter(child => visibleSectors.includes(child.name))
                                       .map(child => ({
                                         ...child,
-                                        itemStyle: { color: sectorColors[child.name] },
-                                        label: {color: '#333'}
+                                        itemStyle: {
+                                          color: sectorColors[child.name],
+                                          borderColor: 'transparent',
+                                          borderWidth: 0,
+                                          gapWidth: 0
+                                        },
+                                        label: {
+                                          show: true,
+                                          color: isColorDark(sectorColors[child.name]) ? '#FFF' : '#000' // Dynamic label color based on background
+                                        }
                                       }));
 
     const option = {
@@ -66,18 +79,8 @@ export const TreemapComponent = ({ data }) => {
         roam: false,
         breadcrumb: {
           show: false
-        },
-        label: {
-          show: true,
-          // color: '#333',
-        },
-        itemStyle: {
-          borderColor: 'transparent',
-          borderWidth: 0,
-          gapWidth: 0
         }
       }]
-
     };
 
     chartInstance.setOption(option);

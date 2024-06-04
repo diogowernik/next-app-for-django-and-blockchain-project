@@ -1,6 +1,21 @@
 import React, { useRef, useEffect } from 'react';
 import * as echarts from 'echarts';
 
+const colorPalette = [
+  '#5470C6', // royal-blue-web-color
+  '#91CC75', // pistachio - verde claro
+  '#FAC858', // saffron - amarelo
+  '#73C0DE', // sky-blue - azul claro
+  '#3BA272', // jade - verde escuro
+  '#FC8452', // coral - laranja
+  '#007B83', // teal - verde azulado
+  '#9A60B4', // purpureus - roxo
+  '#EA7CCC', // rose-pink - rosa
+
+
+
+];
+
 export const DonutChartComponent = ({ data }) => {
   const chartRef = useRef(null);
 
@@ -13,29 +28,17 @@ export const DonutChartComponent = ({ data }) => {
       },
       series: [
         {
-          name: 'Portfolio Breakdown',
+          name: 'Portfolio',
           type: 'pie',
-          radius: ['30%', '50%'],
+          radius: ['35%', '60%'],
           avoidLabelOverlap: false,
           label: {
-            show: true,
-            position: 'outside',
-            formatter: '{b}: {d}%',
-            color: 'auto' // Define a cor do texto automaticamente para melhor contraste
+            formatter: '{b}: {c} ({d}%)',
           },
           labelLine: {
-            show: true,
-            length: 10, // Comprimento da linha que conecta o texto à fatia
-            length2: 20, // Comprimento da segunda parte da linha após o ponto de dobra
-            smooth: 0.5 // Suavização da curva da linha
+            length: 30,
           },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: '16',
-              fontWeight: 'bold'
-            }
-          },
+          color: colorPalette, // Aplicando a paleta de cores
           data: data
         }
       ]
@@ -50,3 +53,4 @@ export const DonutChartComponent = ({ data }) => {
 
   return <div ref={chartRef} style={{ width: '100%', height: '400px' }} />;
 };
+``

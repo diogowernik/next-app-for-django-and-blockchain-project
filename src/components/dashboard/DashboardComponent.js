@@ -1,41 +1,39 @@
 import React from 'react';
 import { Grid, Card, CardContent, CardHeader, Typography } from '@mui/material';
-import { PortfolioAssetModalButton } from './portfolio-assets/PortfolioAssetModalButton';
-import { PortfolioAssetsTreemap } from './portfolio-assets/PortfolioAssetsTreemap';
-import { CategoryNavPills } from './CategoryNavPills';
-import { PortfolioAssetsTotalsGrid } from './portfolio-assets/PortfolioAssetsTotalsGrid';
-import { PortfolioAssetsGrid } from './portfolio-assets/PortfolioAssetsGrid';
+import { PortfolioAssetModalButton } from '@/components/holding/portfolio-assets/PortfolioAssetModalButton';
+import { PortfolioAssetsTreemap } from '@/components/holding/portfolio-assets/PortfolioAssetsTreemap';
+import { DynamicNavPills } from '@/components/navpills/DynamicNavPills';
+import { PortfolioAssetsTotalsGrid } from '@/components/holding/portfolio-assets/PortfolioAssetsTotalsGrid';
+import { PortfolioAssetsGrid } from '@/components/holding/portfolio-assets/PortfolioAssetsGrid';
 import { useAuth } from '@/context/AuthContext';
-import { usePortfolio } from '@/context/PortfolioContext';
 import { useDynamicFilters } from '@/hooks';
 import { PortfolioAssetsDonutPieChart } from '@/components/holding/portfolio-assets/PortfolioAssetsDonutPieChart';
 
-
-export const PortfolioDashboard = () => {
+export const DashboardComponent = ({ data, navPillsProps, donutChartFilter, totalsGridFilter, treemapFilter, title }) => {
   const { djangoToken } = useAuth();
-  const { portfolioAssets, categories } = usePortfolio();
-  const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(portfolioAssets, { category: '' });
+  const { filteredData, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(data, { filterKey: '' });
+
 
   return (
     <>
       <Grid item xs={12} md={6}>
           <PortfolioAssetsTotalsGrid
-            assets={filteredAssets}
-            categoryFilter={filters.category}
+            assets={filteredData}
+            categoryFilter={totalsGridFilter}
           />
       </Grid>
       <Grid item xs={12} md={6}>
           <PortfolioAssetsDonutPieChart
-            assets={filteredAssets}
-            categoryFilter={filters.category}
+            assets={filteredData}
+            categoryFilter={donutChartFilter}
           />
       </Grid>
       <Grid item xs={12}>
-      <Card>
+        <Card>
             <CardHeader
                   title={
                       <Typography variant="h6" component="div" style={{ fontWeight: '500', fontFamily: '"Roboto Condensed", sans-serif' }}>
-                          Asset Overview
+                          {title}
                       </Typography>
                   }
                   action={
@@ -46,18 +44,18 @@ export const PortfolioDashboard = () => {
                   }
               />
             <CardContent sx={{ height: '85px'} }>
-            
-                <CategoryNavPills
-                    categories={categories}
-                    filters={filters}
+                <DynamicNavPills
+                    items={navPillsProps.items}
+                    filterKey={navPillsProps.filterKey}
                     handleFilterUpdate={setCallbackFilters}
-                    clearCategoryFilters={() => clearFilterByKey('category')}
+                    clearFilters={() => clearFilterByKey(navPillsProps.filterKey)}
+                    filters={filters}
                 />
             </CardContent>
             <CardContent>
             <PortfolioAssetsGrid
               djangoToken={djangoToken}
-              filteredAssets={filteredAssets}
+              filteredData={filteredData}
             />
             </CardContent>
         </Card>
@@ -66,13 +64,12 @@ export const PortfolioDashboard = () => {
         <Card>
           <CardContent>
             <PortfolioAssetsTreemap 
-              assets={filteredAssets} 
-              categoryFilter={filters.category} 
+              assets={filteredData} 
+              categoryFilter={treemapFilter} 
             />
           </CardContent>
         </Card>
       </Grid>
-
     </>
   );
 };

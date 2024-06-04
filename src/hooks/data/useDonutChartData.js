@@ -18,7 +18,7 @@ export const useDonutChartData = (assets, groupByKey, valueKey) => {
 
     // Converter os dados para o formato específico para o gráfico de rosca
     const data = Object.entries(totalsMap).map(([key, value]) => ({
-      value: value, // Valor absoluto para o gráfico
+      value: value.toFixed(2), // Valor total para a categoria
       name: key, // Nome da categoria para a legenda do gráfico
     //   percentage: ((value / totalValue) * 100).toFixed(2) // Porcentagem, opcional
     }));
