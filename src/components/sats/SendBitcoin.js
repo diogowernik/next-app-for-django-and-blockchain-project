@@ -1,62 +1,108 @@
 import { useState } from "react";
-import { xverseManager } from '@/services/wallets';
-import { BitcoinNetworkType } from "sats-connect";
+import { BitcoinNetworkType, RpcErrorCode, request, sendBtcTransaction } from "sats-connect";
 
-const SendBitcoin = ({ network }) => {
+const SendBitcoin = ({ network, address, capabilities }) => {
   const [recipient, setRecipient] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0n);
 
   const onSendBtcClick = async () => {
-    if (!xverseManager.isReady) {
-      alert("Wallet is not connected.");
-      return;
-    }
+    await sendBtcTransaction({
+      payload: {
+        network: {
+          type: network,
+        },
+        recipients: [
+          {
+            address: recipient,
+            amountSats: amount,
+          },
+          // you can add more recipients here
+        ],
+        senderAddress: address,
+      },
+      onFinish: (response) => {
+        alert(response);
+      },
+      onCancel: () => alert("Canceled"),
+    });
+  };
 
+  const onSendBtcRpc = async () => {
     try {
-      const transaction = await xverseManager.sendTransaction({
-        recipient,
-        amount: BigInt(amount) // Assuming the amount is to be entered in satoshis
+      const response = await request("sendTransfer", {
+        recipients: [
+          {
+            address: recipient,
+            amount: Number(amount),
+          },
+        ],
       });
-
-      if (transaction) {
-        alert(`Transaction successful! Transaction ID: ${transaction.txid}`);
+      if (response.status === "success") {
+        console.log(response);
+        alert(response.result.txid);
       } else {
-        alert("Transaction failed!");
+        const error = response;
+        console.log(error);
+        if (error.error.code === RpcErrorCode.USER_REJECTION) {
+          alert("Canceled");
+        } else {
+          alert(error.error.message);
+        }
       }
-    } catch (error) {
-      alert(`Error sending Bitcoin: ${error.message}`);
+    } catch (err) {
+      alert(err.error.message);
     }
   };
 
-  const sendDisabled = recipient.length === 0 || amount.length === 0;
+  if (network !== BitcoinNetworkType.Testnet)
+    return (
+      <div className="container">
+        <h3>Send Bitcoin</h3>
+        <div>Only available on testnet</div>
+      </div>
+    );
+
+  if (!capabilities.has("sendBtcTransaction")) {
+    return (
+      <div className="container">
+        <h3>Send Bitcoin</h3>
+        <b>The wallet does not support this feature</b>
+      </div>
+    );
+  }
+
+  const sendDisabled = recipient.length === 0;
 
   return (
     <div className="container">
       <h3>Send Bitcoin</h3>
-      {network !== BitcoinNetworkType.Testnet && (
-        <div>Only available on testnet</div>
-      )}
+      <p>
+        <b>From address</b>
+        <br />
+        {address}
+      </p>
       <p>
         <b>Recipient address</b>
         <br />
         <input
           value={recipient}
-          onChange={e => setRecipient(e.target.value)}
-          placeholder="Enter recipient's address"
+          onChange={(e) => setRecipient(e.target.value)}
         />
       </p>
       <p>
-        <b>Send amount (in satoshis)</b>
+        <b>Send amount</b>
         <br />
         <input
           type="number"
-          value={amount}
-          onChange={e => setAmount(e.target.value)}
-          placeholder="Enter amount to send"
+          value={amount.toString()}
+          onChange={(e) => setAmount(BigInt(e.target.value))}
         />
       </p>
       <button onClick={onSendBtcClick} disabled={sendDisabled}>
-        Send BTC
+        Send BTC Transaction
+      </button>
+      <button onClick={onSendBtcRpc} disabled={sendDisabled}>
+        Send BTC RPC
       </button>
     </div>
   );

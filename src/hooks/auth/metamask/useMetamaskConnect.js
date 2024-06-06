@@ -1,17 +1,20 @@
-// @hooks/metamask/useMetamaskConnect
-import { metamaskManager } from '@/services/wallets';  // Corrigir o caminho conforme o necessário
+import { useCallback } from 'react';
+import { useWeb3 } from './useWeb3';
 
 export const useMetamaskConnect = (setIsMetamaskAuthenticated, setUserAddress, enqueueSnackbar) => {
-    const metamaskConnect = async () => {
+    const web3 = useWeb3();
+
+    const metamaskConnect = useCallback(async () => {
         console.log("Chamando metamaskConnect...");
 
-        if (!metamaskManager) {
-            console.error("metamaskManager está indefinido.");
+        if (!web3) {
+            console.error("Web3 não está inicializado.");
             return;
         }
 
         try {
-            const address = await metamaskManager.connect();
+            const accounts = await web3.eth.requestAccounts();
+            const address = accounts.length > 0 ? accounts[0] : null;
             if (address) {
                 localStorage.setItem('userAddress', address);
                 setIsMetamaskAuthenticated(true);
@@ -23,7 +26,7 @@ export const useMetamaskConnect = (setIsMetamaskAuthenticated, setUserAddress, e
             console.error("Falha ao conectar com MetaMask:", error);
             enqueueSnackbar(error.message || 'Failed to connect with MetaMask.', { variant: 'error' });
         }
-    };
+    }, [web3, setIsMetamaskAuthenticated, setUserAddress, enqueueSnackbar]);
 
     return metamaskConnect;
 };

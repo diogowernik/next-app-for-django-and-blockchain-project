@@ -1,6 +1,6 @@
-// @/services/contract/config/blockchainConfig.js
+// @/services/contract/config/blockchainContractsAdresses.js
 
-const blockchainConfig = {
+export const blockchainContractsAdresses = {
     bscTestnet: {
       TransferGateway: "0x3f1B88117403E3AB6F730eFE77e2E7d652501988",
       WtreeToken: "0x74579f5E9b04787563CFAbd12E9b7E9b985b5eB7"
@@ -15,5 +15,5 @@ const blockchainConfig = {
     }
   };
   
-  export default blockchainConfig;
+
   
