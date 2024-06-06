@@ -1,120 +1,21 @@
-import { useEffect, useMemo, useState } from "react";
-import { AddressPurpose, BitcoinNetworkType, getAddress, getCapabilities, getProviders, request } from "sats-connect";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useMemo } from "react";
+import { getProviders } from "sats-connect";
+import { useWalletAddresses } from "@/hooks/auth/satswallet/useWalletAddresses";
+import { useNetwork } from "@/hooks/auth/satswallet/useNetwork";
+import { useCapabilityCheck } from "@/hooks/auth/satswallet/useCapabilityCheck";
+import { useConnectWallet } from "@/hooks/auth/satswallet/useConnectWallet";
 
-const SatsDashboard = () => {
-  const [paymentAddress, setPaymentAddress] = useLocalStorage("paymentAddress");
-  const [paymentPublicKey, setPaymentPublicKey] = useLocalStorage("paymentPublicKey");
-  const [ordinalsAddress, setOrdinalsAddress] = useLocalStorage("ordinalsAddress");
-  const [ordinalsPublicKey, setOrdinalsPublicKey] = useLocalStorage("ordinalsPublicKey");
-  const [stacksAddress, setStacksAddress] = useLocalStorage("stacksAddress");
-  const [stacksPublicKey, setStacksPublicKey] = useLocalStorage("stacksPublicKey");
-  const [network, setNetwork] = useLocalStorage("network", BitcoinNetworkType.Testnet);
-  const [capabilityState, setCapabilityState] = useState("loading");
-  const [capabilities, setCapabilities] = useState(new Set());
+import MainLayout from "@/layouts/dex/dashboard/MainLayout";
+import SendBitcoin from "@/components/sats/SendBitcoin";
+
+const App = () => {
+  const walletAddresses = useWalletAddresses();
+  const { network, toggleNetwork } = useNetwork();
+  const { capabilityState, capabilities } = useCapabilityCheck(network);
+  const { onConnectClick, onConnectAccountClick } = useConnectWallet(network, walletAddresses);
   const providers = useMemo(() => (typeof window !== "undefined" ? getProviders() : []), []);
 
-  useEffect(() => {
-    console.log("Network state initialized to:", network);
-  }, [network]);
-
-  useEffect(() => {
-    const runCapabilityCheck = async () => {
-      let runs = 0;
-      const MAX_RUNS = 20;
-      setCapabilityState("loading");
-
-      while (runs < MAX_RUNS) {
-        try {
-          await getCapabilities({
-            onFinish(response) {
-              setCapabilities(new Set(response));
-              setCapabilityState("loaded");
-            },
-            onCancel() {
-              setCapabilityState("cancelled");
-            },
-            payload: {
-              network: { type: network },
-            },
-          });
-          break;
-        } catch (e) {
-          runs++;
-          if (runs === MAX_RUNS) {
-            setCapabilityState("missing");
-          }
-        }
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      }
-    };
-
-    runCapabilityCheck();
-  }, [network]);
-
-  const isReady = !!paymentAddress && !!paymentPublicKey && !!ordinalsAddress && !!ordinalsPublicKey && !!stacksAddress;
-
-  const onWalletDisconnect = () => {
-    setPaymentAddress(undefined);
-    setPaymentPublicKey(undefined);
-    setOrdinalsAddress(undefined);
-    setOrdinalsPublicKey(undefined);
-    setStacksAddress(undefined);
-  };
-
-  const toggleNetwork = () => {
-    setNetwork(network === BitcoinNetworkType.Testnet ? BitcoinNetworkType.Mainnet : BitcoinNetworkType.Testnet);
-    onWalletDisconnect();
-  };
-
-  const onConnectClick = async () => {
-    await getAddress({
-      payload: {
-        purposes: [AddressPurpose.Ordinals, AddressPurpose.Payment, AddressPurpose.Stacks],
-        message: "SATS Connect Demo",
-        network: { type: network },
-      },
-      onFinish: (response) => {
-        const paymentAddressItem = response.addresses.find((address) => address.purpose === AddressPurpose.Payment);
-        setPaymentAddress(paymentAddressItem?.address);
-        setPaymentPublicKey(paymentAddressItem?.publicKey);
-
-        const ordinalsAddressItem = response.addresses.find((address) => address.purpose === AddressPurpose.Ordinals);
-        setOrdinalsAddress(ordinalsAddressItem?.address);
-        setOrdinalsPublicKey(ordinalsAddressItem?.publicKey);
-
-        const stacksAddressItem = response.addresses.find((address) => address.purpose === AddressPurpose.Stacks);
-        setStacksAddress(stacksAddressItem?.address);
-        setStacksPublicKey(stacksAddressItem?.publicKey);
-      },
-      onCancel: () => alert("Request canceled"),
-    });
-  };
-
-  const onConnectAccountClick = async () => {
-    const response = await request('getAccounts', {
-      purposes: [AddressPurpose.Ordinals, AddressPurpose.Payment, AddressPurpose.Stacks],
-      message: 'SATS Connect Demo',
-    });
-    if (response.status === 'success') {
-      const paymentAddressItem = response.result.find((address) => address.purpose === AddressPurpose.Payment);
-      setPaymentAddress(paymentAddressItem?.address);
-      setPaymentPublicKey(paymentAddressItem?.publicKey);
-
-      const ordinalsAddressItem = response.result.find((address) => address.purpose === AddressPurpose.Ordinals);
-      setOrdinalsAddress(ordinalsAddressItem?.address);
-      setOrdinalsPublicKey(ordinalsAddressItem?.publicKey);
-
-      const stacksAddressItem = response.result.find((address) => address.purpose === AddressPurpose.Stacks);
-      setStacksAddress(stacksAddressItem?.address);
-      setStacksPublicKey(stacksAddressItem?.publicKey);
-    } else {
-      if (response.error) {
-        alert("Error getting accounts. Check console for error logs");
-        console.error(response.error);
-      }
-    }
-  };
+  const isReady = !!walletAddresses.paymentAddress && !!walletAddresses.paymentPublicKey && !!walletAddresses.ordinalsAddress && !!walletAddresses.ordinalsPublicKey && !!walletAddresses.stacksAddress;
 
   const capabilityMessage =
     capabilityState === "loading"
@@ -138,6 +39,7 @@ const SatsDashboard = () => {
 
   if (!isReady) {
     return (
+    <MainLayout>
       <div style={{ padding: 30 }}>
         <h1>Sats Connect Test App - {network}</h1>
         <div>Please connect your wallet to continue</div>
@@ -146,14 +48,14 @@ const SatsDashboard = () => {
           {providers
             ? providers.map((provider) => (
                 <button key={provider.id} className="provider" onClick={() => window.open(provider.chromeWebStoreUrl)}>
-                  <img className="providerImg" src={provider.icon} />
+                  <img src={provider.icon} alt="provider icon" style={{ width: 90}} />
                   <p className="providerName">{provider.name}</p>
                 </button>
               ))
             : null}
         </div>
         <div style={{ background: "lightgray", padding: 30, marginTop: 10 }}>
-          <button style={{ height: 30, width: 180 }} onClick={toggleNetwork}>
+          <button style={{ height: 30, width: 180 }} onClick={() => toggleNetwork(walletAddresses.resetAddresses)}>
             Switch Network
           </button>
           <br />
@@ -166,25 +68,36 @@ const SatsDashboard = () => {
           </button>
         </div>
       </div>
+      </MainLayout>
     );
   }
 
   return (
+  <MainLayout>
     <div style={{ padding: 30 }}>
       <h1>Sats Connect Test App - {network}</h1>
       <div>
-        <div>Payment Address: {paymentAddress}</div>
-        <div>Payment PubKey: {paymentPublicKey}</div>
-        <div>Ordinals Address: {ordinalsAddress}</div>
-        <div>Ordinals PubKey: {ordinalsPublicKey}</div>
+        <div>Payment Address: {walletAddresses.paymentAddress}</div>
+        <div>Payment PubKey: {walletAddresses.paymentPublicKey}</div>
+        <div>Ordinals Address: {walletAddresses.ordinalsAddress}</div>
+        <div>Ordinals PubKey: {walletAddresses.ordinalsPublicKey}</div>
         <br />
         <div className="container">
           <h3>Disconnect wallet</h3>
-          <button onClick={onWalletDisconnect}>Disconnect</button>
+          <button onClick={walletAddresses.resetAddresses}>Disconnect</button>
+        </div>
+        <div style={{ background: "lightgray", padding: 30, marginTop: 10 }}>
+
+          <SendBitcoin
+            address={walletAddresses.paymentAddress}
+            network={network}
+            capabilities={capabilities}
+          />
         </div>
       </div>
     </div>
+  </MainLayout>
   );
 };
 
-export default SatsDashboard;
+export default App;

@@ -1,17 +1,16 @@
 import { useMemo } from "react";
 import { getProviders } from "sats-connect";
-import { useWalletAddresses } from "@/hooks/auth/satswallet/useWalletAddresses";
-import { useNetwork } from "@/hooks/auth/satswallet/useNetwork";
+import { useSatsWalletAddresses } from "@/hooks/auth/satswallet/useSatsWalletAddresses";
+import { useSatsNetwork } from "@/hooks/auth/satswallet/useSatsNetwork";
 import { useCapabilityCheck } from "@/hooks/auth/satswallet/useCapabilityCheck";
 import { useConnectWallet } from "@/hooks/auth/satswallet/useConnectWallet";
 
 import MainLayout from "@/layouts/dex/dashboard/MainLayout";
 import SendBitcoin from "@/components/sats/SendBitcoin";
-// import SendBitcoin from "@/components/sats/SendBitcoin";
 
-const App = () => {
-  const walletAddresses = useWalletAddresses();
-  const { network, toggleNetwork } = useNetwork();
+const SatsDashboard = () => {
+  const walletAddresses = useSatsWalletAddresses();
+  const { network, toggleNetwork } = useSatsNetwork();
   const { capabilityState, capabilities } = useCapabilityCheck(network);
   const { onConnectClick, onConnectAccountClick } = useConnectWallet(network, walletAddresses);
   const providers = useMemo(() => (typeof window !== "undefined" ? getProviders() : []), []);
@@ -101,4 +100,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default SatsDashboard;

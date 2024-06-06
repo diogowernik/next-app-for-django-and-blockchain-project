@@ -2,7 +2,7 @@
 import { useLocalStorage } from "@/hooks/auth/satswallet/useLocalStorage";
 
 // Hook para gerenciar endereços da carteira
-export const useWalletAddresses = () => {
+export const useSatsWalletAddresses = () => {
     const [paymentAddress, setPaymentAddress] = useLocalStorage("paymentAddress");
     const [paymentPublicKey, setPaymentPublicKey] = useLocalStorage("paymentPublicKey");
     const [ordinalsAddress, setOrdinalsAddress] = useLocalStorage("ordinalsAddress");

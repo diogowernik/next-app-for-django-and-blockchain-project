@@ -1,14 +1,18 @@
-import { useCallback } from 'react';
-import { AddressPurpose, getAddress, request } from "sats-connect";
+// @/hooks/auth/satswallet/useSatsConnect.js
 
-export const useSatsConnect = (network, setAddressFunctions, setIsSatsAuthenticated, enqueueSnackbar) => {
+// Adaptado para o projeto wtree
+
+import { useCallback } from 'react';
+import { AddressPurpose, getAddress } from "sats-connect";
+
+export const useSatsConnect = (setAddressFunctions, setIsSatsAuthenticated, enqueueSnackbar) => {
     const { setPaymentAddress, setPaymentPublicKey, setOrdinalsAddress, setOrdinalsPublicKey, setStacksAddress } = setAddressFunctions;
 
-    const satsConnect = useCallback(async () => {
+    const satsConnect = useCallback((network) => async () => {
         console.log("Chamando satsConnect...");
 
         try {
-            const response = await getAddress({
+            await getAddress({
                 payload: {
                     purposes: [AddressPurpose.Ordinals, AddressPurpose.Payment, AddressPurpose.Stacks],
                     message: "SATS Connect Demo",
@@ -39,16 +43,11 @@ export const useSatsConnect = (network, setAddressFunctions, setIsSatsAuthentica
                     enqueueSnackbar('Connection request canceled.', { variant: 'warning' });
                 }
             });
-
-            if (response.error) {
-                console.error("Erro ao conectar com Sats Connect:", response.error);
-                enqueueSnackbar(response.error.message || 'Failed to connect with Sats Connect.', { variant: 'error' });
-            }
         } catch (error) {
             console.error("Falha ao conectar com Sats Connect:", error);
             enqueueSnackbar(error.message || 'Failed to connect with Sats Connect.', { variant: 'error' });
         }
-    }, [network, setAddressFunctions, setIsSatsAuthenticated, enqueueSnackbar]);
+    }, [setAddressFunctions, setIsSatsAuthenticated, enqueueSnackbar]);
 
     return satsConnect;
 };
