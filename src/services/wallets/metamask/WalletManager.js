@@ -1,8 +1,9 @@
-// @services/wallet/WalletManager
+// @services/wallets/metamask/WalletManager
+
 import { initializeWeb3 } from './Web3Initializer';
 import { setupEventListeners, removeEventListeners } from './EventHandlers';
 
-class WalletManager {
+export class WalletManager {
     constructor() {
         this.web3 = initializeWeb3();
         this.userAddress = null;
@@ -56,4 +57,6 @@ class WalletManager {
     }
 }
 
-export default WalletManager;
+const metamaskManager = new WalletManager();
+
+export { metamaskManager };

@@ -1,5 +1,5 @@
 // @hooks/metamask/useMetamaskConnect
-import { metamaskManager } from '@/services/wallet';  // Corrigir o caminho conforme o necessário
+import { metamaskManager } from '@/services/wallets';  // Corrigir o caminho conforme o necessário
 
 export const useMetamaskConnect = (setIsMetamaskAuthenticated, setUserAddress, enqueueSnackbar) => {
     const metamaskConnect = async () => {

@@ -1,5 +1,5 @@
 // @hooks/metamask/useMetamaskUpdateStatus
-import { metamaskManager } from '@/services/wallet';  // Corrigir o caminho conforme o necessário
+import { metamaskManager } from '@/services/wallets'; 
 
 export const useMetamaskUpdateStatus = (setBalance, setChainId, setLoading) => {
     const metamaskUpdateStatus = async () => {

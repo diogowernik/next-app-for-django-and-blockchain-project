@@ -25,6 +25,7 @@
     "react-echarts": "^0.1.1",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
+    "sats-connect": "^2.4.0",
     "web3": "^4.8.0"
   }
 }

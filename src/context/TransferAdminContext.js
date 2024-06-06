@@ -1,6 +1,6 @@
 // @/context/TransferAdminContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { contractManager } from '@/services/contract';
+import { contractManager } from '@/services/contracts';
 
 const TransferAdminContext = createContext();
 
