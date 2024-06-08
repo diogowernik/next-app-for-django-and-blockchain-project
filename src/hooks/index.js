@@ -15,7 +15,6 @@ export { useDjangoMetamaskLogin } from './auth/django/useDjangoMetamaskLogin';
 export { useDjangoMetamaskRegister } from './auth/django/useDjangoMetamaskRegister';
 export { useRequestSignature } from './auth/django/useRequestSignature';
 export { useMetamaskSignatureForDjangoLogin } from './auth/django/useMetamaskSignatureForDjangoLogin';
-export { useMetamaskSignatureForDjangoRegister } from './auth/django/useMetamaskSignatureForDjangoRegister';
 
 // Hooks para gerenciamento de tabelas e filtros dinâmicos das tabelas
 export { useDeleteAction } from './grid/useDeleteAction';

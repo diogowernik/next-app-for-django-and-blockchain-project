@@ -3,16 +3,16 @@ import { getProviders } from "sats-connect";
 import { useSatsWalletAddresses } from "@/hooks/auth/satswallet/useSatsWalletAddresses";
 import { useSatsNetwork } from "@/hooks/auth/satswallet/useSatsNetwork";
 import { useCapabilityCheck } from "@/hooks/auth/satswallet/useCapabilityCheck";
-import { useConnectWallet } from "@/hooks/auth/satswallet/useConnectWallet";
+import { useXverseWalletConnect } from "@/hooks/auth/satswallet/useXverseWalletConnect";
 
 import MainLayout from "@/layouts/dex/dashboard/MainLayout";
 import SendBitcoin from "@/components/sats/SendBitcoin";
 
-const SatsDashboard = () => {
+const XverseDashboard = () => {
   const walletAddresses = useSatsWalletAddresses();
   const { network, toggleNetwork } = useSatsNetwork();
   const { capabilityState, capabilities } = useCapabilityCheck(network);
-  const { onConnectClick, onConnectAccountClick } = useConnectWallet(network, walletAddresses);
+  const { onConnectClick, onConnectAccountClick } = useXverseWalletConnect(network, walletAddresses);
   const providers = useMemo(() => (typeof window !== "undefined" ? getProviders() : []), []);
 
   const isReady = !!walletAddresses.paymentAddress && !!walletAddresses.paymentPublicKey && !!walletAddresses.ordinalsAddress && !!walletAddresses.ordinalsPublicKey && !!walletAddresses.stacksAddress;
@@ -100,4 +100,4 @@ const SatsDashboard = () => {
   );
 };
 
-export default SatsDashboard;
+export default XverseDashboard;

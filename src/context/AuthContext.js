@@ -5,26 +5,22 @@ import { useSnackbar } from 'notistack';
 // Metamask
 import { useMetamaskConnect, useMetamaskUpdateStatus, useMetamaskSignOut } from '@/hooks';
 // Django
-import { useDjangoSignIn, useDjangoRegister, useDjangoSignOut, useDjangoMetamaskLogin } from '@/hooks';  
+import { useDjangoSignIn, useDjangoRegister, useDjangoSignOut, useDjangoMetamaskLogin, useDjangoMetamaskRegister } from '@/hooks';  
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // Estado de carregamento e notificação
   const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-
   // Metamask
   const [isMetamaskAuthenticated, setIsMetamaskAuthenticated] = useState(false);
-  const [metamaskUserAddress, setMetamaskUserAddress] = useState(null);
-  const [metamaskBalance, setMetamaskBalance] = useState("0");
-  const [metamaskChainId, setMetamaskChainId] = useState(null);
-
+  const [userAddress, setUserAddress] = useState(null);
+  const [balance, setBalance] = useState("0"); // como faço para pegar o saldo do usuário?
+  const [chainId, setChainId] = useState(null);
   // Django
-  const [djangoToken, setDjangoToken] = useState(null);
+  const [token, setToken] = useState(null);
   const [isDjangoAuthenticated, setIsDjangoAuthenticated] = useState(false);
 
-  // Verificar se o usuário já está autenticado no Metamask e/ou Django
   useEffect(() => {
     console.log("Verificando localStorage para 'userAddress' e 'token'");
     const storedAddress = localStorage.getItem('userAddress');
@@ -35,41 +31,42 @@ export const AuthProvider = ({ children }) => {
   
     if (storedAddress) {
       setIsMetamaskAuthenticated(true);
-      setMetamaskUserAddress(storedAddress);
+      setUserAddress(storedAddress);
     }
   
     if (tokenFromStorage) {
-      setDjangoToken(tokenFromStorage);
+      setToken(tokenFromStorage);
       setIsDjangoAuthenticated(true);
     }
   }, []);
   
-  // Metamask
-  const metamaskUpdateStatus = useMetamaskUpdateStatus(setMetamaskBalance, setMetamaskChainId, enqueueSnackbar, setLoading);
-  const metamaskConnect = useMetamaskConnect(setIsMetamaskAuthenticated, setMetamaskUserAddress, enqueueSnackbar);
-  const metamaskSignOut = useMetamaskSignOut(setIsMetamaskAuthenticated, setMetamaskUserAddress, setMetamaskBalance, setMetamaskChainId, enqueueSnackbar);
+  
 
+  // Metamask
+  const metamaskUpdateStatus = useMetamaskUpdateStatus(setBalance, setChainId, enqueueSnackbar, setLoading);
+  const metamaskConnect = useMetamaskConnect(setIsMetamaskAuthenticated, setUserAddress, enqueueSnackbar);
+  const metamaskSignOut = useMetamaskSignOut(setIsMetamaskAuthenticated, setUserAddress, setBalance, setChainId, enqueueSnackbar);
   // Django
-  const djangoSignIn = useDjangoSignIn(setDjangoToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
-  const djangoRegister = useDjangoRegister(setDjangoToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
-  const djangoSignOut = useDjangoSignOut(setDjangoToken, setIsDjangoAuthenticated, enqueueSnackbar); 
-  const djangoMetamaskLogin = useDjangoMetamaskLogin(setDjangoToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoSignIn = useDjangoSignIn(setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoRegister = useDjangoRegister(setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoSignOut = useDjangoSignOut(setToken, setIsDjangoAuthenticated, enqueueSnackbar); 
+  const djangoMetamaskLogin = useDjangoMetamaskLogin(setToken, setIsDjangoAuthenticated, setLoading, enqueueSnackbar); 
+  const djangoMetamaskRegister = useDjangoMetamaskRegister(setLoading, enqueueSnackbar); 
 
   const value = {
-    // Django
-    djangoToken,
-    isDjangoAuthenticated,
+    djangoToken: token,
+    djangoIsAuthenticated: isDjangoAuthenticated,
     djangoLoading: loading,
     djangoSignIn,
     djangoSignOut,
     djangoRegister,
     djangoMetamaskLogin,
-    // Metamask
-    isMetamaskAuthenticated,
+    djangoMetamaskRegister,
+    metamaskIsAuthenticated: isMetamaskAuthenticated,
     metamaskLoading: loading,
-    metamaskUserAddress,
-    metamaskBalance,
-    metamaskChainId,
+    metamaskUserAddress: userAddress,
+    metamaskBalance: balance,
+    metamaskChainId: chainId,
     metamaskConnect,
     metamaskUpdateStatus,
     metamaskSignOut,
