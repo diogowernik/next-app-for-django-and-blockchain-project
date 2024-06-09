@@ -4,13 +4,12 @@ import { useLocalStorage } from "@/hooks/auth/useLocalStorage";
 
 const MetamaskOnlyApp = () => {
   const [account, setAccount] = useLocalStorage("eth_metamask_account", null);
+  const [network, setNetwork] = useLocalStorage("eth_metamask_network", "testnet");
   const [metamaskConnected, setMetamaskConnected] = useLocalStorage("eth_metamask_connected", false);
   
   const [metamaskInstalled, setMetamaskInstalled] = useState(false);
   const [balance, setBalance] = useState(null);
   const [isClient, setIsClient] = useState(false);
-  
-  console.log(metamaskInstalled, metamaskConnected, account, balance);
 
   useEffect(() => {
     setIsClient(true); // Marcar que estamos no cliente
@@ -40,6 +39,27 @@ const MetamaskOnlyApp = () => {
     setBalance(null);
     setMetamaskConnected(false);
     window.localStorage.removeItem("eth_metamask_account");
+    window.localStorage.removeItem("eth_metamask_network");
+  };
+
+  const toggleNetwork = async () => {
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      const newNetwork = network === "mainnet" ? "sepolia" : "mainnet";
+      setNetwork(newNetwork);
+      window.localStorage.setItem("eth_metamask_network", JSON.stringify(newNetwork));
+      if (newNetwork === "sepolia") {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0xaa36a7' }],
+        });
+      } else {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
+      }
+      onWalletDisconnect();
+    }
   };
 
   const onConnectClick = async () => {
@@ -68,7 +88,7 @@ const MetamaskOnlyApp = () => {
 
   return (
     <div style={{ padding: 30 }}>
-      <h1>MetaMask Connect Test App</h1>
+      <h1>MetaMask Connect Test App - {network}</h1>
       <div>
         {metamaskConnected ? (
           <div>
@@ -83,6 +103,11 @@ const MetamaskOnlyApp = () => {
         )}
       </div>
       <div style={{ background: "lightgray", padding: 30, marginTop: 10 }}>
+        <button style={{ height: 30, width: 180 }} onClick={toggleNetwork}>
+          Switch Network
+        </button>
+        <br />
+        <br />
         <button style={{ height: 30, width: 180, marginLeft: 10 }} onClick={onConnectClick}>
           Connect MetaMask
         </button>

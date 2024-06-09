@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 function safeParseJSON(value) {
   try {
     return JSON.parse(value);

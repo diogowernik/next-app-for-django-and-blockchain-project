@@ -14,9 +14,12 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@mui/x-data-grid": "^7.3.2",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "@web3modal/ethereum": "^2.7.1",
+    "@web3modal/react": "^2.7.1",
     "bootstrap": "^5.3.3",
     "echarts": "^5.5.0",
-    "ethers": "^6.12.0",
+    "ethers": "^6.13.0",
     "next": "14.2.2",
     "notistack": "^3.0.1",
     "react": "^18",
@@ -26,6 +29,8 @@
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
     "sats-connect": "^2.4.0",
-    "web3": "^4.8.0"
+    "wagmi": "^2.9.10",
+    "web3": "^4.8.0",
+    "web3modal": "^1.9.12"
   }
 }
