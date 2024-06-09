@@ -1,71 +1,79 @@
-// 
+import React, { useEffect, useState } from 'react';
+import { useConnect, useAccount } from 'wagmi';
+import { Container, Grid, Card, CardContent, Typography, Button, CardActions } from '@mui/material';
 
-import React, { useEffect } from "react";
-// Importing Hooks
-import { useAccount } from "wagmi";
+const WagmiComponent = () => {
+    const { connect, connectors, isConnected, error } = useConnect();
+    const { address } = useAccount();
+    const [clientLoaded, setClientLoaded] = useState(false);
 
+    useEffect(() => {
+        setClientLoaded(true);  // Este código irá rodar apenas no lado do cliente
+        console.log("Connectors information:", connectors); // Log das informações dos connectors
 
-export const WagmiComponent = () => {
-  const { address, isConnected } = useAccount();
+        // Salvando as informações dos connectors em uma variável para melhor visualização no console
+        const connectorsInfo = connectors.map(connector => ({
+            id: connector.id,
+            name: connector.name,
+            type: connector.type,
+            supportsSimulation: connector.supportsSimulation,
+            icon: connector.icon,
+            rkDetails: connector.rkDetails,
+        }));
 
-  useEffect(() => {
-    if (isConnected) {
-      console.log("Wallet address: ", address);
-    } else {
-      console.log("Not connected");
-    }
-  }, [address, isConnected]);
+        console.log("Connectors Info List:", connectorsInfo);
+    }, [connectors]);
 
-  return (
-    <>
+    return (
+        <Container>
+            <Grid container spacing={4}>
+                {clientLoaded && connectors.map((connector, index) => (
+                    <Grid item xs={12} key={`${connector.id}-${index}`}>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    {connector.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    ID: {connector.id}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Type: {connector.type}
+                                </Typography>
+                                {connector.supportsSimulation !== undefined && (
+                                    <Typography variant="body2" color="text.secondary">
+                                        Supports Simulation: {connector.supportsSimulation.toString()}
+                                    </Typography>
+                                )}
+                                {connector.rkDetails && (
+                                    <Typography variant="body2" color="text.secondary">
+                                        RK Details: {JSON.stringify(connector.rkDetails)}
+                                    </Typography>
+                                )}
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small" onClick={() => connect({ connector })}>
+                                    Connect with {connector.name}
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
 
-      <div className="w-full flex flex-col">
-        <h1 className="flex flex-col sm:flex-row justify-center items-center text-4xl font-bold">
-          <a
-            href="https://nextjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Next.js
-          </a>
-          <span className="mx-2 hidden sm:block">+</span>
-          <a
-            className="mt-4 sm:mt-0"
-            href="https://tailwindcss.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Tailwind CSS
-          </a>
-        </h1>
-        <h2 className="mt-2 flex flex-col sm:flex-row justify-center items-center text-3xl font-bold">
-          <a href="https://wagmi.sh/" target="_blank" rel="noopener noreferrer">
-            Wagmi
-          </a>
-          <span className="mx-2 hidden sm:block">+</span>
-          <a
-            className="mt-4 sm:mt-0"
-            href="https://tanstack.com/query/latest"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            TanStack Query
-          </a>
-          <span className="mx-2 hidden sm:block">+</span>
-          <a
-            className="mt-4 sm:mt-0"
-            href="https://www.rainbowkit.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            RainbowKit
-          </a>
-        </h2>
-        <h3 className="text-2xl text-center mt-4">written in TypeScript</h3>
-        <div className="flex justify-center mt-8">
-        </div>
-      </div>
-    </>
-  );
+            {isConnected && address && (
+                <Typography variant="body1" color="text.primary" mt={2}>
+                    Wallet address: {address}
+                </Typography>
+            )}
+
+            {error && (
+                <Typography variant="body1" color="error" mt={2}>
+                    Error: {error.message}
+                </Typography>
+            )}
+        </Container>
+    );
 };
 
+export default WagmiComponent;
