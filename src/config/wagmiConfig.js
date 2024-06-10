@@ -6,8 +6,8 @@ import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import {
   metaMaskWallet,
   trustWallet,
-  uniswapWallet,
-  walletConnectWallet,
+//   uniswapWallet,
+//   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 
 // Wagmi
@@ -31,9 +31,9 @@ const wallets = [
     groupName: "Recommended",
     wallets: [
       metaMaskWallet,
-      walletConnectWallet,
+    //   walletConnectWallet,
       trustWallet,
-      uniswapWallet,
+    //   uniswapWallet,
     ],
     },
 ];

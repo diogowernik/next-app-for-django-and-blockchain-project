@@ -22,12 +22,12 @@ export const AuthProvider = ({ children }) => {
   const [isDjangoAuthenticated, setIsDjangoAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log("Verificando localStorage para 'userAddress' e 'token'");
+    // console.log("Verificando localStorage para 'userAddress' e 'token'");
     const storedAddress = localStorage.getItem('userAddress');
     const tokenFromStorage = localStorage.getItem('token');
   
-    console.log("Endereço recuperado:", storedAddress);
-    console.log("Token recuperado:", tokenFromStorage);
+    // console.log("Endereço recuperado:", storedAddress);
+    // console.log("Token recuperado:", tokenFromStorage);
   
     if (storedAddress) {
       setIsMetamaskAuthenticated(true);
