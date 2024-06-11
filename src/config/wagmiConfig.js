@@ -6,7 +6,6 @@ import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import {
   metaMaskWallet,
   trustWallet,
-//   uniswapWallet,
 //   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 
@@ -33,7 +32,6 @@ const wallets = [
       metaMaskWallet,
     //   walletConnectWallet,
       trustWallet,
-    //   uniswapWallet,
     ],
     },
 ];
