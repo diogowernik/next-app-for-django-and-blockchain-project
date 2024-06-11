@@ -4,6 +4,25 @@ import { Container, Grid, Card, CardContent, Typography, Button, CardActions } f
 
 const customWalletIds = ['com.trustwallet.app', 'io.metamask'];
 
+const WalletsCardsEVM = () => {
+  const { connectors } = useConnect();
+  const filteredConnectors = connectors.filter(connector => customWalletIds.includes(connector.id));
+
+  return (
+    <Container>
+      <Grid container spacing={4}>
+        {filteredConnectors.map((connector, index) => (
+          <Grid item xs={12} key={`${connector.id}-${index}`}>
+            <WalletCard connector={connector} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
+  );
+};
+
+export default WalletsCardsEVM;
+
 const WalletCard = ({ connector }) => {
   const { connect, error: connectError } = useConnect();
   const { address, addresses, chain, chainId, connector: activeConnector, isConnected, status, error: accountError } = useAccount();
@@ -96,21 +115,4 @@ const WalletCard = ({ connector }) => {
 
 
 
-const WagmiComponent = () => {
-  const { connectors } = useConnect();
-  const filteredConnectors = connectors.filter(connector => customWalletIds.includes(connector.id));
 
-  return (
-    <Container>
-      <Grid container spacing={4}>
-        {filteredConnectors.map((connector, index) => (
-          <Grid item xs={12} key={`${connector.id}-${index}`}>
-            <WalletCard connector={connector} />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
-  );
-};
-
-export default WagmiComponent;
