@@ -4,6 +4,15 @@ const LocalCheck = () => {
     // Estado para armazenar e exibir o conteúdo do localStorage
     const [localStorageContent, setLocalStorageContent] = useState({});
 
+    // Lista de chaves a serem ignoradas
+    const ignoreList = [
+        'binance-http://localhost:3000',
+        'trust:cache:timestamp',
+        'ethereum-http://localhost:3000',
+        'ally-supports-cache',
+        'loglevel'
+    ];
+
     // Efeito para carregar o conteúdo do localStorage ao iniciar o componente
     useEffect(() => {
         loadLocalStorage();
@@ -14,9 +23,15 @@ const LocalCheck = () => {
         const content = {};
         for (let i = 0; i < window.localStorage.length; i++) {
             const key = window.localStorage.key(i);
-            content[key] = window.localStorage.getItem(key);
+            if (!ignoreList.includes(key)) { // Verifica se a chave atual está na lista de ignorados
+                content[key] = window.localStorage.getItem(key);
+            }
         }
-        setLocalStorageContent(content);
+        const sortedContent = Object.keys(content).sort().reduce((obj, key) => {
+            obj[key] = content[key];
+            return obj;
+        }, {});
+        setLocalStorageContent(sortedContent);
     };
 
     // Função para limpar o localStorage

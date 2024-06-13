@@ -1,110 +1,133 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useConnect, useAccount, useAccountEffect } from 'wagmi';
+import { useState, useEffect } from 'react';
+import Web3 from 'web3';
+import { useLocalStorage } from "@/hooks/auth/useLocalStorage";
 
 const TrustWalletOnlyApp = () => {
-  const { connect, connectors, error } = useConnect();
-  const { address, addresses, chain, chainId, connector, isConnecting, isConnected, isDisconnected, isReconnecting, status, error: accountError } = useAccount();
-  const [isTrustWalletDisconnected, setIsTrustWalletDisconnected] = useState(false);
-  const trustWalletConnector = connectors.find(connector => connector.id === 'com.trustwallet.app');
+  const [account, setAccount] = useLocalStorage("eth_trustwallet_account", null);
+  const [network, setNetwork] = useLocalStorage("eth_trustwallet_network", "sepolia");
+  const [trustWalletConnected, setTrustWalletConnected] = useLocalStorage("eth_trustwallet_connected", false);
 
-  const checkCountRef = useRef(null);
+  const [balance, setBalance] = useState(null);
+  const [isClient, setIsClient] = useState(false);
 
-  const checkTrustWalletDisconnection = () => {
-    const disconnectedStatus = localStorage.getItem('wagmi.com.trustwallet.app.disconnected');
-    setIsTrustWalletDisconnected(disconnectedStatus ? disconnectedStatus === 'true' : false);
-    if (++checkCountRef.current >= 10) { // Limite de 10 verificações
-      clearInterval(checkCountRef.current);
-      checkCountRef.current = null;
-    }
-  };
-  console.log('isTrustWalletDisconnected:', isTrustWalletDisconnected);
-
-  const startLimitedCheck = () => {
-    clearInterval(checkCountRef.current); // Limpa qualquer intervalo existente antes de começar um novo
-    checkCountRef.current = 0; // Reseta o contador
-    checkCountRef.current = setInterval(checkTrustWalletDisconnection, 1000); // Verifica a cada segundo por 10 segundos
-  };
+  const [trustWalletProvider, setTrustWalletProvider] = useState(null);
 
   useEffect(() => {
-    return () => clearInterval(checkCountRef.current); // Limpa o intervalo quando o componente é desmontado
+    setIsClient(true); // Marcar que estamos no cliente
+
+    const handleProviderAnnouncement = (event) => {
+      const provider = event.detail.provider;
+      if (provider.isTrust) {
+        setTrustWalletProvider(provider);
+      }
+    };
+
+    window.addEventListener("eip6963:announceProvider", handleProviderAnnouncement);
+    window.dispatchEvent(new Event("eip6963:requestProvider"));
+
+    return () => {
+      window.removeEventListener("eip6963:announceProvider", handleProviderAnnouncement);
+    };
   }, []);
 
-  useAccountEffect({
-    onConnect(data) {
-      console.log('Connected!', data);
-      startLimitedCheck();
-    },
-    onDisconnect() {
-      console.log('Disconnected!');
-      startLimitedCheck();
-    },
-  });
+  useEffect(() => {
+    if (trustWalletProvider) {
+      const checkTrustWalletAvailability = async () => {
+        const accounts = await trustWalletProvider.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          setAccount(accounts[0]);
+          getBalance(accounts[0]);
+          setTrustWalletConnected(true);
+        } else {
+          setTrustWalletConnected(false);
+        }
+      };
 
-  const handleDisconnect = async () => {
-    if (connector) {
-      try {
-        await connector.disconnect();
-        console.log("Disconnected successfully.");
-      } catch (error) {
-        console.error("Failed to disconnect:", error);
+      checkTrustWalletAvailability();
+    }
+  }, [trustWalletProvider]);
+
+  const onWalletDisconnect = () => {
+    setAccount(null);
+    setBalance(null);
+    setTrustWalletConnected(false);
+    window.localStorage.removeItem("eth_trustwallet_account");
+    window.localStorage.removeItem("eth_trustwallet_network");
+  };
+
+  const toggleNetwork = async () => {
+    if (trustWalletProvider) {
+      const newNetwork = network === "mainnet" ? "sepolia" : "mainnet";
+      setNetwork(newNetwork);
+      window.localStorage.setItem("eth_trustwallet_network", JSON.stringify(newNetwork));
+      if (newNetwork === "sepolia") {
+        await trustWalletProvider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0xaa36a7' }],
+        });
+      } else {
+        await trustWalletProvider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
+        });
       }
-    } else {
-      console.log("No connector found to disconnect");
+      onWalletDisconnect();
     }
   };
 
+  const onConnectClick = async () => {
+    if (trustWalletProvider) {
+      const accounts = await trustWalletProvider.request({ method: 'eth_requestAccounts' });
+      if (accounts.length > 0) {
+        setAccount(accounts[0]);
+        getBalance(accounts[0]);
+        setTrustWalletConnected(true);
+        window.localStorage.setItem("eth_trustwallet_account", accounts[0]);
+      }
+    } else {
+      console.log("Trust Wallet is not installed");
+    }
+  };
+
+  const getBalance = async (account) => {
+    const web3 = new Web3(trustWalletProvider);
+    const balance = await web3.eth.getBalance(account);
+    setBalance(web3.utils.fromWei(balance, 'ether'));
+  };
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
-    <div>
-      <h1>Trust Wallet Connect Test App</h1>
-      {trustWalletConnector && (
-        <button onClick={() => connect({ connector: trustWalletConnector })}>
-          Connect with {trustWalletConnector.name}
+    <div style={{ padding: 30 }}>
+      <h1>Trust Wallet Connect Test App - {network}</h1>
+      <div>
+        {trustWalletConnected ? (
+          <div>
+            <h3>Trust Wallet Account</h3>
+            <div>Address: {account}</div>
+            <div>Balance: {balance} ETH</div>
+          </div>
+        ) : (
+          <div>
+            <h3>No account connected</h3>
+          </div>
+        )}
+      </div>
+      <div style={{ background: "lightgray", padding: 30, marginTop: 10 }}>
+        <button style={{ height: 30, width: 180 }} onClick={toggleNetwork}>
+          Switch Network
         </button>
-      )}
-      {error && <div>Error: {error.message}</div>}
-      
-      {isConnected && !isTrustWalletDisconnected && (
-        <div>
-          <h2>Connected</h2>
-          <p>Account: {address}</p>
-          <p>Addresses: {addresses?.join(', ')}</p>
-          <p>Chain ID: {chainId}</p>
-          <p>Chain: {chain?.name}</p>
-          <p>Connector: {connector?.name}</p>
-          <p>ConnectorId: {connector?.id}</p>
-          <p>Is Connected: {isConnected.toString()}</p>
-          <p>Is Connecting: {isConnecting.toString()}</p>
-          <p>Is Disconnected: {isDisconnected.toString()}</p>
-          <p>Is Reconnecting: {isReconnecting.toString()}</p>
-          <p>Status: {status}</p>
-          <button onClick={handleDisconnect}>Disconnect</button>
-        </div>
-      )}
-
-      {(status === 'disconnected' || isTrustWalletDisconnected) && (
-        <div>
-          <h2>Disconnected</h2>
-        </div>
-      )}
-
-      {status === 'connecting' && (
-        <div>
-          <h2>Connecting</h2>
-        </div>
-      )}
-
-      {status === 'error' && (
-        <div>
-          <h2>Error</h2>
-          <p>{accountError?.message}</p>
-        </div>
-      )}
-
-      {status === 'reconnecting' && (
-        <div>
-          <h2>Reconnecting</h2>
-        </div>
-      )}
+        <br />
+        <br />
+        <button style={{ height: 30, width: 180, marginLeft: 10 }} onClick={onConnectClick}>
+          Connect Trust Wallet
+        </button>
+      </div>
+      <div>
+        <button onClick={onWalletDisconnect}>Disconnect</button>
+      </div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { useLocalStorage } from "@/hooks/auth/useLocalStorage";
 
 const MetamaskOnlyApp = () => {
   const [account, setAccount] = useLocalStorage("eth_metamask_account", null);
-  const [network, setNetwork] = useLocalStorage("eth_metamask_network", "testnet");
+  const [network, setNetwork] = useLocalStorage("eth_metamask_network", "sepolia");
   const [metamaskConnected, setMetamaskConnected] = useLocalStorage("eth_metamask_connected", false);
   
   const [metamaskInstalled, setMetamaskInstalled] = useState(false);
