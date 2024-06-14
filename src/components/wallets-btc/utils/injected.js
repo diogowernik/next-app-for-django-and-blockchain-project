@@ -1,5 +1,4 @@
-
-import defaultProviderIcon from "@/EIP6963/icons/default.svg";
+import defaultProviderIcon from "@/components/wallets-btc/icons/default.svg";
 // TODO: Add icons for Xverse and Unisat
 
 const providerIcons = {
@@ -15,7 +14,7 @@ const getProviderNameAndIcon = (provider) => {
   return { name: "Unknown", icon: providerIcons.Default };
 };
 
-export const getInjectedInfo = (uuid, bitcoinNetwork) => {
-  const providerInfo = bitcoinNetwork ? getProviderNameAndIcon(bitcoinNetwork) : { name: "Unknown", icon: providerIcons.Default };
+export const getInjectedInfo = (uuid, provider) => {
+  const providerInfo = getProviderNameAndIcon(provider);
   return { uuid, ...providerInfo };
 };

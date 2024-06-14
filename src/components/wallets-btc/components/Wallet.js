@@ -67,7 +67,15 @@ const Wallet = (props) => {
           </Grid>
           <Grid item xs>
             <Typography variant="h6">{provider.info.name}</Typography>
-            <Typography variant="body2" color="textSecondary">{chain}</Typography>
+              {/* Aqui exibimos o RDNS se disponível */}
+              {provider.info.rdns && (
+              <Typography variant="body2" color="textSecondary">
+                RDNS: {provider.info.rdns}
+              </Typography>
+            )}
+              <Typography variant="body2" color="textSecondary">
+                {chain}
+              </Typography>
           </Grid>
         </Grid>
       </CardContent>

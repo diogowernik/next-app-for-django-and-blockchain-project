@@ -83,11 +83,9 @@ const Wallet = (props) => {
                 RDNS: {provider.info.rdns}
               </Typography>
             )}
-            {chain && isConnected && (
               <Typography variant="body2" color="textSecondary">
                 {chain}
               </Typography>
-            )}
           </Grid>
         </Grid>
       </CardContent>
