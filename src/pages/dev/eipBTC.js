@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 
 const WalletsBTCPage = () => {
 
-    const WalletsBTCGrid = dynamic(() => import('@/WalletsBTC/WalletsBTCGrid'), { ssr: false });
+    const WalletsBTCGrid = dynamic(() => import('@/components/wallets-btc/WalletsBTCGrid'), { ssr: false });
 
     return (
         <div>
