@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { CardContent, CardActions, Typography, Button, Avatar, Grid, Paper } from "@mui/material";
 import { Link as LinkIcon, AccountBalanceWallet as WalletIcon } from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
-import { v4 as uuidv4 } from 'uuid';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   maxWidth: '400px',
@@ -104,7 +103,7 @@ const Wallet = (props) => {
                 Copy
               </Button>
               <Typography variant="body2" color="textSecondary">
-                uuid: {uuidv4()}
+                uuid:  {provider.info.uuid}
               </Typography>
             </Grid>
           ))}

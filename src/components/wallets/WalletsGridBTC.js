@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Wallet from "./components/Wallet";
-import { Typography, Grid, Container } from "@mui/material";
+import { Typography, Grid, Alert } from "@mui/material";
 import providersData from "./utils/btcProviders";  // Atualizado o caminho
+import WalletBTC from "./WalletBTC";
 
-const WalletsBTCGrid = () => {
+const WalletsGridBTC = () => {
   const [providers, setProviders] = useState(new Map());
 
   useEffect(() => {
@@ -58,29 +58,26 @@ const WalletsBTCGrid = () => {
   };
 
   return (
-    <Container>
-      <Grid container spacing={2}>
-        {providers.size !== 0 ? (
-          Array.from(providers.values()).map((provider) => (
-            <Grid item xs={12} sm={6} md={4} key={provider.info.uuid}>
-              <Wallet
-                clickHandler={() => connectProvider(provider)}
-                provider={provider}
-                modifyProviders={modifyProviders}
-              />
-            </Grid>
-          ))
-        ) : (
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              {/* a mensagem vai para o btcProviders */}
-              No BTC providers found. Ensure you have a wallet configured.
-            </Typography>
-          </Grid>
-        )}
+<>
+  {providers.size !== 0 ? (
+    Array.from(providers.values()).map((provider) => (
+      <Grid item xs={12} sm={6} md={6} lg={4} key={provider.info.uuid}>
+        <WalletBTC
+          clickHandler={() => connectProvider(provider)}
+          provider={provider}
+          modifyProviders={modifyProviders}
+        />
       </Grid>
-    </Container>
+    ))
+  ) : (
+    <Grid item xs={12}>
+      <Alert severity="warning">
+        No BTC providers found. Ensure you have a wallet configured.
+      </Alert>
+    </Grid>
+  )}
+</>
   );
 };
 
-export default WalletsBTCGrid;
+export default WalletsGridBTC;

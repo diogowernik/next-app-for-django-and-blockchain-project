@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Wallet from "./components/Wallet";
-import { Typography, Grid, Container } from "@mui/material";
+import { Grid, Alert } from "@mui/material";
 import { initializeEVMProviders } from "./utils/evmProviders";
+import WalletEVM from "./WalletEVM";
 
 const WalletsEvmGrid = () => {
   const [providers, setProviders] = useState(new Map());
@@ -62,28 +62,25 @@ const WalletsEvmGrid = () => {
   };
 
   return (
-    <Container>
-      <Grid container spacing={2}>
-        {providers.size !== 0 ? (
-          Array.from(providers.values()).map((provider) => (
-            <Grid item xs={12} sm={6} md={4} key={provider.info.uuid}>
-              <Wallet
-                clickHandler={() => connectProvider(provider)}
-                provider={provider}
-                modifyProviders={modifyProviders}
-              />
-            </Grid>
-          ))
-        ) : (
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              {/* a mensagem vai para o evmProviders */}
-              No EIP-6963 compatible providers found. Ensure you have a wallet configured.
-            </Typography>
-          </Grid>
-        )}
+<>
+  {providers.size !== 0 ? (
+    Array.from(providers.values()).map((provider) => (
+      <Grid item xs={12} sm={6} md={6} lg={4} key={provider.info.uuid}>
+        <WalletEVM
+          clickHandler={() => connectProvider(provider)}
+          provider={provider}
+          modifyProviders={modifyProviders}
+        />
       </Grid>
-    </Container>
+    ))
+  ) : (
+    <Grid item xs={12}>
+      <Alert severity="warning">
+        No EIP-6963 compatible providers found. Ensure you have a wallet configured.
+      </Alert>
+    </Grid>
+  )}
+</>
   );
 };
 

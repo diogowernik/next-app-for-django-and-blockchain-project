@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, Button, Grid, Avatar, Paper, CardContent, CardActions } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { AccountBalanceWallet as WalletIcon, Link as LinkIcon } from "@mui/icons-material";
-import { truncateAddress } from "../utils/functions";
+import { truncateAddress } from "./utils/functions";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   maxWidth: '400px',
@@ -16,7 +16,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 // BTC Wallet component
-const Wallet = (props) => {
+const WalletBTC = (props) => {
   const { clickHandler, provider, modifyProviders } = props;
 
   const [chain, setChain] = useState("");
@@ -93,12 +93,12 @@ const Wallet = (props) => {
               >
                 Copy
               </Button>
-              <Typography variant="body2" color="textSecondary">
+              {/* <Typography variant="body2" color="textSecondary">
                 Public Key: {provider.publicKeys[index]}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
+              </Typography> */}
+              {/* <Typography variant="body2" color="textSecondary">
                 uuid: {provider.info.uuid}
-              </Typography>
+              </Typography> */}
             </Grid>
           ))}
         </CardContent>
@@ -133,4 +133,4 @@ const Wallet = (props) => {
   );
 };
 
-export default Wallet;
+export default WalletBTC;

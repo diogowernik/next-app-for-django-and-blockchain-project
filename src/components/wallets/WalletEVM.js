@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Typography, Button, Grid, Avatar, Paper, CardContent, CardActions } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { CardContent, CardActions, Typography, Button, Avatar, Grid, Paper } from "@mui/material";
+import { Link as LinkIcon, AccountBalanceWalletEVM as WalletEVMIcon } from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
-import { AccountBalanceWallet as WalletIcon, Link as LinkIcon } from "@mui/icons-material";
-import { truncateAddress } from "../utils/functions";
+import { chainIDtoName, truncateAddress } from "./utils/functions";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   maxWidth: '400px',
@@ -15,8 +15,8 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   position: 'relative',
 }));
 
-// BTC Wallet component
-const Wallet = (props) => {
+// EVM WalletEVM component
+const WalletEVM = (props) => {
   const { clickHandler, provider, modifyProviders } = props;
 
   const [chain, setChain] = useState("");
@@ -26,35 +26,35 @@ const Wallet = (props) => {
 
   useEffect(() => {
     if (!provider.provider) return;
-
-    const handleAccountsChanged = (accounts) => {
+    const currentProvider = provider.provider;
+    currentProvider.on("accountsChanged", (accounts) => {
       console.log("accountsChanged", accounts);
       provider.accounts = accounts;
       modifyProviders(provider);
-    };
-
-    const handleChainChanged = (network) => {
-      console.log("networkChanged", network);
-      setChain(network);
-    };
-
-    window.addEventListener("accountsChanged", handleAccountsChanged);
-    window.addEventListener("chainChanged", handleChainChanged);
-
-    return () => {
-      window.removeEventListener("accountsChanged", handleAccountsChanged);
-      window.removeEventListener("chainChanged", handleChainChanged);
-    };
+    });
+    currentProvider.on("chainChanged", async (chainID) => {
+      console.log("chainChanged", chainID);
+      const chainName = await chainIDtoName(chainID);
+      setChain(chainName);
+    });
+    currentProvider.on("disconnect", (error) => {
+      console.log("disconnect", error);
+    });
   }, [provider.provider, provider, modifyProviders]);
 
   useEffect(() => {
     async function getCurrentChainName() {
-      const chain = provider.info.network;
-      setChain(chain);
+      if (!provider.provider) return;
+      const currentProvider = provider.provider;
+      const chainID = await currentProvider.request({
+        method: "eth_chainId",
+      });
+      const chainName = await chainIDtoName(chainID);
+      setChain(chainName);
     }
     getCurrentChainName();
     console.log("Connected: ", isConnected);
-  }, [provider]);
+  }, [provider.provider]);
 
   return (
     <StyledPaper elevation={3}>
@@ -62,11 +62,16 @@ const Wallet = (props) => {
         <Grid container alignItems="center" spacing={2}>
           <Grid item>
             <Avatar
-              src={provider.info.icon || ""}
+              src={provider.info.icon}
               alt={provider.info.name}
-              sx={{ width: 42, height: 48, borderRadius: 0, objectFit: 'contain' }}
+              sx={{
+                width: 42,
+                height: 48,
+                borderRadius: 0,
+                objectFit: 'contain'
+              }}
             >
-              {!provider.info.icon && <WalletIcon />}
+              {provider.info.icon ? null : <WalletEVMIcon />}
             </Avatar>
           </Grid>
           <Grid item xs>
@@ -77,15 +82,19 @@ const Wallet = (props) => {
                 RDNS: {provider.info.rdns}
               </Typography>
             )}
-            <Typography variant="body2" color="textSecondary">{chain}</Typography>
+              <Typography variant="body2" color="textSecondary">
+                {chain}
+              </Typography>
           </Grid>
         </Grid>
       </CardContent>
       {isConnected && (
         <CardContent>
-          {provider.accounts.map((account, index) => (
-            <Grid container justifyContent="space-between" alignItems="center" key={index}>
-              <Typography variant="body2">{truncateAddress(account)}</Typography>
+          {provider.accounts.map((account) => (
+            <Grid container justifyContent="space-between" alignItems="center" key={account}>
+              <Typography variant="body2">
+                {truncateAddress(account)}
+              </Typography>
               <Button
                 size="small"
                 onClick={() => navigator.clipboard.writeText(account)}
@@ -93,18 +102,19 @@ const Wallet = (props) => {
               >
                 Copy
               </Button>
-              <Typography variant="body2" color="textSecondary">
-                Public Key: {provider.publicKeys[index]}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                uuid: {provider.info.uuid}
-              </Typography>
+              {/* <Typography variant="body2" color="textSecondary">
+                uuid:  {provider.info.uuid}
+              </Typography> */}
             </Grid>
           ))}
         </CardContent>
       )}
       <CardActions>
-        {isConnecting ? (
+        {!provider.provider ? (
+          <Button disabled variant="contained" color="error">
+            No Provider
+          </Button>
+        ) : isConnecting ? (
           <Button disabled variant="contained" color="primary">
             Connecting...
           </Button>
@@ -133,4 +143,4 @@ const Wallet = (props) => {
   );
 };
 
-export default Wallet;
+export default WalletEVM;
