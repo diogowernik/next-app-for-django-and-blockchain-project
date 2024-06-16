@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Alert } from "@mui/material";
+import { Grid } from "@mui/material";
 import providersData from "./utils/wtreeProviders";
 import WalletWtree from "./WalletWtree";
 
@@ -30,18 +30,10 @@ const WalletsGridWtree = () => {
       {providers.size !== 0 ? (
         Array.from(providers.values()).map((provider) => (
           <Grid item xs={12} sm={6} md={6} lg={4} key={provider.info.uuid}>
-            <WalletWtree
-              provider={provider}
-            />
+            <WalletWtree provider={provider} />
           </Grid>
         ))
-      ) : (
-        <Grid item xs={12}>
-          <Alert severity="warning">
-            No Wtree providers found. Ensure you have a wallet configured.
-          </Alert>
-        </Grid>
-      )}
+      ) : null}
     </>
   );
 };

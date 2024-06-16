@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainDashboardComponent } from '@/components/dashboard/MainDashboardComponent';
+import { HoldingDashboard } from '@/components/holding/HoldingDashboard';
 import { usePortfolio } from '@/context/PortfolioContext';
 
 
@@ -7,7 +7,7 @@ export const BrokerDashboard = () => {
   const { portfolioAssets, brokers } = usePortfolio();
 
 
-  return <MainDashboardComponent 
+  return <HoldingDashboard 
             filterKey="broker" 
             items={brokers}
             portfolioAssets={portfolioAssets}

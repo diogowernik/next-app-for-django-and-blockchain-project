@@ -1,5 +1,5 @@
 import MainLayout from '@/layouts/dex/dashboard/MainLayout';
-import { WtreeProfileCreate } from '@/components/dex/profile';
+import { WtreeProfileCreate } from '@/components/profile';
 import { Box, Typography } from '@mui/material';
 
 export default function CreateProfileForm() {

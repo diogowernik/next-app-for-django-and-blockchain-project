@@ -1,10 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
 
 function usePersistentToggle(key, defaultValue) {
-    const [state, setState] = useState(() => {
+    // Inicializa o estado com defaultValue para evitar referência a localStorage durante SSR
+    const [state, setState] = useState(defaultValue);
+
+    // Efeito para atualizar o estado com o valor armazenado após o componente ser montado no cliente
+    useEffect(() => {
         const storedValue = localStorage.getItem(key);
-        return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
-    });
+        // Atualiza o estado se um valor válido for encontrado no localStorage
+        if (storedValue !== null) {
+            setState(JSON.parse(storedValue));
+        }
+    }, [key]);
 
     const toggle = useCallback(() => {
         setState(prevState => {

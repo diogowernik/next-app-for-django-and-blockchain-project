@@ -14,7 +14,7 @@ const WalletsCardsEVM = dynamic(
   { ssr: false } // Desativa o Server-Side Rendering para este componente
 );
 
-const MyWalletsPage = () => {
+export const MyWalletsPage = () => {
     return (
         <MainLayout>
             <Typography variant="h5" gutterBottom>

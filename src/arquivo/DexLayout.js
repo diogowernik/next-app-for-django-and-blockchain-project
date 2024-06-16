@@ -1,7 +1,7 @@
 // @layouts/MainLayout.js
 
 import React from 'react';
-import ResponsiveDrawer from './ResponsiveDrawer';
+import ResponsiveDrawer from './LeftSidebar';
 import { WagmiProvider } from "wagmi";
 import { wtreeWagmiConfig } from "@/config/wtreeWagmiConfig";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

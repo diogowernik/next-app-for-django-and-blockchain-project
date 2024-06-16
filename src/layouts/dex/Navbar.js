@@ -5,7 +5,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { WtreeIcon } from '@/components/dex/ui/WtreeIcon';
 
-const DashboardNavbar = () => {
+export const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -68,4 +68,3 @@ const DashboardNavbar = () => {
   );
 };
 
-export default DashboardNavbar;

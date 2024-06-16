@@ -9,7 +9,7 @@ import { InteractiveDataGrid } from '@/components/grid/InteractiveDataGrid';
 import { useUrlFilterChange } from '@/hooks/urls/useUrlFilterChange';
 import { useDynamicFilters } from '@/hooks/grid/useDynamicFilters';
 
-export const MainDashboardComponent = ({ filterKey, items, portfolioAssets }) => {
+export const HoldingDashboard = ({ filterKey, items, portfolioAssets }) => {
   const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(portfolioAssets, { [filterKey]: '' });
   const [urlFilters, handleUrlFilterChange] = useUrlFilterChange({ [filterKey]: '' });
 
