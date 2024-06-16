@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { Grid, Typography } from '@mui/material';
 import MainLayout from '@/layouts/dex/dashboard/MainLayout';
+import WalletsGridWtree from '@/components/wallets/WalletsGridWtree';
 
 const MyWalletsPage = () => {
     const WalletsGridBTC = dynamic(() => import('@/components/wallets/WalletsGridBTC'), { ssr: false });
@@ -18,6 +19,7 @@ const MyWalletsPage = () => {
             <Grid container spacing={2}>
                 <WalletsGridBTC />
                 <WalletsGridEVM />
+                <WalletsGridWtree />
             </Grid>
         </div>
         </MainLayout>
