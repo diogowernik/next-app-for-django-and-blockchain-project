@@ -1,12 +1,20 @@
 // @styles/theme.js
 import { createTheme } from '@mui/material/styles';
-import { green } from '@mui/material/colors';
+import { green, yellow, blue } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2E8B57',  // Cor verde principal
+      main: '#2E8B57',  // Cor verde principal para Conectar
       dark: '#206040'  // Verde mais escuro para hover
+    },
+    connecting: {
+      main: yellow[800],  // Cor amarela para Conectando
+      dark: yellow[900]
+    },
+    connected: {
+      main: green[500],  // Cor verde do MUI para Conectado
+      dark: green[700]
     },
     secondary: {
       main: '#87CEEB',  // Azul claro escolhido

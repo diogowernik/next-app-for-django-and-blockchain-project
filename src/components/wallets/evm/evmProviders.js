@@ -7,3 +7,4 @@ export const initializeEVMProviders = (onAnnounceProvider) => {
     };
   };
   
+// const providersData = initializeEVMProviders(onAnnounceProvider);
