@@ -16,10 +16,11 @@ function PortfolioAssetsColumns(handleDialogOpen) {
         { field: 'id', headerName: 'ID', flex: 1, minWidth: 68 },
         { field: 'ticker', headerName: 'Ticker', flex: 1.5, minWidth: 120, editable: false },
         { field: 'shares_amount', headerName: 'Quantidade', flex: 1.5, minWidth: 130, editable: true },
-        { field: 'share_average_price_brl', headerName: 'PM BRL', flex: 1.5, minWidth: 130, editable: true },
-        { field: 'share_average_price_usd', headerName: 'PM USD', flex: 1.5, minWidth: 130, editable: true },
+        { field: 'total_today_brl', headerName: 'Total BRL', flex: 1.5, minWidth: 130, editable: true },
+        { field: 'total_today_usd', headerName: 'Total USD', flex: 1.5, minWidth: 130, editable: true },
         { field: 'category', headerName: 'Categoria', flex: 2, minWidth: 180, editable: false },
         { field: 'broker', headerName: 'Corretora', flex: 1.5, minWidth: 130, editable: false },
+        { field: 'geolocation', headerName: 'Localização', flex: 1.5, minWidth: 130, editable: false },
         { field: 'delete', headerName: 'Deletar', flex: 1, minWidth: 68, renderCell: (params) => (
             <DeleteCellComponent handleDialogOpen={handleDialogOpen} id={params.id} />
         )}

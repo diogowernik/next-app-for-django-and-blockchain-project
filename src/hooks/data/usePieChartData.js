@@ -21,10 +21,10 @@ export const usePieChartData = (assets, groupByKey, valueKey) => {
           resultMap[groupValue].children.push(tickerFound);
         }
 
-        tickerFound.value += asset[valueKey];
-        resultMap[groupValue].value += asset[valueKey];
+        const addedValue = parseFloat((asset[valueKey]).toFixed(2));
+        tickerFound.value += addedValue;
+        resultMap[groupValue].value += addedValue;
       });
-      
 
       return Object.values(resultMap);
     };

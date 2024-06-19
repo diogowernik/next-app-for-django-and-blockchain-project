@@ -4,6 +4,7 @@ import { PortfolioContextWrapper } from '@/layouts/holding/shared/PortfolioConte
 import { PortfolioLayout } from '@/layouts/holding/portfolio/PortfolioLayout';
 import { CategoryDashboard } from '@/components/holding/CategoryDashboard';
 import { BrokerDashboard } from '@/components/holding/BrokerDashboard';
+import { GeoLocationDashboard } from '@/components/holding/GeoLocationDashboard';
 // import { DividendsDashboard } from '@/components/holding/DividendsDashboard';
 // import { RadarsDashboard } from '@/components/holding/RadarsDashboard';
 // import { EvolutionDashboard } from '@/components/holding/EvolutionDashboard';
@@ -22,14 +23,16 @@ const PortfolioPage = () => {
                 return <CategoryDashboard />;
             case 'broker':
                 return <BrokerDashboard />;
+            case 'geolocation':
+                return <GeoLocationDashboard />;
             // case 'dividends':
             //     return <DividendsDashboard />;
             // case 'radars':
             //     return <RadarsDashboard />;
             // case 'evolution':
             //     return <EvolutionDashboard />;
-            // default:
-            //     return <CategoryDashboard />;
+            default:
+                return <CategoryDashboard />;
         }
     };
 

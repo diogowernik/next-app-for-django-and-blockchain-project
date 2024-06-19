@@ -3,14 +3,13 @@ import { HoldingDashboard } from '@/components/holding/HoldingDashboard';
 import { usePortfolio } from '@/context/PortfolioContext';
 
 
-export const BrokerDashboard = () => {
-  const { portfolioAssets, brokers } = usePortfolio();
-  console.log(portfolioAssets);
+export const GeoLocationDashboard = () => {
+  const { portfolioAssets, geolocations } = usePortfolio();
 
 
   return <HoldingDashboard 
-            filterKey="broker" 
-            items={brokers}
+            filterKey="geolocation" 
+            items={geolocations}
             portfolioAssets={portfolioAssets}
           />;
 };

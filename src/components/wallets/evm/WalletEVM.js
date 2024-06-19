@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, Typography, Avatar, Grid, CardActionArea, Button, useTheme } from "@mui/material";
-import { Link as LinkIcon, CheckCircle as ConnectedIcon, Sync as ConnectingIcon } from "@mui/icons-material";
+import { Link as LinkIcon } from "@mui/icons-material";
 import { truncateAddress } from "@/components/wallets/utils/functions";
 import useWalletEVM from "@/components/wallets/evm/useWalletEVM";
 import ConnectButton from "@/components/wallets/utils/ConnectButton";
@@ -8,21 +8,6 @@ import ConnectButton from "@/components/wallets/utils/ConnectButton";
 const WalletEVM = (props) => {
   const { connectProvider, provider, modifyProviders } = props;
   const { chain, isConnecting, setIsConnecting, isConnected } = useWalletEVM(provider, modifyProviders);
-  const theme = useTheme();
-
-  const getButtonProps = () => {
-    if (!provider) {
-      return { color: 'error', icon: <LinkIcon />, label: "No Provider" };
-    } else if (isConnecting) {
-      return { color: 'connecting', icon: <ConnectingIcon />, label: "Connecting..." };
-    } else if (isConnected) {
-      return { color: 'connected', icon: <ConnectedIcon />, label: "Connected" };
-    } else {
-      return { color: 'primary', icon: <LinkIcon />, label: "Connect" };
-    }
-  };
-
-  const { color, icon, label } = getButtonProps();
 
   return (
     <Card sx={{ height: '280px', position: 'relative' }}>

@@ -13,7 +13,6 @@ const colorPalette2 = [
   '#FAC858', // saffron
   '#9A60B4', // purpureus
   '#FC8452', // coral
-  
 ];
 
 export const PieChartComponent = ({ data }) => {
@@ -22,7 +21,7 @@ export const PieChartComponent = ({ data }) => {
   useEffect(() => {
     const sortedData = data.map(category => ({
       ...category,
-      totalValue: category.children.reduce((acc, child) => acc + child.value, 0) // Calcula a soma total
+      totalValue: parseFloat(category.children.reduce((acc, child) => acc + child.value, 0).toFixed(2)) // Calcula a soma total e arredonda
     })).sort((a, b) => b.totalValue - a.totalValue); // Ordena os dados pela soma total
 
     const chartInstance = echarts.init(chartRef.current);
@@ -49,7 +48,7 @@ export const PieChartComponent = ({ data }) => {
           },
           data: sortedData.map(item => ({
             name: item.name,
-            value: item.totalValue // Usa a soma total para a exibição
+            value: item.totalValue
           })),
           color: colorPalette2
         },
@@ -63,7 +62,7 @@ export const PieChartComponent = ({ data }) => {
           label: {
             formatter: '{b}: {c} ({d}%)'
           },
-          data: sortedData.flatMap(item => item.children), // Usa os dados ordenados
+          data: sortedData.flatMap(item => item.children.map(child => ({ ...child, value: parseFloat(child.value.toFixed(2)) }))), // Arredonda os valores
           color: colorPalette
         }
       ]

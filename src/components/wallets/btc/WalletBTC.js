@@ -14,7 +14,6 @@ const WalletBTC = (props) => {
       <CardHeader
         avatar={
           <Avatar src={provider.info.icon || ""} alt={provider.info.name} sx={{ width: 42, height: 48, borderRadius: 0, objectFit: 'contain' }}>
-            {!provider.info.icon && <WalletIcon />}
           </Avatar>
         }
         title={

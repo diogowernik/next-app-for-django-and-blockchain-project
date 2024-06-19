@@ -16,6 +16,9 @@ export const LeftSidebar = ({ isOpen, toggleSidebar, handleDashboardChange }) =>
                 <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('broker')}>
                     <ListItemText primary="Brokers" />
                 </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('geolocation')}>
+                    <ListItemText primary="GeoLocation" />
+                </ListItemButton>
             </List>          
         </LeftSidebarWrapper>
     );

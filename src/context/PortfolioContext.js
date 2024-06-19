@@ -13,12 +13,14 @@ export const PortfolioProvider = ({ children, portfolioId }) => {
 
     const categories = useExtractedField(portfolioAssets, 'category');
     const brokers = useExtractedField(portfolioAssets, 'broker');
+    const geolocations = useExtractedField(portfolioAssets, 'geolocation');
 
     const value = {
         portfolioAssets,
         setPortfolioAssets,
         categories,
         brokers,
+        geolocations,
         loading,
         error
     };
