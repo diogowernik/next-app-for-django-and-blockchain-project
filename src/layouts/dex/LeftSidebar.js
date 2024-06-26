@@ -30,7 +30,7 @@ export const LeftSidebar = ({ isOpen, toggleSidebar, handleDashboardChange }) =>
                         <ListItemIcon><DescriptionIcon /></ListItemIcon>
                         <ListItemText primary="My Pages" />
                     </ListItemButton>
-                    <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('create-page')}>
+                    <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('create-profile')}>
                         <ListItemIcon><AddBoxIcon /></ListItemIcon>
                         <ListItemText primary="Create Page" />
                     </ListItemButton>

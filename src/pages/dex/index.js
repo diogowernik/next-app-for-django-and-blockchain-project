@@ -2,6 +2,7 @@ import React from 'react';
 import { DexLayout } from '@/layouts/dex/DexLayout';
 import { WalletsDashboard } from '@/components/dex/WalletsDashboard';
 import { DexDashboard } from '@/components/dex/DexDashboard';
+import { CreateProfileDashboard } from '@/components/dex/CreateProfileDashboard';
 // import { SettingsComponent } from '@/components/dex/SettingsComponent';
 // import { AnalyticsComponent } from '@/components/dex/AnalyticsComponent';
 // import { ReceivedDonationsComponent } from '@/components/dex/ReceivedDonationsComponent';
@@ -18,6 +19,9 @@ const DexPage = () => {
                 return <DexDashboard />;
             case 'wallets':
                 return <WalletsDashboard />;
+            case 'create-profile':
+                return <CreateProfileDashboard />;
+
             // case 'settings':
             //     return <SettingsComponent />;
             // case 'analytics':
