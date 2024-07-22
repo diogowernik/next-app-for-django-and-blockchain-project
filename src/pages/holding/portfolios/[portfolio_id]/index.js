@@ -6,6 +6,7 @@ import { CategoryDashboard } from '@/components/holding/CategoryDashboard';
 import { BrokerDashboard } from '@/components/holding/BrokerDashboard';
 import { GeoLocationDashboard } from '@/components/holding/GeoLocationDashboard';
 import { DividendsByMonth } from '@/components/holding/DividendsByMonth';
+import { DividendsByCategory } from '@/components/holding/DividendsByCategory';
 // import { RadarsDashboard } from '@/components/holding/RadarsDashboard';
 // import { EvolutionDashboard } from '@/components/holding/EvolutionDashboard';
 import { useDashboardUrlChange } from '@/hooks/urls/useDashboardUrlChange';
@@ -27,6 +28,8 @@ const PortfolioPage = () => {
                 return <GeoLocationDashboard />;
             case 'dividends':
                 return <DividendsByMonth />;
+            case 'category-dividends':
+                return <DividendsByCategory />;
             // case 'radars':
             //     return <RadarsDashboard />;
             // case 'evolution':
