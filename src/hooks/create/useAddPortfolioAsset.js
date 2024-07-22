@@ -11,6 +11,9 @@ const mapAssetDataToGrid = (data) => {
         shares_amount: data.shares_amount,
         share_average_price_brl: data.share_average_price_brl,
         share_average_price_usd: data.share_average_price_usd,
+        total_today_brl: data.total_today_brl,
+        total_today_usd: data.total_today_usd,
+        geolocation: data.geolocation,
         category: data.category_name,
         broker: data.broker_name,
         delete: 'Delete' 
