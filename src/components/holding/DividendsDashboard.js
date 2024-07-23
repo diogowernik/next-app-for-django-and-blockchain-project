@@ -8,7 +8,7 @@ import { DividendsDataGrid } from '@/components/grid/DividendsDataGrid';
 import { useUrlFilterChange } from '@/hooks/urls/useUrlFilterChange';
 import { useDynamicFilters } from '@/hooks/grid/useDynamicFilters';
 import DividendsOverviewTable from '@/components/dividends/DividendsOverviewTable';
-import DividendsStakedChart from '../dividends/DividendsStakedChart';
+import DividendsStakedChart from '@/components/dividends/DividendsStakedChart';
 
 export const DividendsDashboard = ({ filterKey, items, dividends}) => {
   const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(dividends, { [filterKey]: '' });
@@ -45,12 +45,15 @@ export const DividendsDashboard = ({ filterKey, items, dividends}) => {
       </Grid>
       <Grid item xs={12}>
         <DividendsStakedChart
-          assets={filteredAssets}
+            assets={filteredAssets}
+            filterKey={filterKey}
+            Filter={filters[filterKey]}
         />
       </Grid>
       <Grid item xs={12}>
         <DividendsOverviewTable
           assets={filteredAssets}
+          Filter={filters[filterKey]}
         />
       </Grid>
     </>

@@ -4,12 +4,12 @@ import { useTheme } from '@mui/material/styles';
 import { Card, CardHeader, CardContent, Typography, CardActionArea } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
-export const DividendsTotalsGrid = ({ assets, filterKey, Filter }) => {
+export const DividendsTotalsGrid = ({ assets, Filter }) => {
   const theme = useTheme();
 
   const portfolioData = Filter === '' ? 
-      useTotalGridData(assets, 'pay_date_by_year', 'total_dividend_brl') : 
-      useTotalGridData(assets, 'category', 'total_dividend_brl');
+      useTotalGridData(assets, 'category', 'total_dividend_brl') : 
+      useTotalGridData(assets, 'ticker', 'total_dividend_brl');
 
   const columns = [
     { 
