@@ -11,6 +11,7 @@ import { DividendsByCategory } from '@/components/holding/DividendsByCategory';
 // import { RadarsDashboard } from '@/components/holding/RadarsDashboard';
 // import { EvolutionDashboard } from '@/components/holding/EvolutionDashboard';
 import { useDashboardUrlChange } from '@/hooks/urls/useDashboardUrlChange';
+import { ValuationDashboard } from '@/components/holding/ValuationDashboard';
 
 const PortfolioPage = () => {
     const router = useRouter();
@@ -38,7 +39,9 @@ const PortfolioPage = () => {
             // case 'evolution':
             //     return <EvolutionDashboard />;
             default:
-                return <CategoryDashboard />;
+                return <ValuationDashboard />;
+            case 'valuation':
+                return <ValuationDashboard />;
         }
     };
 

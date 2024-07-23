@@ -28,6 +28,18 @@ const StakedComponent = ({ chartData }) => {
         data: chartData.sortedMonths
       },
       yAxis: { type: 'value' },
+      dataZoom: [
+        {
+          type: 'slider',
+          start: 0,
+          end: 100,
+        },
+        {
+          type: 'inside',
+          start: 0,
+          end: 100,
+        },
+      ],
       series: seriesWithColors
     };
 

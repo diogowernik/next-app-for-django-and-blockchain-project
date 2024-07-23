@@ -6,7 +6,7 @@ import StakedComponent from '@/components/charts/StakedComponent';
 const DividendsStakedChart = ({ assets, Filter }) => {
   const chartData = Filter === ''
     ? useStakedChart(assets, 'category')
-    : useStakedChart(assets, 'category');
+    : useStakedChart(assets, 'ticker');
 
   const title = `Gráfico de Dividendos Mensais por ${Filter === '' ? 'Categoria' : 'Ticker'}`;
 

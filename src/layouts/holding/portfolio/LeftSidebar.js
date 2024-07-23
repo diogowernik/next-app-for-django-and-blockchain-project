@@ -28,6 +28,9 @@ export const LeftSidebar = ({ isOpen, toggleSidebar, handleDashboardChange }) =>
                 <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('dividends-by-year')}>
                     <ListItemText primary="Dividends By Year" />
                 </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }} onClick={() => handleDashboardChange('valuation')}>
+                    <ListItemText primary="Valuation" />
+                </ListItemButton>
             </List>          
         </LeftSidebarWrapper>
     );
