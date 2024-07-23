@@ -5,7 +5,6 @@ import { useFetchPortfolioAssets } from '@/hooks/fetch/useFetchPortfolioAssets';
 import { useFetchDividends } from '@/hooks/fetch/useFetchDividends';
 import { useAuth } from '@/context/AuthContext';
 import { useExtractedField } from '@/hooks/data/useExtractedField';
-import { useYearlyDividends } from '@/hooks/data/useYearlyDividends';
 
 export const PortfolioContext = createContext(null);
 
@@ -18,9 +17,10 @@ export const PortfolioProvider = ({ children, portfolioId }) => {
     const brokers = useExtractedField(portfolioAssets, 'broker');
     const geolocations = useExtractedField(portfolioAssets, 'geolocation');
 
-    const monthlyDividends = useExtractedField(dividends, 'pay_date_by_month_year');
-    const categoryDividends = useExtractedField(dividends, 'category');
-    const yearlyDividends = useYearlyDividends(dividends);
+    const dividends_by_month = useExtractedField(dividends, 'pay_date_by_month_year');
+    const dividends_by_year = useExtractedField(dividends, 'pay_date_by_year');
+    const dividends_by_category = useExtractedField(dividends, 'category');
+
 
     const value = {
         portfolioAssets,
@@ -32,9 +32,9 @@ export const PortfolioProvider = ({ children, portfolioId }) => {
         error,
         dividends,
         setDividends,
-        monthlyDividends,
-        yearlyDividends,
-        categoryDividends,
+        dividends_by_month,
+        dividends_by_year,
+        dividends_by_category,
     };
 
     return (

@@ -1,27 +1,21 @@
 import React from 'react';
 import { Grid} from '@mui/material';
 
-// import { DividendsDonutPieChart } from '@/components/portfolios/DividendsDonutPieChart';
+import { DividendsDonutPieChart } from '@/components/dividends/DividendsDonutPieChart';
 import { DividendsTotalsGrid } from '@/components/dividends/DividendsTotalsGrid';
 import { DividendsDataGrid } from '@/components/grid/DividendsDataGrid';
 
 import { useUrlFilterChange } from '@/hooks/urls/useUrlFilterChange';
 import { useDynamicFilters } from '@/hooks/grid/useDynamicFilters';
+import DividendsOverviewTable from '@/components/dividends/DividendsOverviewTable';
+import DividendsStakedChart from '../dividends/DividendsStakedChart';
 
-export const DividendsDashboard = ({ filterKey, items, dividends }) => {
+export const DividendsDashboard = ({ filterKey, items, dividends}) => {
   const { filteredAssets, filters, setCallbackFilters, addAsset, clearFilterByKey } = useDynamicFilters(dividends, { [filterKey]: '' });
   const [urlFilters, handleUrlFilterChange] = useUrlFilterChange({ [filterKey]: '' });
-  
-  const filteredYearlyDividends = useYearlyDividends(filteredAssets);
 
   return (
     <>
-      <Grid item xs={12}>
-        <DividendsMonthlyTable items={filteredYearlyDividends} />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        Aqui vai o componente DividendsMonthlyTable
-      </Grid>
       <Grid item xs={12} md={6}>
         <DividendsTotalsGrid
           assets={filteredAssets}
@@ -29,13 +23,13 @@ export const DividendsDashboard = ({ filterKey, items, dividends }) => {
           Filter={filters[filterKey]}
         />
       </Grid>
-      {/* <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6}>
         <DividendsDonutPieChart
           assets={filteredAssets}
           filterKey={filterKey}
           Filter={filters[filterKey]}
         />
-      </Grid> */}
+      </Grid>
       <Grid item xs={12}>
         <DividendsDataGrid
           items={items}
@@ -47,6 +41,16 @@ export const DividendsDashboard = ({ filterKey, items, dividends }) => {
           setCallbackFilters={setCallbackFilters}
           urlFilters={urlFilters}
           handleUrlFilterChange={handleUrlFilterChange}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <DividendsStakedChart
+          assets={filteredAssets}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <DividendsOverviewTable
+          assets={filteredAssets}
         />
       </Grid>
     </>
