@@ -20,7 +20,7 @@ export const DexLayout = ({ children, handleDashboardChange }) => {
                         handleDashboardChange={handleDashboardChange}  // Passando a função para o LeftSidebar
                     />
                 </Grid>
-                <Grid item xs sx={{ overflow: 'auto', p: 2 }}>
+                <Grid item xs sx={{ overflow: 'auto', p: 2, mt: 4 }}>
                     <Grid container spacing={2}>
                         {children}
                     </Grid>

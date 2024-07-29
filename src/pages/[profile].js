@@ -7,7 +7,9 @@ import { ThemeProvider } from "@emotion/react";
 export default function WtreeProfile() {
     return (
         <ThemeProvider theme={defaultTheme}>
-            <WtreeProfileView />
+            <div style={{ paddingTop: '50px' }}>
+                <WtreeProfileView />
+            </div>
         </ThemeProvider>
     );
 }

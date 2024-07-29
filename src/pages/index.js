@@ -1,16 +1,28 @@
-// @pages/index.js
-
-import React from 'react';
-import ResponsiveAppBar from '@/layouts/dex/index/Navbar';  // Certifique-se de que o caminho está correto
-import IntroductionSection from '@/layouts/dex/index/Introduction';  // Certifique-se de que o caminho está correto
+import React, { useEffect } from 'react';
+import ResponsiveAppBar from '@/layouts/dex/index/Navbar';
+import IntroductionSection from '@/layouts/dex/index/Introduction';
+import ProfileSection from '@/layouts/dex/index/Profile';
+import PrivacySection from '@/layouts/dex/index/Privacy';
+import RoadmapSection from '@/layouts/dex/index/Roadmap';
+import ContactSection from '@/layouts/dex/index/Contact';
 
 const Home = () => {
+  useEffect(() => {
+    const section = document.querySelector('#introduction');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
     <div>
       <ResponsiveAppBar />
       <main>
         <IntroductionSection />
-        {/* Aqui você pode adicionar mais seções conforme necessário */}
+        <ProfileSection />
+        <PrivacySection />
+        <RoadmapSection />
+        <ContactSection />
       </main>
     </div>
   );

@@ -1,5 +1,3 @@
-// @layouts/landing_page/Navbar.js
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,8 +5,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-
 const ResponsiveAppBar = () => {
+  const scrollToSection = (id) => {
+    const section = document.querySelector(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" color="default" sx={{ boxShadow: 'none' }}>
@@ -17,10 +21,10 @@ const ResponsiveAppBar = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Wallet Tree
           </Typography>
-          <Button color="inherit">Introduction</Button>
-          <Button color="inherit">Profile</Button>
-          <Button color="inherit">Privacy</Button>
-          <Button color="inherit">Roadmap</Button>
+          <Button color="inherit" onClick={() => scrollToSection('#introduction')}>Introduction</Button>
+          <Button color="inherit" onClick={() => scrollToSection('#profile')}>Profile</Button>
+          <Button color="inherit" onClick={() => scrollToSection('#privacy')}>Privacy</Button>
+          <Button color="inherit" onClick={() => scrollToSection('#roadmap')}>Roadmap</Button>
           <Button color="primary" variant="contained" sx={{ marginLeft: '1rem' }}>
             App
           </Button>
