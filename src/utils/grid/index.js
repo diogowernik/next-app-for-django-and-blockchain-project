@@ -1,9 +1,9 @@
 // @/utils/grid/index.js
 
 // Componentes React
-export { default as DeleteDialog } from './DeleteDialog';
-export { default as DynamicFilters } from './DynamicFilters';
-export { default as DeleteCellComponent } from './DeleteCellComponent';
+export { DeleteDialog } from './DeleteDialog';
+export { DynamicFilters } from './DynamicFilters';
+export { DeleteCellComponent } from './DeleteCellComponent';
 
 // Ações e funções utilitárias
 export { processRowUpdate, onRemoveAsset } from './dataGridActions';
