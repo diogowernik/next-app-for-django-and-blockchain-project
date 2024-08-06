@@ -25,8 +25,12 @@ const ResponsiveAppBar = () => {
           <Button color="inherit" onClick={() => scrollToSection('#profile')}>Profile</Button>
           <Button color="inherit" onClick={() => scrollToSection('#privacy')}>Privacy</Button>
           <Button color="inherit" onClick={() => scrollToSection('#roadmap')}>Roadmap</Button>
-          <Button color="primary" variant="contained" sx={{ marginLeft: '1rem' }}>
-            App
+          {/* ON click go to /dex  */}
+          {/* <Button color="primary" variant="contained" sx={{ marginLeft: '1rem' }}>
+            Dex
+          </Button> */}
+          <Button color="primary" variant="contained" sx={{ marginLeft: '1rem' }} onClick={() => window.location.href = '/dex'}>
+            Dex
           </Button>
         </Toolbar>
       </AppBar>

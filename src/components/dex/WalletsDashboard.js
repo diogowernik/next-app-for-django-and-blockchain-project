@@ -23,7 +23,7 @@ export const WalletsDashboard = () => {
                     <CircularProgress />
                 </Box>
             ) : (
-                <div style={{ marginLeft: '30px' }}>
+                <div style={{ marginLeft: '30px', marginTop: '30px' }}>
                     <div style={{ marginLeft: '15px' }}>
                         <Typography variant="h5" component="h1" gutterBottom>
                             My Wallets

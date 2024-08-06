@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DexLayout } from '@/layouts/dex/DexLayout';
 import { WalletsDashboard } from '@/components/dex/WalletsDashboard';
 import { DexDashboard } from '@/components/dex/DexDashboard';
@@ -16,12 +16,11 @@ const DexPage = () => {
     const renderDashboard = () => {
         switch (activeDashboard) {
             case 'dashboard':
-                return <DexDashboard />;
+                return <DexDashboard handleDashboardChange={handleDashboardChange} />;
             case 'wallets':
                 return <WalletsDashboard />;
             case 'create-profile':
                 return <CreateProfileDashboard />;
-
             // case 'settings':
             //     return <SettingsComponent />;
             // case 'analytics':
@@ -31,7 +30,7 @@ const DexPage = () => {
             // case 'sentDonations':
             //     return <SentDonationsComponent />;
             default:
-                return <DexDashboard />;
+                return <WalletsDashboard />;
         }
     };
 
