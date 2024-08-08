@@ -67,15 +67,15 @@ export const CreatePageInput = ({ username, setUsername, handleDashboardChange }
                 </div>
             </CardContent>
             <CardActions
-                sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                sx={{ display: 'flex', justifyContent: 'center' }}
             >
                 <Button
                     variant="outlined"
                     color="primary"
                     onClick={handleSubmit}
-                    style={{ marginTop: '10px', float: 'right' }}
+                    style={{ marginTop: '10px', width: '180px' }}
                 >
-                    Criar
+                    Create Page
                 </Button>
             </CardActions>
         </Card>

@@ -25,18 +25,25 @@ export const DexDashboard = ({ handleDashboardChange }) => {
                     <Ads2 />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <CreatePageInput username={username} setUsername={setUsername} handleDashboardChange={handleDashboardChange} />
+                    <CreatePageInput 
+                        username={username} 
+                        setUsername={setUsername} 
+                        handleDashboardChange={handleDashboardChange} />
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <Ads1 />
                 </Grid>
                 
                 <Grid item xs={12} md={6}>
-                    <MyWallets />   
+                    <MyWallets 
+                        handleDashboardChange={handleDashboardChange}
+                    />   
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                    <MyProfilePages />
+                    <MyProfilePages 
+                        handleDashboardChange={handleDashboardChange}
+                    />
                 </Grid>
                 {/* <Grid item xs={12} md={6}>
                     <Transactions />

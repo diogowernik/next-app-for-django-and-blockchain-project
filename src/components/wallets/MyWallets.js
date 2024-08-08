@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
 
-export const MyWallets = () => {
+export const MyWallets = ({handleDashboardChange}) => {
+    const handleSubmit = () => {
+        handleDashboardChange('wallets');
+    };
     return (
         <Card>
             <CardHeader
@@ -14,8 +17,17 @@ export const MyWallets = () => {
                     </Typography>
                 </Box>
             </CardContent>
-            <CardActions>
-                <Button size="small">Connect Wallet</Button>
+            <CardActions
+                sx={{ display: 'flex', justifyContent: 'center' }}
+            >
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleSubmit}
+                    style={{ marginTop: '10px', width: '180px' }}
+                >
+                    My Profiles Pages
+                </Button>
             </CardActions>
         </Card>
 
