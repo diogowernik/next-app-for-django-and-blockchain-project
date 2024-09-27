@@ -3,7 +3,7 @@
 import { request } from '@/utils';
  
 export function addPortfolioAsset(data, token) {
-    return request('/api/add-portfolio-asset', { 
+    return request('/api/portfolios/add-portfolio-asset', { 
         data, 
         token, 
         method: 'POST', 
@@ -16,10 +16,10 @@ export function fetchPortfolioAssets(id, token) {
 }
 
 export function updatePortfolioAsset(id, data, token) {
-    return request(`/api/portfolio_assets/${id}`, { data, token, method: "PATCH", message: 'Ativo atualizado com sucesso' });
+    return request(`/api/portfolios/portfolio_assets/${id}`, { data, token, method: "PATCH", message: 'Ativo atualizado com sucesso' });
 }
 
 export function removePortfolioAsset(id, token) {
-    return request(`/api/portfolio_assets/${id}`, { token, method: "DELETE", message: 'Ativo deletado com sucesso' });
+    return request(`/api/portfolios/portfolio_assets/${id}`, { token, method: "DELETE", message: 'Ativo deletado com sucesso' });
 }
 

@@ -21,7 +21,7 @@ export const DonutChartComponent = ({ data }) => {
     const option = {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)'
+        formatter: '{b} ({d}%)',
       },
       legend : {
         show: true,
@@ -37,7 +37,7 @@ export const DonutChartComponent = ({ data }) => {
           radius: ['35%', '60%'],
           avoidLabelOverlap: false,
           label: {
-            formatter: '{b}: {c} ({d}%)',
+            formatter: '{b} ({d}%)',
           },
           labelLine: {
             length: 30,

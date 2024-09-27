@@ -28,7 +28,7 @@ export const PieChartComponent = ({ data }) => {
     const option = {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)'
+        formatter: '{b} ({d}%)',
       },
       legend: {
         show: false
@@ -60,7 +60,7 @@ export const PieChartComponent = ({ data }) => {
             length: 30,
           },
           label: {
-            formatter: '{b}: {c} ({d}%)'
+            formatter: '{b} ({d}%)',
           },
           data: sortedData.flatMap(item => item.children.map(child => ({ ...child, value: parseFloat(child.value.toFixed(2)) }))), // Arredonda os valores
           color: colorPalette
